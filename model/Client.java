@@ -1,4 +1,9 @@
 package model;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 // Descampe Fabian
 // 2TL2
@@ -14,6 +19,7 @@ public class Client extends Personne {
 	private LocalDate dateNaissance;
 	private String adresse;
 	private String adresseMail;
+	
 	/**
 	 * C'est le constructeur utilisé pour créer le client
 	 * @param pseudo Le pseudo du client
@@ -33,6 +39,9 @@ public class Client extends Personne {
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.adresseMail = adresseMail;
+	}
+	public Client(String pseudo, String motDePasse, String nom, String prenom) {
+		super(pseudo, motDePasse, nom, prenom, 2);
 	}
 	/**
 	 * Obtiens l'ID du client
@@ -126,7 +135,41 @@ public class Client extends Personne {
 	 * @return Elle retournera la liste des voitures non louées
 	 */
 	public Voiture[] getListVoitureDisp() {
-		// Besoin de la base de données
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=0");
+            
+            while(rs.next()){
+            	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
+        	}
+            
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 		return null;
 	}
 	/**
@@ -173,5 +216,9 @@ public class Client extends Personne {
 	public int valideLocation(int voitID, int assurID) {
 		// Besoin de la base de données
 		return 0;
+	}
+	public static void main(String[] args) {
+		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
+		dewulf.getListVoitureDisp();
 	}
 }
