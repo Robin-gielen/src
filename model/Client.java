@@ -177,7 +177,41 @@ public class Client extends Personne {
 	 * @return Elle retournera la liste des voitures déjà louées
 	 */
 	public Voiture[] getListVoitureLouees() {
-		// Besoin de la base de données
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=1 AND client='"+this.getPseudo()+"'");
+            
+            while(rs.next()){
+            	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
+        	}
+            
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 		return null;
 	}
 	/**
@@ -204,7 +238,41 @@ public class Client extends Personne {
 	 * @return Retournera la liste des assurances
 	 */
 	public Assurance[] getAssurance() {
-		// Besoin de la base de données
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM assurance");
+            
+            while(rs.next()){
+            	System.out.println("assurID "+ rs.getString("assurID") + " Prix " + rs.getString("prix") + " type "+ rs.getString("type") + " prixKmSupp " + rs.getString("prixKmSupp"));
+        	}
+            
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 		return null;
 	}
 	/**
@@ -219,6 +287,6 @@ public class Client extends Personne {
 	}
 	public static void main(String[] args) {
 		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
-		dewulf.getListVoitureDisp();
+		dewulf.getAssurance();
 	}
 }
