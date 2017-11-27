@@ -29,6 +29,10 @@ public class Admin extends Personne {
 		this.adminID = adminID;
 	}
 
+	/**
+	 * 
+	 * @return le tableau des toutes les voitures qui existent 
+	 */
 	public Voiture[] getListVoit() {
 		Connection conn = null;
         Statement stmt = null;
@@ -37,9 +41,9 @@ public class Admin extends Personne {
         Voiture tempVoit[];
     	try {
     		
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test", "gimkil", "cisco");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=0");
+            rs = stmt.executeQuery("SELECT * FROM voiture");
             
             while(rs.next()){
             	count++;
