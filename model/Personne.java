@@ -1,5 +1,11 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public abstract class Personne  {
 	private String pseudo;
 	private String motDePasse;
@@ -9,12 +15,41 @@ public abstract class Personne  {
 	
 	
 	public Personne(String pseudo, String motDePasse, String nom, String prenom, int privilege) {
-		super();
 		this.pseudo = pseudo;
 		this.motDePasse = motDePasse;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.privilege = privilege;
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("CREATE USER '" + pseudo +"'@'localhost' IDENTIFIED BY '" + motDePasse +"';");
+            rs = stmt.executeQuery("CREATE USER '" + pseudo +"'@'localhost' IDENTIFIED BY '" + motDePasse +"';");
+            
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 	}
 	
 	public String getPseudo() {
