@@ -51,8 +51,23 @@ public class Admin extends Personne {
         	}
             tempVoit = new Voiture[count];
             int countTwo = 0;
+            boolean tempEstManuelle;
+            boolean tempEstLouee;
             while(rs.next()) {
-            	//tempVoit[countTwo] = new Voiture(rs.getString("voitID"), 0+rs.getString("prix"), marque, modele, annee, type, carburant, couleur, estManuelle, roueMotrice, kilmotrage, volumeCoffre, hauteur, poids, estLouee, note, agenceID)
+            	if(Integer.parseInt(rs.getString("estManuelle"))==1) {
+            		tempEstManuelle = true;
+            	}
+            	else {
+            		tempEstManuelle = false;
+            	}
+            	if(Integer.parseInt(rs.getString("estLouee"))==1) {
+            		tempEstLouee = true;
+            	}
+            	else {
+            		tempEstLouee = false;
+            	}
+            	
+            	tempVoit[countTwo] = new Voiture(Integer.parseInt(rs.getString("voitID")), (double)Integer.parseInt(rs.getString("prix")), rs.getString("marque"),rs.getString("modele"),  Integer.parseInt(rs.getString("annee")),  rs.getString("type"),  rs.getString("carburant"),  rs.getString("couleur"),  tempEstManuelle,  Integer.parseInt(rs.getString("roueMotrice")),  (long)Integer.parseInt(rs.getString("kilometrage")),  (double)Integer.parseInt(rs.getString("volumeCoffre")),  (double)Integer.parseInt(rs.getString("hauteur")),  (double)Integer.parseInt(rs.getString("poids")),  tempEstLouee,  rs.getString("note"),  Integer.parseInt(rs.getString("agenceID")));
             }
             
             
@@ -82,7 +97,9 @@ public class Admin extends Personne {
     	//return tempVoit;
 	}
 	
-	
+	public void addVoiture() {
+		//TODO
+	}
 
 	@Override
 	public int connect(String pseudo, String motDePasse) {

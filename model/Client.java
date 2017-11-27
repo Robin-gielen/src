@@ -193,13 +193,13 @@ public class Client extends Personne {
             boolean tempEstManuelle;
             boolean tempEstLouee;
             while(rs.next()) {
-            	if(rs.getString("estManuelle").equals("true")) {
+            	if(Integer.parseInt(rs.getString("estManuelle"))==1) {
             		tempEstManuelle = true;
             	}
             	else {
             		tempEstManuelle = false;
             	}
-            	if(rs.getString("estLouee").equals("true")) {
+            	if(Integer.parseInt(rs.getString("estLouee"))==1) {
             		tempEstLouee = true;
             	}
             	else {
