@@ -20,28 +20,23 @@ public abstract class Personne  {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.privilege = privilege;
-		Connection conn = null;
+		/*Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        int resultUpdate;
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("CREATE USER '" + pseudo +"'@'localhost' IDENTIFIED BY '" + motDePasse +"';");
-            rs = stmt.executeQuery("CREATE USER '" + pseudo +"'@'localhost' IDENTIFIED BY '" + motDePasse +"';");
+            resultUpdate = stmt.executeUpdate("CREATE USER '" + pseudo +"'@'localhost' IDENTIFIED BY '" + motDePasse +"';");
+            System.out.println(rs);
+            resultUpdate = stmt.executeUpdate("INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, adresse, adresseMail) VALUES (");
+            System.out.println(rs);
             
         } catch (Exception ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
-    		 if (rs != null) {
-    		        try {
-    		            rs.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        rs = null;
-    		    }
-
     		    if (stmt != null) {
     		        try {
     		            stmt.close();
@@ -49,7 +44,7 @@ public abstract class Personne  {
 
     		        stmt = null;
     		    }
-    	}
+    	}*/
 	}
 	
 	public String getPseudo() {
