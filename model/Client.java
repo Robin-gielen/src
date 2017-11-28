@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 // Descampe Fabian
 // 2TL2
 // Groupe 15
@@ -15,8 +14,8 @@ import java.time.LocalDate;
  */
 public class Client extends Personne {
 	private int clientID;
-	private LocalDate dateInscription;
-	private LocalDate dateNaissance;
+	private String dateInscription;
+	private String dateNaissance;
 	private String adresse;
 	private String adresseMail;
 	
@@ -33,7 +32,7 @@ public class Client extends Personne {
 	 */
 	
 	public Client(String pseudo, String motDePasse, String nom, String prenom,
-			LocalDate dateInscription, LocalDate dateNaissance, String adresse, String adresseMail) {
+			String dateInscription, String dateNaissance, String adresse, String adresseMail) {
 		super(pseudo, motDePasse, nom, prenom, 2);
 		this.dateInscription = dateInscription;
 		this.dateNaissance = dateNaissance;
@@ -62,28 +61,28 @@ public class Client extends Personne {
 	 * @return dateInscription la date d'inscription à donner au client
 	 */
 	
-	public LocalDate getDateInscription() {
+	public String getDateInscription() {
 		return dateInscription;
 	}
 	/**
 	 * Mets en place la date d'inscription du client
 	 * @param La date d'inscription du client
 	 */
-	public void setDateInscription(LocalDate dateInscription) {
+	public void setDateInscription(String dateInscription) {
 		this.dateInscription = dateInscription;
 	}
 	/**
 	 * Obtiens la date de naissance du client
 	 * @return la date de naissance à donner au client
 	 */
-	public LocalDate getDateNaissance() {
+	public String getDateNaissance() {
 		return dateNaissance;
 	}
 	/**
 	 *  Mets en place la date de naissance du client
 	 * @param dateNaissance la date de naissance du client
 	 */
-	public void setDateNaissance(LocalDate dateNaissance) {
+	public void setDateNaissance(String dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 	/**
@@ -131,11 +130,11 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=2");
             rs.next();
-            System.out.println("personneID" + rs.getString("personneID") + "pseudo" + rs.getString("pseudo") + "mdp" + rs.getString("motDePasse"));
+            System.out.println("personneID: " + rs.getString("personneID") + "pseudo: " + rs.getString("pseudo") + "mdp: " + rs.getString("motDePasse"));
             if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
             	System.out.println("vous etes connecté");
             	return 0; //connection OK 
@@ -168,6 +167,8 @@ public class Client extends Personne {
     		    }
     	}
 	}
+	
+	
 	/**
 	 * Cette méthode donnera la liste des voitures qui ne sont pas encore louées
 	 * @return Elle retournera la liste des voitures non louées
@@ -176,42 +177,13 @@ public class Client extends Personne {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        int count = 0;
-        Voiture tempVoit[];
     	try {
-    		
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=0");
+            return resultSetToVoitures(rs);
             
-            while(rs.next()){
-            	count++;
-            	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
-        	}
-            tempVoit = new Voiture[count];
-            int countTwo = 0;
-            boolean tempEstManuelle;
-            boolean tempEstLouee;
-            while(rs.next()) {
-            	if(Integer.parseInt(rs.getString("estManuelle"))==1) {
-            		tempEstManuelle = true;
-            	}
-            	else {
-            		tempEstManuelle = false;
-            	}
-            	if(Integer.parseInt(rs.getString("estLouee"))==1) {
-            		tempEstLouee = true;
-            	}
-            	else {
-            		tempEstLouee = false;
-            	}
-            	
-            	tempVoit[countTwo] = new Voiture(Integer.parseInt(rs.getString("voitID")), (double)Integer.parseInt(rs.getString("prix")), rs.getString("marque"),rs.getString("modele"),  Integer.parseInt(rs.getString("annee")),  rs.getString("type"),  rs.getString("carburant"),  rs.getString("couleur"),  tempEstManuelle,  Integer.parseInt(rs.getString("roueMotrice")),  (long)Integer.parseInt(rs.getString("kilometrage")),  (double)Integer.parseInt(rs.getString("volumeCoffre")),  (double)Integer.parseInt(rs.getString("hauteur")),  (double)Integer.parseInt(rs.getString("poids")),  tempEstLouee,  rs.getString("note"),  Integer.parseInt(rs.getString("agenceID")));
-            }
-            
-            
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
         }
@@ -232,8 +204,7 @@ public class Client extends Personne {
     		        stmt = null;
     		    }
     	}
-		return null;
-    	//return tempVoit;
+		return null; 
 	}
 	/**
 	 * Cette méthode donnera la liste des voitures déjà louées
@@ -244,17 +215,12 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=1 AND client='"+this.getPseudo()+"'");
+            return resultSetToVoitures(rs);
             
-            while(rs.next()){
-            	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
-        	}
-            
-            
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
         }
@@ -305,7 +271,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM assurance");
             
@@ -350,6 +316,50 @@ public class Client extends Personne {
 	}
 	public static void main(String[] args) {
 		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
-		dewulf.connect("dewulf", "dewulf");
+		Voiture tempVoit[] = dewulf.getListVoitureDisp();
+		for (Voiture voiture : tempVoit) {
+			System.out.println(voiture);
+		}
 	}
+	
+	/**
+	 * 
+	 * @param rs un ResultSet issu d'un SELECT * from voiture
+	 * @return un tableau de Voiture[] issu du ResultSet
+	 */
+	private Voiture[] resultSetToVoitures(ResultSet rs) {
+		Voiture tempVoit[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempVoit = new Voiture[count];
+			int countTwo = 0;
+			boolean tempEstManuelle;
+			boolean tempEstLouee;
+			while(rs.previous());
+			while(rs.next()) {
+				if(Integer.parseInt(rs.getString("estManuelle"))==1) {
+					tempEstManuelle = true;
+				}
+				else {
+					tempEstManuelle = false;
+				}
+				if(Integer.parseInt(rs.getString("estLouee"))==1) {
+					tempEstLouee = true;
+				}
+				else {
+					tempEstLouee = false;
+				}
+				tempVoit[countTwo] = new Voiture(Integer.parseInt(rs.getString("voitID")), Double.parseDouble(rs.getString("prix")), rs.getString("marque"),rs.getString("modele"),  Integer.parseInt(rs.getString("annee")),  rs.getString("type"),  rs.getString("carburant"),  rs.getString("couleur"),  tempEstManuelle,  Integer.parseInt(rs.getString("roueMotrice")),  (long)Integer.parseInt(rs.getString("kilometrage")),  Double.parseDouble(rs.getString("volumeCoffre")),  Double.parseDouble(rs.getString("hauteur")),  Double.parseDouble(rs.getString("poids")),  tempEstLouee,  rs.getString("note"),  Integer.parseInt(rs.getString("agenceID")));
+				countTwo++;
+			}
+			return tempVoit;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+    }
 }
