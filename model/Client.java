@@ -15,8 +15,8 @@ import java.time.LocalDate;
  */
 public class Client extends Personne {
 	private int clientID;
-	private LocalDate dateInscription;
-	private LocalDate dateNaissance;
+	private String dateInscription;
+	private String dateNaissance;
 	private String adresse;
 	private String adresseMail;
 	
@@ -33,7 +33,7 @@ public class Client extends Personne {
 	 */
 	
 	public Client(String pseudo, String motDePasse, String nom, String prenom,
-			LocalDate dateInscription, LocalDate dateNaissance, String adresse, String adresseMail) {
+			String dateInscription, String dateNaissance, String adresse, String adresseMail) {
 		super(pseudo, motDePasse, nom, prenom, 2);
 		this.dateInscription = dateInscription;
 		this.dateNaissance = dateNaissance;
@@ -43,6 +43,10 @@ public class Client extends Personne {
 	public Client(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 2);
 	}
+	public Client(String pseudo, String motDePasse) {
+		super(pseudo, motDePasse);
+	}
+	
 	/**
 	 * Obtiens l'ID du client
 	 * @return clientID ID  à donner au client
@@ -62,28 +66,28 @@ public class Client extends Personne {
 	 * @return dateInscription la date d'inscription à donner au client
 	 */
 	
-	public LocalDate getDateInscription() {
+	public String getDateInscription() {
 		return dateInscription;
 	}
 	/**
 	 * Mets en place la date d'inscription du client
 	 * @param La date d'inscription du client
 	 */
-	public void setDateInscription(LocalDate dateInscription) {
+	public void setDateInscription(String dateInscription) {
 		this.dateInscription = dateInscription;
 	}
 	/**
 	 * Obtiens la date de naissance du client
 	 * @return la date de naissance à donner au client
 	 */
-	public LocalDate getDateNaissance() {
+	public String getDateNaissance() {
 		return dateNaissance;
 	}
 	/**
 	 *  Mets en place la date de naissance du client
 	 * @param dateNaissance la date de naissance du client
 	 */
-	public void setDateNaissance(LocalDate dateNaissance) {
+	public void setDateNaissance(String dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 	/**
