@@ -81,6 +81,50 @@ public class Admin extends Personne {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @return le tableau des toutes les voitures louees
+	 */
+	public Voiture[] getListVoitLouees() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee='1'");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToVoitures(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+            
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
+		return null;
+	}
+	
 	public String addVoiture(double prix, String marque, String modele, int annee, String carburant, String couleur, String type, boolean estManuelle, int roueMotrice, long kilometrage, double volumeCoffre, double hauteur, double poids, String note, int agenceID) {
 		int tempEstManuelle;
 		if (estManuelle) {
@@ -116,7 +160,7 @@ public class Admin extends Personne {
     	return "Probleme co BDD";
 	}
 
-	public String rmVoiture(int voitID) {
+	public int rmVoiture(int voitID) {
 		Connection conn = null;
         Statement stmt = null;
         int rs;
@@ -125,9 +169,9 @@ public class Admin extends Personne {
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("DELETE FROM voiture WHERE voitID =" + voitID);
             if (rs == 1) {
-            	return "Voiture retirée";
+            	return 1;
             }
-            else return "Voiture pas retirée";
+            else return 0;
             
         } catch (SQLException ex) {
             // handle the error
@@ -142,7 +186,7 @@ public class Admin extends Personne {
     		        stmt = null;
     		    }
     	}
-    	return "Probleme co bdd";
+    	return -1;
 	}
 	
 	public Facture getFacture(int factID) {
@@ -185,7 +229,7 @@ public class Admin extends Personne {
     	return null;
 	}
 
-	public Facture getFacturesClient(int clientID) {
+	public Facture[] getFacturesClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -195,7 +239,7 @@ public class Admin extends Personne {
             rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
             if(rs.next()) {
 				rs.previous();
-				return resultSetToFactures(rs)[0];
+				return resultSetToFactures(rs);
 			}
 			else throw new DataNotFoundException("Can't find this data in the database");
            
@@ -267,7 +311,7 @@ public class Admin extends Personne {
     	return null;
 	}
 	
-	public String rmClient(int clientID) {
+	public int rmClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
         int rs;
@@ -276,9 +320,9 @@ public class Admin extends Personne {
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("DELETE FROM personne WHERE personneID =" + clientID);
             if (rs == 1) {
-            	return "client retiré";
+            	return 1;
             }
-            else return "client pas retiré";
+            else return 0;
             
         } catch (SQLException ex) {
             // handle the error
@@ -293,7 +337,7 @@ public class Admin extends Personne {
     		        stmt = null;
     		    }
     	}
-    	return "probleme co bdd";
+    	return -1;
 	}
 	
 	public String alterClient(int clientID, String nom, String prenom, String dateInscription, String dateNaissance, String adresse, String adresseMail) {
@@ -367,7 +411,7 @@ public class Admin extends Personne {
     	return null;
 	}
 	
-	public Location getLocationsClient(int clientID) {
+	public Location[] getLocationsClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -377,7 +421,7 @@ public class Admin extends Personne {
             rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
             if(rs.next()) {
 				rs.previous();
-				return resultSetToLocations(rs)[0];
+				return resultSetToLocations(rs);
 			}
 			else throw new DataNotFoundException("Can't find this data in the database");
         } catch (SQLException ex) {
@@ -404,12 +448,22 @@ public class Admin extends Personne {
         return null;
 	}
 	
+	public int getClientIDFromVoitID(int voitId) {
+		return 0;
+	}
+	
 	public static void main(String[] args) {
 		Admin admin = new Admin("moi", "moi", "moi", "moi");
 		admin.connect("moi", "moi");
-		Voiture listVoit[] = admin.getListVoit();
+		/*Voiture listVoit[] = admin.getListVoit();
 		for (Voiture voiture : listVoit) {
 			System.out.println(voiture);
+		}*/
+		Voiture listVoit[] = admin.getListVoitLouees();
+		if(listVoit!=null) {
+			for (Voiture voiture : listVoit) {
+				System.out.println(voiture);
+			}
 		}
 		// Les méthodes misent en commentaires fonctionnent
 		//System.out.println(admin.addVoiture(600.0, "opel", "corsa", 2015, "diesel", "rouge", "citadine", false, 4, 51213, 150.4, 194.5, 987.6, "Bonne voiture", 1));
