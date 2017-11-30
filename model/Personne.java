@@ -1,17 +1,21 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Connection;
+//import java.sql.Statement;
+import java.util.Observable;
 
-public abstract class Personne  {
+public abstract class Personne extends Observable {
 	private String pseudo;
 	private String motDePasse;
 	private String nom;
 	private String prenom;
 	private int privilege;
 	
+
+	public Personne(String pseudo, String motDePasse) {
+		this.pseudo = pseudo;
+		this.motDePasse = pseudo;
+	}
 	
 	public Personne(String pseudo, String motDePasse, String nom, String prenom, int privilege) {
 		this.pseudo = pseudo;
@@ -19,9 +23,9 @@ public abstract class Personne  {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.privilege = privilege;
-		Connection conn = null;
+		/*Connection conn = null;
         Statement stmt = null;
-        /*ResultSet rs = null;
+        ResultSet rs = null;
         int resultUpdate;
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");

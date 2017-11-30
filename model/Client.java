@@ -42,6 +42,9 @@ public class Client extends Personne {
 	public Client(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 2);
 	}
+	public Client(String pseudo, String motDePasse) {
+		super(pseudo, motDePasse);
+	}
 	/**
 	 * Obtiens l'ID du client
 	 * @return clientID ID  à donner au client
@@ -311,9 +314,10 @@ public class Client extends Personne {
 	 * @return Retournera la validation de la location
 	 */
 	public int valideLocation(int voitID, int assurID) {
-		// Besoin de la base de données
+		System.out.println("la voiture : "+ voitID +""+assurID+"est bien louee" );
 		return 0;
 	}
+	
 	public static void main(String[] args) {
 		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
 		Voiture tempVoit[] = dewulf.getListVoitureDisp();

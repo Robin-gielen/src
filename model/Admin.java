@@ -8,13 +8,21 @@ import java.sql.Statement;
 
 public class Admin extends Personne {
 	private int adminID;
+	Voiture [] voitures;
 	
+	public Admin() {
+		super("pseudo", "motDePasse");
+	}
 	
 	public Admin(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 0);
 	}
 
 	
+	public Admin(String pseudo, String motDePasse) {
+		super(pseudo, motDePasse);
+	}
+
 	/**
 	 * @return the adminID
 	 */
@@ -87,7 +95,6 @@ public class Admin extends Personne {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("INSERT INTO voiture (prix, marque, modele, annee, carburant, couleur, type, estManuelle, roueMotrice, kilometrage, volumeCoffre, hauteur, poids, note, agenceID) VALUES (" + prix + ", '" + marque + "', '" + modele + "', " + annee + ", '" + carburant + "', '" + couleur + "', '" + type + "', " + tempEstManuelle + ", " + roueMotrice + ", " + kilometrage + ", " + volumeCoffre + ", " + hauteur + ", " + poids + ", '" + note + "', " + agenceID+")");
-            System.out.println(rs);
             if (rs == 1) {
                 return ("Voiture ajoutée");
             }
@@ -117,7 +124,6 @@ public class Admin extends Personne {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("DELETE FROM voiture WHERE voitID =" + voitID);
-            System.out.println(rs);
             if (rs == 1) {
             	return "Voiture retirée";
             }
@@ -269,7 +275,6 @@ public class Admin extends Personne {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("DELETE FROM personne WHERE personneID =" + clientID);
-            System.out.println(rs);
             if (rs == 1) {
             	return "client retiré";
             }
@@ -299,7 +304,6 @@ public class Admin extends Personne {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             String query = "UPDATE personne SET nom='" + nom + "', prenom='" + prenom + "', dateInscription='" + dateInscription + "', dateNaissance='" + dateNaissance + "', adresse='" + adresse + "', adresseMail='" + adresseMail +"' WHERE personneID =" + clientID;
-            System.out.println(query);
             rs = stmt.executeUpdate(query);
             if (rs == 1) {
             	return "client modifié";
@@ -412,11 +416,11 @@ public class Admin extends Personne {
 		//System.out.println(admin.rmVoiture(16));
 		//System.out.println(admin.getFacture(2));
 		//System.out.println(admin.getFacturesClient(1));
-		//System.out.println(admin.getClient(3));
-		//System.out.println(admin.rmClient(3));
+		//System.out.println(admin.getClient(2));
+		//System.out.println(admin.rmClient(4));
 		//System.out.println(admin.alterClient(3, "michel", "goffin", "01-01-2000", "10-07-1998", "ruelle fay", "at@ephec.be"));
 		//System.out.println(admin.getLocation(2));
-		System.out.println(admin.getLocationsClient(2));
+		//System.out.println(admin.getLocationsClient(2));
 	}
 	
 	@Override

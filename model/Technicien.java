@@ -39,6 +39,10 @@ public class Technicien extends Personne{
 		this.techID = techID;
 	}
 	
+	public Technicien(String pseudo, String motDePasse) {
+		super(pseudo, motDePasse);
+	}
+	
 	@Override
 	/**
 	 * Cette mÃ©thode permet d'afficher en chaine de caractÃ¨re les diffÃ©rents attributs d'un technicien
@@ -58,7 +62,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=1");
             if(rs.next()) {
@@ -111,7 +115,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];
@@ -149,7 +153,7 @@ public class Technicien extends Personne{
         ResultSet rs = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             if(rs.next()) {
@@ -192,7 +196,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
                 	result = stmt.executeUpdate("update facture set note='"+note+"' where factID='"+factID+"'");
                 	System.out.println(result);
@@ -223,15 +227,15 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             if(estPaye== true) {
                 	result = stmt.executeUpdate("update location set accomptePaye='"+1+"' where locationID='"+locationID+"'");
-                	System.out.println("l'accompte a été payé");
+                	System.out.println("l'accompte a été payé : " + result);
             }
             else {
             	result = stmt.executeUpdate("update location set accomptePaye='"+0+"' where locationID='"+locationID+"'");
-            	System.out.println("l'accompte n'est pas payé");
+            	System.out.println("l'accompte n'est pas payé : " + result);
             	
             }
                     
@@ -260,19 +264,26 @@ public class Technicien extends Personne{
 		Connection conn = null;
         Statement stmt = null;
         int result ;
+        ResultSet rs = null;
+        int tempMontant = 0;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
-                if(estPaye== false){	
-					result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values (700,"+ locationID+", 1, 0, \"note facture\")");
-                	System.out.println(result);
-					}
-                /*montant =>
-                SELECT voiture.prix+assurance.prix as prixFacture FROM voiture JOIN location ON voiture.voitID=location.voitureID JOIN assurance ON location.assurID=assurance.assurID where location.locationID="+locationID+"
-                */
-				else{
-					result= stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values (700,"+ locationID+", 1, 1, \"note facture\")");
+            rs = stmt.executeQuery("SELECT voiture.prix+assurance.prix as montant FROM voiture JOIN location ON voiture.voitID=location.voitureID JOIN assurance ON location.assurID=assurance.assurID where location.locationID="+locationID);
+            if (rs.next()) {
+            	tempMontant=Integer.parseInt(rs.getString("montant"));
+            }
+            else System.out.println("data pas trouv�e dans BDD"); 
+            if(estPaye== false && tempMontant!=0){
+				result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 0, \"note facture\")");
+            	System.out.println(result);
 				}
+			else if (estPaye==true && tempMontant!=0){
+				result= stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 1, \"note facture\")");
+			}
+			else {
+				System.out.println("probleme connexion BDD");
+			}
                     
     	} catch (Exception ex) {
             // handle the error
@@ -289,6 +300,165 @@ public class Technicien extends Personne{
     		    }
     	}
     	
+	}
+	
+	public Location getLocation(int locationID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM location WHERE locationID =" + locationID);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToLocations(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
+	public Location getLocationsClient(int clientID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToLocations(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+        } catch (SQLException ex) {
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        return null;
+	}
+	
+	public Facture getFacture(int factID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM facture");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToFactures(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+            
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+    	return null;
+	}
+
+	public Facture getFacturesClient(int clientID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToFactures(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
 	}
 	
 	/**
@@ -334,6 +504,67 @@ public class Technicien extends Personne{
         return null;
     }
 	
+	private Location[] resultSetToLocations(ResultSet rs) {
+		Location tempLoc[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempLoc = new Location[count];
+			int countTwo = 0;
+			boolean tempAccomptePaye;
+			while(rs.previous());
+			while(rs.next()) {
+				if(Integer.parseInt(rs.getString("accomptePaye"))==1) {
+					tempAccomptePaye = true; 
+				}
+				else tempAccomptePaye = false;
+				tempLoc[countTwo] = new Location(Integer.parseInt(rs.getString("locationId")), Integer.parseInt(rs.getString("personneID")), Integer.parseInt(rs.getString("assurID")), Integer.parseInt(rs.getString("voitureID")), 
+						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")));
+				countTwo++;
+			}
+			return tempLoc;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
+	
+	/**
+	 * 
+	 * @param rs un ResultSet issu d'un SELECT * from facture
+	 * @return un tableau de factures correspondant aux factures de la requete SQL
+	 */
+	private Facture[] resultSetToFactures(ResultSet rs) {
+		Facture tempFact[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempFact = new Facture[count];
+			int countTwo = 0;
+			boolean tempEstPaye;
+			while(rs.previous());
+			while(rs.next()) {
+				if(Integer.parseInt(rs.getString("estPaye"))==1) {
+					tempEstPaye = true;
+				}
+				else {
+					tempEstPaye = false;
+				}
+				tempFact[countTwo] = new Facture(Integer.parseInt(rs.getString("factID")), Integer.parseInt(rs.getString("locationID")), Integer.parseInt(rs.getString("techID")), tempEstPaye, rs.getString("note"));
+				countTwo++;
+			}
+			return tempFact;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
 	public static void main(String[] args) {
 		Technicien dewulf = new Technicien("tech", "tech", "tech", "tech");
 		dewulf.connect("tech", "tech");
@@ -341,7 +572,7 @@ public class Technicien extends Personne{
 		dewulf.setKilometrage(11, 22000);
 		dewulf.setNote(1, "Test");
 		dewulf.setAccompteStatut(1, false);
-		dewulf.createFacture(1, false);
+		dewulf.createFacture(2, false);
 		
 	}
 	
