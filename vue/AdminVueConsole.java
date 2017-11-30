@@ -34,10 +34,10 @@ public class AdminVueConsole extends AdminVue implements Observer {
 	private void printHelp(){
 		affiche("Pour afficher les données d'un client grâce à son ID : A");
 		
-		affiche("Pour afficher les données d'une facture grace à son ID : B + ID de la facture");
+		affiche("Pour afficher les données d'une facture grace à son ID : B");
 		affiche("Pour afficher toutes les factures d'un client : C + ID du client");
 		
-		affiche("pour afficher les données d'une location grace à son ID : D + ID de la location");
+		affiche("pour afficher les données d'une location grace à son ID : D");
 		affiche("Pour afficher toutes les locations d'un client : E + ID du client");
 		
 		affiche("Pour afficher la liste des voitures : F");
@@ -45,11 +45,11 @@ public class AdminVueConsole extends AdminVue implements Observer {
 		
 		affiche("Pour afficher l'ID du client qui loue la voiture : H");
 		
-		affiche("Pour modifier un client : I + ID du client");
-		affiche("Pour supprimer un client de la BDD : J + ID du client");
+		affiche("Pour modifier un client : I");
+		affiche("Pour supprimer un client de la BDD : J");
 		
-		affiche("Pour ajouter une voiture à la BDD : K + ID du client");
-		affiche("Pour supprimer une voiture de la BDD : L + ID de la voiture");
+		affiche("Pour ajouter une voiture à la BDD : K");
+		affiche("Pour supprimer une voiture de la BDD : L");
 	}
 	
 	private class ReadInput implements Runnable{
@@ -127,7 +127,36 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							printHelp();
 							break;
 						case "I" :
-							//model.alterClient(clientID, nom, prenom, dateInscription, dateNaissance, adresse, adresseMail);
+							int tempClientID;
+							String tempNom;
+							String tempPrenom;
+							String tempDateInscription;
+							String tempDateNaissance; 
+							String tempAdresse; 
+							String tempAdresseMail;
+							affiche("Entrez maintenant l'Id du client à changer:");
+							tempClientID = sc.nextInt();
+							affiche("Entrez maintenant le nom (changé) du client :");
+							tempNom = sc.next();
+							affiche("Entrez maintenant le prenom (changé) du client :");
+							tempPrenom = sc.next();
+							affiche("Entrez maintenant la date d'inscription (changée) du client :");
+							tempDateInscription = sc.next();
+							affiche("Entrez maintenant la date de naissance (changée) du client :");
+							tempDateNaissance = sc.next();
+							affiche("Entrez maintenant l'adresse (changée) du client :");
+							tempAdresse = sc.next();
+							affiche("Entrez maintenant l'adresse mail (changée) du client :");
+							tempAdresseMail = sc.next();
+							if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateInscription, tempDateNaissance, tempAdresse, tempAdresseMail) == 1) {
+								System.out.println("Client modifié");
+							}
+							else if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateInscription, tempDateNaissance, tempAdresse, tempAdresseMail) == 0) {
+								System.out.println("Client pas modifié");
+							}
+							else if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateInscription, tempDateNaissance, tempAdresse, tempAdresseMail) == -1) {
+								System.out.println("Problème connexion à la BDD");
+							}
 							printHelp();
 							break;
 						case "J" :
@@ -146,7 +175,57 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							printHelp();
 							break;
 						case "K" :
-							//model.addVoiture(prix, marque, modele, annee, carburant, couleur, type, estManuelle, roueMotrice, kilometrage, volumeCoffre, hauteur, poids, note, agenceID);
+							double tempPrix;
+							String tempMarque;
+							String tempModele;
+							int tempAnnee; 
+							String tempCarburant; 
+							String tempCouleur; 
+							String tempType;
+							String tempEstManuelleS; 
+							boolean tempEstManuelle;
+							int tempRoueMotrice; 
+							long tempKilometrage; 
+							double tempVolumeCoffre; 
+							double tempHauteur; 
+							double tempPoids; 
+							String tempNote; 
+							int tempAgenceId; 
+							affiche("Entrez maintenant le prix de la futur voiture :");
+							tempPrix = sc.nextDouble();
+							affiche("Entrez maintenant la marque de la futur voiture :");
+							tempMarque = sc.next();
+							affiche("Entrez maintenant le modele de la futur voiture :");
+							tempModele = sc.next();
+							affiche("Entrez maintenant l'année de mise en circulation de la futur voiture :");
+							tempAnnee = sc.nextInt();
+							affiche("Entrez maintenant le carburant de la futur voiture :");
+							tempCarburant = sc.next();
+							affiche("Entrez maintenant la couleur de la futur voiture :");
+							tempCouleur = sc.next();
+							affiche("Entrez maintenant le type de la futur voiture :");
+							tempType = sc.next();
+							affiche("Entrez maintenant si la voiture est manuelle (true) ou automatique (false) :");
+							tempEstManuelleS = sc.next();
+							affiche("Entrez maintenant le nombre de roues motrices de la futur voiture :");
+							tempRoueMotrice = sc.nextInt();
+							affiche("Entrez maintenant le kilométrage de la futur voiture :");
+							tempKilometrage = sc.nextLong();
+							affiche("Entrez maintenant le volume du coffre de la futur voiture :");
+							tempVolumeCoffre = sc.nextDouble();
+							affiche("Entrez maintenant la hauteur de la futur voiture :");
+							tempHauteur = sc.nextDouble();
+							affiche("Entrez maintenant le poids de la futur voiture :");
+							tempPoids = sc.nextDouble();
+							affiche("Entrez maintenant la note de la futur voiture :");
+							tempNote = sc.next();
+							affiche("Entrez maintenant l'agenceID ou sera la futur voiture :");
+							tempAgenceId = sc.nextInt();
+							if(tempEstManuelleS.equals("TRUE")) {
+								tempEstManuelle = true; 
+							}
+							else tempEstManuelle = false;
+							model.addVoiture(tempPrix, tempMarque, tempModele, tempAnnee, tempCarburant, tempCouleur, tempType, tempEstManuelle, tempRoueMotrice, tempKilometrage, tempVolumeCoffre, tempHauteur, tempPoids, tempNote, tempAgenceId);
 							printHelp();
 							break;
 						case "L" :

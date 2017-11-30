@@ -340,7 +340,7 @@ public class Admin extends Personne {
     	return -1;
 	}
 	
-	public String alterClient(int clientID, String nom, String prenom, String dateInscription, String dateNaissance, String adresse, String adresseMail) {
+	public int alterClient(int clientID, String nom, String prenom, String dateInscription, String dateNaissance, String adresse, String adresseMail) {
 		Connection conn = null;
         Statement stmt = null;
         int rs;
@@ -350,9 +350,9 @@ public class Admin extends Personne {
             String query = "UPDATE personne SET nom='" + nom + "', prenom='" + prenom + "', dateInscription='" + dateInscription + "', dateNaissance='" + dateNaissance + "', adresse='" + adresse + "', adresseMail='" + adresseMail +"' WHERE personneID =" + clientID;
             rs = stmt.executeUpdate(query);
             if (rs == 1) {
-            	return "client modifié";
+            	return 1;
             }
-            else return "client pas modifié";
+            else return 0;
             
         } catch (SQLException ex) {
             // handle the error
@@ -367,7 +367,7 @@ public class Admin extends Personne {
     		        stmt = null;
     		    }
     	}
-    	return "probleme co bdd";
+    	return -1;
 	}
 	
 	public Location getLocation(int locationID) {

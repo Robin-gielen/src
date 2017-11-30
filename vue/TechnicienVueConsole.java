@@ -29,8 +29,8 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 	
 
 	private void printHelp(){
-		affiche("Pour supprimer : D + numéro de voiture");
-		affiche("Pour rendre : L + numÃ©ro de livre.");
+		affiche("Pour afficher les données d'une voiture grâce à son ID : A");
+		affiche("Pour enregistrer le nouveau kilometrage d'une voiture : B");
 	}
 	
 	private class ReadInput implements Runnable{
@@ -42,22 +42,36 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 						affiche("Format d'input incorrect");
 						printHelp();
 					}
-						
-					int i = sc.nextInt();
-					if(i<0 || i> 30){
-						affiche("NumÃ©ro de voiture incorrect");
-						printHelp(); 
-					}
 					switch(c){
-						case "D" :
-							model.getVoiture(i);
-							System.out.println("le test marche R"+i);
-							//controller.rendreLivre(i);
+						case "A" :
+							affiche("Entrez maintenant l'ID de la voiture :");
+							int voiture1 = sc.nextInt();
+							affiche("Les infos de la voiture numéro " + voiture1 + " sont :");
+							System.out.println(model.getVoiture(voiture1));
+							printHelp();
 							break;
-						case "E" : 
-							System.out.println("le test marche E"+i);
-							//controller.emprunteLivre(i);
-							break;
+						case "B" : 
+							affiche("Entrez maintenant l'ID de la voiture :");
+							int voiture2 = sc.nextInt();
+							affiche("Entrez maintenant le nouveau kilometrage de la voiture :");
+							long kilometrage= sc.nextLong();
+							int tempInt = model.setKilometrage(voiture2, kilometrage);
+							if (tempInt == 1) {
+			                	affiche("Kilometrage mis a jour");
+			                	printHelp();
+			                	break;
+							}
+							else if (tempInt == 0) {
+								affiche("Kilometrage inférieur au kilométrage précédent");
+								printHelp();
+								break;
+							}
+							else if (tempInt == -1) {
+				            	affiche("Voiture existe pas");
+				            	printHelp();
+				            	break;
+							}
+							else affiche("Probleme co BDD"); printHelp(); break;
 						default : 
 							affiche("OpÃ©ration incorrecte");
 							printHelp();

@@ -119,6 +119,7 @@ public class Technicien extends Personne{
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];
+            
         } catch (Exception ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
@@ -147,27 +148,24 @@ public class Technicien extends Personne{
 	 * @param voitID c'est l'identifiant d'une voiture
 	 * @param kilometrage c'est le kilometrage lors de la fin de la location
 	 */
-	public void setKilometrage(int voitID, long kilometrage) {
+	public int setKilometrage(int voitID, long kilometrage) {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        int result ;
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             if(rs.next()) {
             	if(kilometrage>Long.parseLong(rs.getString("kilometrage"))) {
-                	result = stmt.executeUpdate("update voiture set kilometrage="+kilometrage+" where voitID='"+voitID+"'");
-                	System.out.println(result);
-                //return ;
+                	return (stmt.executeUpdate("update voiture set kilometrage="+kilometrage+" where voitID='"+voitID+"'"));
                 }
                 else {
-                	System.out.println("Kilometrage inférieur au kilomtrage précédent");
+                	return 0;
                 }
             }
             else {
-            	System.out.println("Voiture existe pas");
+            	return -1;
             }
             
             
@@ -185,6 +183,7 @@ public class Technicien extends Personne{
     		        stmt = null;
     		    }
     	}
+		return -1;
 	}
 	/**
 	 * cette mÃ©thode permet d'ajouter une note par rapport Ã  une location d'une voiture
@@ -493,7 +492,7 @@ public class Technicien extends Personne{
 					tempEstLouee = false;
 				}
 				
-				tempVoit[countTwo] = new Voiture(Integer.parseInt(rs.getString("voitID")), (double)Integer.parseInt(rs.getString("prix")), rs.getString("marque"),rs.getString("modele"),  Integer.parseInt(rs.getString("annee")),  rs.getString("type"),  rs.getString("carburant"),  rs.getString("couleur"),  tempEstManuelle,  Integer.parseInt(rs.getString("roueMotrice")),  (long)Integer.parseInt(rs.getString("kilometrage")),  (double)Integer.parseInt(rs.getString("volumeCoffre")),  (double)Integer.parseInt(rs.getString("hauteur")),  (double)Integer.parseInt(rs.getString("poids")),  tempEstLouee,  rs.getString("note"),  Integer.parseInt(rs.getString("agenceID")));
+				tempVoit[countTwo] = new Voiture(Integer.parseInt(rs.getString("voitID")), Double.parseDouble(rs.getString("prix")), rs.getString("marque"),rs.getString("modele"),  Integer.parseInt(rs.getString("annee")),  rs.getString("type"),  rs.getString("carburant"),  rs.getString("couleur"),  tempEstManuelle,  Integer.parseInt(rs.getString("roueMotrice")),  (long)Integer.parseInt(rs.getString("kilometrage")),  Double.parseDouble(rs.getString("volumeCoffre")),  Double.parseDouble(rs.getString("hauteur")),  Double.parseDouble(rs.getString("poids")),  tempEstLouee,  rs.getString("note"),  Integer.parseInt(rs.getString("agenceID")));
 				countTwo++;
 			}
 			return tempVoit;
@@ -566,13 +565,13 @@ public class Technicien extends Personne{
         return null;
 	}
 	public static void main(String[] args) {
-		Technicien dewulf = new Technicien("tech", "tech", "tech", "tech");
-		dewulf.connect("tech", "tech");
-		System.out.println(dewulf.getVoiture(11));
-		dewulf.setKilometrage(11, 22000);
-		dewulf.setNote(1, "Test");
-		dewulf.setAccompteStatut(1, false);
-		dewulf.createFacture(2, false);
+		Technicien dewulf = new Technicien("moi", "moi", "moi", "moi");
+		dewulf.connect("moi", "moi");
+		System.out.println(dewulf.getVoiture(23));
+		//dewulf.setKilometrage(11, 22000);
+		//dewulf.setNote(1, "Test");
+		//dewulf.setAccompteStatut(1, false);
+		//dewulf.createFacture(2, false);
 		
 	}
 	

@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 // Descampe Fabian
 // 2TL2
 // Groupe 15
@@ -135,7 +134,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=2");
             rs.next();
@@ -180,26 +179,17 @@ public class Client extends Personne {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        int count = 0;
-        Voiture tempVoit[];
     	try {
     		
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=0");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToVoitures(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
             
-            while(rs.next()){
-            	count++;
-            	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
-        	}
-            tempVoit = new Voiture[count];
-            int countTwo = 0;
-            while(rs.next()) {
-            	//tempVoit[countTwo] = new Voiture(rs.getString("voitID"), 0+rs.getString("prix"), marque, modele, annee, type, carburant, couleur, estManuelle, roueMotrice, kilmotrage, volumeCoffre, hauteur, poids, estLouee, note, agenceID)
-            }
-            
-            
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
@@ -233,16 +223,15 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=1 AND client='"+this.getPseudo()+"'");
+            rs = stmt.executeQuery("SELECT * FROM voiture INNER JOIN location ON voiture.voitID=location.voitureID where location.personneID="+this.getClientID());
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToVoitures(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
             
-            while(rs.next()){
-            	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
-        	}
-            
-            
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
@@ -276,12 +265,11 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT locationID FROM location WHERE voitureID="+voitID);
             
             while(rs.next()){
-            	System.out.println("locationID "+ rs.getString("locationID"));
             	return Integer.parseInt(rs.getString("locationID"));
 
         	}
@@ -326,7 +314,7 @@ public class Client extends Personne {
         double prixVoiture;
         double prixAssurance;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT prix FROM voiture WHERE voitID="+voitID);
 
@@ -376,16 +364,15 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM assurance");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToAssurances(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
             
-            while(rs.next()){
-            	System.out.println("assurID "+ rs.getString("assurID") + " Prix " + rs.getString("prix") + " type "+ rs.getString("type") + " prixKmSupp " + rs.getString("prixKmSupp"));
-        	}
-            
-            
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());
@@ -422,12 +409,14 @@ public class Client extends Personne {
         ResultSet rs = null;
         long kilometrage;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
-            	rs= stmt.executeQuery("SELECT kilometrage from voiture where voitID="+voitID);
-            	System.out.println("test1");
+            	rs= stmt.executeQuery("SELECT kilometrage, estLouee from voiture where voitID="+voitID);
             	if(rs.next()) {
-            	kilometrage=Long.parseLong(rs.getString("kilometrage"));
+            		if(rs.getString("estLouee").equals("1")){
+            			return -2;
+            		}
+            		kilometrage=Long.parseLong(rs.getString("kilometrage"));
             	}
             	else {
             		return -1;
@@ -468,4 +457,71 @@ public class Client extends Personne {
 		dewulf.setClientID(1);
 		System.out.println(dewulf.createLocation(12, 11));
 	}
+	/**
+	 * 
+	 * @param rs un ResultSet issu d'un SELECT * from voiture
+	 * @return un tableau de Voiture[] issu du ResultSet
+	 */
+	private Assurance[] resultSetToAssurances(ResultSet rs) {
+		Assurance tempAssur[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempAssur = new Assurance[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempAssur[countTwo] = new Assurance(Integer.parseInt(rs.getString("assurID")), Double.parseDouble(rs.getString("prix")), rs.getString("type"), Double.parseDouble(rs.getString("prixKmSupp")));
+				countTwo++;
+			}
+			return tempAssur;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+    }
+	
+	/**
+	 * 
+	 * @param rs un ResultSet issu d'un SELECT * from voiture
+	 * @return un tableau de Voiture[] issu du ResultSet
+	 */
+	private Voiture[] resultSetToVoitures(ResultSet rs) {
+		Voiture tempVoit[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempVoit = new Voiture[count];
+			int countTwo = 0;
+			boolean tempEstManuelle;
+			boolean tempEstLouee;
+			while(rs.previous());
+			while(rs.next()) {
+				if(Integer.parseInt(rs.getString("estManuelle"))==1) {
+					tempEstManuelle = true;
+				}
+				else {
+					tempEstManuelle = false;
+				}
+				if(Integer.parseInt(rs.getString("estLouee"))==1) {
+					tempEstLouee = true;
+				}
+				else {
+					tempEstLouee = false;
+				}
+				tempVoit[countTwo] = new Voiture(Integer.parseInt(rs.getString("voitID")), Double.parseDouble(rs.getString("prix")), rs.getString("marque"),rs.getString("modele"),  Integer.parseInt(rs.getString("annee")),  rs.getString("type"),  rs.getString("carburant"),  rs.getString("couleur"),  tempEstManuelle,  Integer.parseInt(rs.getString("roueMotrice")),  (long)Integer.parseInt(rs.getString("kilometrage")),  Double.parseDouble(rs.getString("volumeCoffre")),  Double.parseDouble(rs.getString("hauteur")),  Double.parseDouble(rs.getString("poids")),  tempEstLouee,  rs.getString("note"),  Integer.parseInt(rs.getString("agenceID")));
+				countTwo++;
+			}
+			return tempVoit;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+    }
 }
