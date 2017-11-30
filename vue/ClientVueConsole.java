@@ -58,7 +58,7 @@ public class ClientVueConsole extends ClientVue implements Observer {
 							}
 							printHelp();
 						case "Louer" : 
-							model.valideLocation(i, j);
+							model.createLocation(i, j);
 							//controller.emprunteLivre(i);
 							break;
 						default : 
