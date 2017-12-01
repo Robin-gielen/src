@@ -5,6 +5,8 @@ import java.util.Observer;
 import java.util.Scanner;
 
 import controller.TechnicienController;
+import model.Facture;
+import model.Location;
 import model.Technicien;
 
 
@@ -29,8 +31,21 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 	
 
 	private void printHelp(){
-		affiche("Pour afficher les donn�es d'une voiture gr�ce � son ID : A");
+		affiche("Pour afficher les données d'une voiture grâce à son ID : A");
+		
 		affiche("Pour enregistrer le nouveau kilometrage d'une voiture : B");
+		
+		affiche("Pour créer une nouvelle facture : C");
+		
+		affiche("Pour afficher les données d'une facture : D");
+		affiche("Pour afficher les factures d'un client : E");
+		
+		affiche("Pour afficher les données d'une location : F");
+		affiche("Pour afficher les locations d'un client : G");
+		
+		affiche("Pour changer le statut de l'accompte d'une location : H");
+		
+		affiche("Pour changer la note d'une facture : I");
 	}
 	
 	private class ReadInput implements Runnable{
@@ -46,7 +61,7 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 						case "A" :
 							affiche("Entrez maintenant l'ID de la voiture :");
 							int voiture1 = sc.nextInt();
-							affiche("Les infos de la voiture num�ro " + voiture1 + " sont :");
+							affiche("Les infos de la voiture numéro " + voiture1 + " sont :");
 							System.out.println(model.getVoiture(voiture1));
 							printHelp();
 							break;
@@ -62,7 +77,7 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 			                	break;
 							}
 							else if (tempInt == 0) {
-								affiche("Kilometrage inf�rieur au kilom�trage pr�c�dent");
+								affiche("Kilometrage inférieur au kilométrage précédent");
 								printHelp();
 								break;
 							}
@@ -71,9 +86,100 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 				            	printHelp();
 				            	break;
 							}
-							else affiche("Probleme co BDD"); printHelp(); break;
+						case "C" :
+							affiche("Entrez maintenant l'ID de la location pour laquelle vous voulez créer une facture :");
+							int loc1 = sc.nextInt();
+							affiche("Entrez maintenant le statut du payement, TRUE si payé, FALSE si non payé :");
+							String tempEstPaye = sc.next();
+							boolean tempBool;
+							if(tempEstPaye.equals("TRUE")) {
+								tempBool = true;
+							}
+							else {
+								tempBool = false;
+							}
+							int tempInt2 = model.createFacture(loc1, tempBool);
+							if (tempInt2 == 1) {
+								System.out.println("Facture créé");
+							}
+							else if (tempInt2 == 0) {
+								System.out.println("Problème lors de la création de la facture");
+							}
+							else System.out.println("Problème de connexion à la BDD");
+							printHelp();
+							break;
+						case "D" : 
+							affiche("Entrez maintenant l'ID de la facture :");
+							int fact1 = sc.nextInt();
+							affiche("Les infos de la facture numéro " + fact1 + " sont :");
+							System.out.println(model.getFacture(fact1));
+							printHelp();
+							break;
+						case "E" :
+							affiche("Entrez maintenant l'ID du client :");
+							int clientFact1 = sc.nextInt();
+							affiche("Les factures du client numéro " + clientFact1 + " sont :");
+							Facture [] tempFacture = model.getFacturesClient(clientFact1);
+							if (tempFacture != null) {
+								for (Facture facture : tempFacture) {
+									System.out.println(facture);
+								}
+							}
+							printHelp();
+							break;
+						case "F" :
+							affiche("Entrez maintenant l'ID de la location :");
+							int loc2 = sc.nextInt();
+							affiche("Les infos de la location numéro " + loc2 + " sont :");
+							System.out.println(model.getLocation(loc2));
+							printHelp();
+							break;
+						case "G" :
+							affiche("Entrez maintenant l'ID du client :");
+							int clientLoc1 = sc.nextInt();							
+							affiche("Les locations du client numéro " + clientLoc1 + " sont :");
+							Location [] tempLocation = model.getLocationsClient(clientLoc1);
+							if(tempLocation != null) {
+								for (Location location : tempLocation) {
+									System.out.println(location);
+								}
+							}
+							printHelp();
+							break;
+						case "H" :
+							affiche("Entrez maintenant l'ID de la location :");
+							int voiture3 = sc.nextInt();
+							affiche("Entrez maintenant le nouveau statut TRUE si payée, FALSE si pas payée :");
+							String tempEstPaye2 = sc.next();
+							boolean tempBool2;
+							if(tempEstPaye2.equals("TRUE")) {
+								tempBool2 = true;
+							}
+							else {
+								tempBool2 = false;
+							}
+							if(model.setAccompteStatut(voiture3, tempBool2) == 1) {
+								System.out.println("Le statut a été mis à jour");
+							}
+							else if (model.setAccompteStatut(voiture3, tempBool2) == 0) {
+								System.out.println("Problème de connexion à la BDD");
+							}
+							else System.out.println("Le statut n'a pas pu être mis a jour");
+							printHelp();
+							break;
+						case "I" :
+							affiche("Entrez maintenant l'ID de la facture :");
+							int fact2 = sc.nextInt();
+							affiche("Entrez maintenant la nouvelle note de la voiture");
+							String tempString = sc.next();
+							if(model.setNote(fact2, tempString) == 1) {
+								System.out.println("Note mise à jour");
+							}
+							else System.out.println("Problème lors de la mise à jour");
+							printHelp();
+							break;
 						default : 
-							affiche("Opération incorrecte");
+							affiche("OpÃ©ration incorrecte");
 							printHelp();
 					}
 				}
