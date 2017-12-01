@@ -16,9 +16,9 @@ import java.sql.Statement;
 public class Technicien extends Personne{
 	private int techID;
 	/**
-	 * Ce constructeur permet de crÃ©er un technicien sans spÃ©cifier son techID qui sera crÃ©er dans la DB et son privilÃ¨ge sera par dÃ©faut Ã  1 (=technicien)
-	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
-	 * @param motDePasse c'est son mot de passe pour ce connecter Ã  l'application
+	 * Ce constructeur permet de crÃ©er un technicien sans spÃ©cifier son techID qui sera crÃ©er dans la DB et son privilÃ¨ge sera par dÃ©faut Ã  1 (=technicien)
+	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
+	 * @param motDePasse c'est son mot de passe pour ce connecter Ã  l'application
 	 * @param nom c'est son nom
 	 * @param prenom c'est son prÃ©nom
 	 */
@@ -27,8 +27,8 @@ public class Technicien extends Personne{
 	}
 	/**
 	 * Ce constructeur permet de crÃ©er un technicien 
-	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
-	 * @param motDePasse c'est son mot de passe pour ce connecter Ã  l'application
+	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
+	 * @param motDePasse c'est son mot de passe pour ce connecter Ã  l'application
 	 * @param nom c'est son nom
 	 * @param prenom c'est son prÃ©nom
 	 * @param privilege cela reprÃ©sente les privilÃ¨ges qu'il aura (0=Admin, 1=Technicien, 2= Client)
@@ -53,7 +53,7 @@ public class Technicien extends Personne{
 
 	@Override
 	/**
-	 * Cette mÃ©thode permetra au technicien de se connecter Ã  l'application 
+	 * Cette mÃ©thode permetra au technicien de se connecter Ã  l'application 
 	 * @param pseudo c'est le pseudo du technicien
 	 * @param motDePasse c'est le mot de passe du technicien
 	 */
@@ -62,7 +62,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=1");
             if(rs.next()) {
@@ -106,7 +106,7 @@ public class Technicien extends Personne{
     	}
 	}
 	/**
-	 * cette mÃ©thode sert Ã  rÃ©cupÃ©rer une voiture pour afficher les attributs de celle-ci
+	 * cette mÃ©thode sert Ã  rÃ©cupÃ©rer une voiture pour afficher les attributs de celle-ci
 	 * @param voitID c'est l'identifiant de la voiture 
 	 * @return un objet de type voiture 
 	 */
@@ -115,7 +115,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];
@@ -153,7 +153,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             if(rs.next()) {
@@ -186,20 +186,22 @@ public class Technicien extends Personne{
 		return -1;
 	}
 	/**
-	 * cette mÃ©thode permet d'ajouter une note par rapport Ã  une location d'une voiture
+	 * cette mÃ©thode permet d'ajouter une note par rapport Ã  une location d'une voiture
 	 * @param locationID c'est l'identifiant d'une location
-	 * @param note c'est la note que l'on ajoute Ã  une location
+	 * @param note c'est la note que l'on ajoute Ã  une location
 	 */
-	public void setNote(int factID, String note) {
+	public int setNote(int factID, String note) {
 		Connection conn = null;
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
-                	result = stmt.executeUpdate("update facture set note='"+note+"' where factID='"+factID+"'");
-                	System.out.println(result);
-                //return ;
+        	result = stmt.executeUpdate("update facture set note='"+note+"' where factID='"+factID+"'");
+            if (result > 0) {
+            	return 1;
+            }
+            else return 0;
                     
     	} catch (Exception ex) {
             // handle the error
@@ -215,28 +217,39 @@ public class Technicien extends Personne{
     		        stmt = null;
     		    }
     	}
+		return 0;
 	}
 	/**
-	 * cette mÃ©thode permet de modifier le faite que l'accompte Ã  Ã©tÃ© payÃ© ou non 
+	 * cette mÃ©thode permet de modifier le faite que l'accompte Ã  Ã©tÃ© payÃ© ou non 
 	 * @param locationID c'est l'identifiant d'une location
 	 * @param estPaye c'est l'Ã©tat de l'accompte d'une location true si payÃ©, false si non payÃ©
 	 */
-	public void setAccompteStatut(int locationID, boolean estPaye) {
+	public int setAccompteStatut(int locationID, boolean estPaye) {
 		Connection conn = null;
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             if(estPaye== true) {
                 	result = stmt.executeUpdate("update location set accomptePaye='"+1+"' where locationID='"+locationID+"'");
-                	System.out.println("l'accompte a été payé : " + result);
+                	if (result > 0) {
+                		return 1;
+                	}
+                	else if (result == 0) {
+                		return -1;
+                	}
             }
             else {
             	result = stmt.executeUpdate("update location set accomptePaye='"+0+"' where locationID='"+locationID+"'");
-            	System.out.println("l'accompte n'est pas payé : " + result);
-            	
+            	if (result > 0) {
+            		return 1;
+            	}
+            	else if (result == 0) {
+            		return -1;
+            	}
             }
+            return 0;
                     
     	} catch (Exception ex) {
             // handle the error
@@ -252,36 +265,44 @@ public class Technicien extends Personne{
     		        stmt = null;
     		    }
     	}
+		return 0;
 	}
 		
 	/**
 	 * cette mÃ©thode permet de crÃ©er une facture 
-	 * @param locationID c'est la location Ã  laquelle est liÃ© la facture
+	 * @param locationID c'est la location Ã  laquelle est liÃ© la facture
 	 * @param estPaye c'est l'Ã©tat de payement d'une location true si payÃ©, false si non payÃ©
 	 */
-	public void createFacture(int locationID, boolean estPaye) {
+	public int createFacture(int locationID, boolean estPaye) {
 		Connection conn = null;
         Statement stmt = null;
         int result ;
         ResultSet rs = null;
         int tempMontant = 0;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/db_test?useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT voiture.prix+assurance.prix as montant FROM voiture JOIN location ON voiture.voitID=location.voitureID JOIN assurance ON location.assurID=assurance.assurID where location.locationID="+locationID);
             if (rs.next()) {
             	tempMontant=Integer.parseInt(rs.getString("montant"));
             }
-            else System.out.println("data pas trouv�e dans BDD"); 
-            if(estPaye== false && tempMontant!=0){
+            else System.out.println("data pas trouvꥠdans BDD"); 
+            if(!estPaye && tempMontant!=0){
 				result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 0, \"note facture\")");
-            	System.out.println(result);
+				if (result > 0) {
+            		return 1;
+            	}
+            	else return 0;
 				}
-			else if (estPaye==true && tempMontant!=0){
+			else if (estPaye && tempMontant!=0){
 				result= stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 1, \"note facture\")");
+				if (result > 0) {
+            		return 1;
+            	}
+            	else return 0;
 			}
 			else {
-				System.out.println("probleme connexion BDD");
+				return -1;
 			}
                     
     	} catch (Exception ex) {
@@ -298,6 +319,7 @@ public class Technicien extends Personne{
     		        stmt = null;
     		    }
     	}
+		return 0;
     	
 	}
 	
@@ -306,7 +328,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE locationID =" + locationID);
             if(rs.next()) {
@@ -342,17 +364,17 @@ public class Technicien extends Personne{
     	return null;
 	}
 	
-	public Location getLocationsClient(int clientID) {
+	public Location [] getLocationsClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
             if(rs.next()) {
 				rs.previous();
-				return resultSetToLocations(rs)[0];
+				return resultSetToLocations(rs);
 			}
 			else throw new DataNotFoundException("Can't find this data in the database");
         } catch (SQLException ex) {
@@ -384,9 +406,9 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM facture");
+            rs = stmt.executeQuery("SELECT * FROM facture WHERE factID="+factID);
             if(rs.next()) {
 				rs.previous();
 				return resultSetToFactures(rs)[0];
@@ -419,17 +441,17 @@ public class Technicien extends Personne{
     	return null;
 	}
 
-	public Facture getFacturesClient(int clientID) {
+	public Facture[] getFacturesClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
             if(rs.next()) {
 				rs.previous();
-				return resultSetToFactures(rs)[0];
+				return resultSetToFactures(rs);
 			}
 			else throw new DataNotFoundException("Can't find this data in the database");
            
