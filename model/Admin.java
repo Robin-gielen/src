@@ -140,9 +140,9 @@ public class Admin extends Personne {
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("INSERT INTO voiture (prix, marque, modele, annee, carburant, couleur, type, estManuelle, roueMotrice, kilometrage, volumeCoffre, hauteur, poids, note, agenceID) VALUES (" + prix + ", '" + marque + "', '" + modele + "', " + annee + ", '" + carburant + "', '" + couleur + "', '" + type + "', " + tempEstManuelle + ", " + roueMotrice + ", " + kilometrage + ", " + volumeCoffre + ", " + hauteur + ", " + poids + ", '" + note + "', " + agenceID+")");
             if (rs == 1) {
-                return ("Voiture ajoutée");
+                return ("Voiture ajoutÃ©e");
             }
-            else return ("Voiture pas ajoutée");
+            else return ("Voiture pas ajoutÃ©e");
             
         } catch (SQLException ex) {
             // handle the error
@@ -196,7 +196,7 @@ public class Admin extends Personne {
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM facture");
+            rs = stmt.executeQuery("SELECT * FROM facture WHERE factID="+factID);
             if(rs.next()) {
 				rs.previous();
 				return resultSetToFactures(rs)[0];
@@ -465,7 +465,7 @@ public class Admin extends Personne {
 				System.out.println(voiture);
 			}
 		}
-		// Les méthodes misent en commentaires fonctionnent
+		// Les mÃ©thodes misent en commentaires fonctionnent
 		//System.out.println(admin.addVoiture(600.0, "opel", "corsa", 2015, "diesel", "rouge", "citadine", false, 4, 51213, 150.4, 194.5, 987.6, "Bonne voiture", 1));
 		//System.out.println(admin.rmVoiture(16));
 		//System.out.println(admin.getFacture(2));
@@ -489,11 +489,11 @@ public class Admin extends Personne {
             if(rs.next()) {
             	System.out.println("personneID: " + rs.getString("personneID") + " pseudo: " + rs.getString("pseudo") + " mdp: " + rs.getString("motDePasse"));
 	            if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
-	            	System.out.println("vous etes connecté");
+	            	System.out.println("vous etes connectÃ©");
 	            	return 0; //connection OK 
 	            }
 	            else {
-	            	System.out.println("vous n'etes pas connecté");
+	            	System.out.println("vous n'etes pas connectÃ©");
 	            	return -1; //connection pas OK
 	            }
             }
