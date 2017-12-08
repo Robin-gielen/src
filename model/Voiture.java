@@ -12,7 +12,7 @@ public class Voiture {
 	private String couleur;
 	private boolean estManuelle =true;
 	private int roueMotrice;
-	private long kilmotrage;
+	private long kilometrage;
 	private double volumeCoffre;
 	private double hauteur;
 	private double poids;
@@ -23,7 +23,7 @@ public class Voiture {
 	
 	
 	public Voiture(double prix, String marque, String modele, int annee, String type, String carburant, String couleur,
-			boolean estManuelle, int roueMotrice, long kilmotrage, double volumeCoffre, double hauteur, double poids,
+			boolean estManuelle, int roueMotrice, long kilometrage, double volumeCoffre, double hauteur, double poids,
 			int agenceID) {
 		this.prix = prix;
 		this.marque = marque;
@@ -34,7 +34,7 @@ public class Voiture {
 		this.couleur = couleur;
 		this.estManuelle = estManuelle;
 		this.roueMotrice = roueMotrice;
-		this.kilmotrage = kilmotrage;
+		this.kilometrage = kilometrage;
 		this.volumeCoffre = volumeCoffre;
 		this.hauteur = hauteur;
 		this.poids = poids;
@@ -43,7 +43,7 @@ public class Voiture {
 	
 	
 	public Voiture(int voitID, double prix, String marque, String modele, int annee, String type, String carburant,
-			String couleur, boolean estManuelle, int roueMotrice, long kilmotrage, double volumeCoffre, double hauteur,
+			String couleur, boolean estManuelle, int roueMotrice, long kilometrage, double volumeCoffre, double hauteur,
 			double poids, boolean estLouee, String note, int agenceID) {
 		super();
 		this.voitID = voitID;
@@ -56,7 +56,7 @@ public class Voiture {
 		this.couleur = couleur;
 		this.estManuelle = estManuelle;
 		this.roueMotrice = roueMotrice;
-		this.kilmotrage = kilmotrage;
+		this.kilometrage = kilometrage;
 		this.volumeCoffre = volumeCoffre;
 		this.hauteur = hauteur;
 		this.poids = poids;
@@ -126,11 +126,11 @@ public class Voiture {
 	public void setRoueMotrice(int roueMotrice) {
 		this.roueMotrice = roueMotrice;
 	}
-	public long getKilmotrage() {
-		return kilmotrage;
+	public long getKilometrage() {
+		return kilometrage;
 	}
-	public void setKilmotrage(long kilmotrage) {
-		this.kilmotrage = kilmotrage;
+	public void setKilometrage(long kilometrage) {
+		this.kilometrage = kilometrage;
 	}
 	public double getVolumeCoffre() {
 		return volumeCoffre;
@@ -172,7 +172,7 @@ public class Voiture {
 	public String toString() {
 		return "voitID=" + voitID + ", prix=" + prix + ", marque=" + marque + ", modele=" + modele + ", annee="
 				+ annee + ", type=" + type + ", carburant=" + carburant + ", couleur=" + couleur + ", estManuelle="
-				+ estManuelle + ", roueMotrice=" + roueMotrice + ", kilmotrage=" + kilmotrage + ", volumeCoffre="
+				+ estManuelle + ", roueMotrice=" + roueMotrice + ", kilometrage=" + kilometrage + ", volumeCoffre="
 				+ volumeCoffre + ", hauteur=" + hauteur + ", poids=" + poids + ", estLouee=" + estLouee + ", note="
 				+ note + ", agenceID=" + agenceID ;
 	}
