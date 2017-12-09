@@ -1,8 +1,5 @@
 package vue;
-<<<<<<< HEAD
 
-public class TechnicienVueConsole {
-=======
 import java.util.InputMismatchException;
 import java.util.Observable;
 import java.util.Observer;
@@ -201,6 +198,5 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 		System.out.println(string);
 		
 	}
->>>>>>> c2162f4ab7667fbe8e3847eee59cf940f2ad6119
 
 }
