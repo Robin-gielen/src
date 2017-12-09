@@ -19,4 +19,8 @@ public abstract class TechnicienVue implements Observer{
 	}
 	
 	public abstract void affiche(String string);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c2162f4ab7667fbe8e3847eee59cf940f2ad6119

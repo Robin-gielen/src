@@ -1,15 +1,23 @@
 package model;
 
-public abstract class Personne  {
+//import java.sql.Connection;
+//import java.sql.Statement;
+import java.util.Observable;
+
+public abstract class Personne extends Observable {
 	private String pseudo;
 	private String motDePasse;
 	private String nom;
 	private String prenom;
 	private int privilege;
 	
+
+	public Personne(String pseudo, String motDePasse) {
+		this.pseudo = pseudo;
+		this.motDePasse = pseudo;
+	}
 	
 	public Personne(String pseudo, String motDePasse, String nom, String prenom, int privilege) {
-		super();
 		this.pseudo = pseudo;
 		this.motDePasse = motDePasse;
 		this.nom = nom;
@@ -22,10 +30,17 @@ public abstract class Personne  {
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
             stmt = conn.createStatement();
+<<<<<<< HEAD
             resultUpdate = stmt.executeUpdate("CREATE USER '" + pseudo +"'@'localhost' IDENTIFIED BY '" + motDePasse +"';");
             System.out.println(rs);
             resultUpdate = stmt.executeUpdate("INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, adresse, adresseMail) VALUES (");
             System.out.println(rs);
+=======
+            resultUpdate = stmt.executeUpdate("CREATE USER '" + pseudo +"'@'DESKTOP-GMCCSDC' IDENTIFIED BY '" + motDePasse +"';");
+            System.out.println(resultUpdate);
+            resultUpdate = stmt.executeUpdate("INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, adresse, adresseMail) VALUES (");
+            System.out.println(resultUpdate);
+>>>>>>> c2162f4ab7667fbe8e3847eee59cf940f2ad6119
             
         } catch (Exception ex) {
             // handle the error
@@ -36,6 +51,10 @@ public abstract class Personne  {
     		        try {
     		            stmt.close();
     		        } catch (SQLException sqlEx) { } // ignore
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2162f4ab7667fbe8e3847eee59cf940f2ad6119
     		        stmt = null;
     		    }
     	}*/
