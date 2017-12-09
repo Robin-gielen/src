@@ -127,8 +127,46 @@ public class Client extends Personne {
 	 */
 	@Override
 	public int connect(String pseudo, String motDePasse) {
-		// Connexion à la base de données
-		return 0;
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=2");
+            rs.next();
+            System.out.println("personneID" + rs.getString("personneID") + "pseudo" + rs.getString("pseudo") + "mdp" + rs.getString("motDePasse"));
+            if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
+            	System.out.println("vous etes connecté");
+            	return 0; //connection OK 
+            }
+            else {
+            	System.out.println("vous etes poas connecté");
+            	return -1; //connection pas OK
+            }
+            
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        	return -1; //connection pas OK
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 	}
 	/**
 	 * Cette méthode donnera la liste des voitures qui ne sont pas encore louées
@@ -138,14 +176,23 @@ public class Client extends Personne {
 		Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        int count = 0;
+        Voiture tempVoit[];
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+    		
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=0");
             
             while(rs.next()){
+            	count++;
             	System.out.println("voitID "+ rs.getString("voitID") + " Modele " + rs.getString("modele") + " type "+ rs.getString("type") );
         	}
+            tempVoit = new Voiture[count];
+            int countTwo = 0;
+            while(rs.next()) {
+            	//tempVoit[countTwo] = new Voiture(rs.getString("voitID"), 0+rs.getString("prix"), marque, modele, annee, type, carburant, couleur, estManuelle, roueMotrice, kilmotrage, volumeCoffre, hauteur, poids, estLouee, note, agenceID)
+            }
             
             
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -171,6 +218,7 @@ public class Client extends Personne {
     		    }
     	}
 		return null;
+    	//return tempVoit;
 	}
 	/**
 	 * Cette méthode donnera la liste des voitures déjà louées
@@ -181,7 +229,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=1 AND client='"+this.getPseudo()+"'");
             
@@ -220,8 +268,44 @@ public class Client extends Personne {
 	 * @return Retournera l'ID de chaque voiture
 	 */
 	public int getLocationID(int voitID) {
-		// Besoin de la base de données
-		return 0;
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT locationID FROM location WHERE voitureID="+voitID);
+            
+            while(rs.next()){
+            	System.out.println("locationID "+ rs.getString("locationID"));
+            	return Integer.parseInt(rs.getString("locationID"));
+
+        	}
+            
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
+    	return 0;
 	}
 	/**
 	 * Cette méthode donnera le tarif de chaque voiture. 
@@ -229,8 +313,54 @@ public class Client extends Personne {
 	 * @param assurance L'assurance du client 
 	 * @return Retournera le tarif final à payer
 	 */
-	public double getTarif(Voiture voiture, Assurance assurance) {
-		// Besoin de la base de données
+	@SuppressWarnings("resource")
+	public double getTarif(int voitID, int assurID) {
+		//à voir comprends pas les arguments de la méthode
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        double prixVoiture;
+        double prixAssurance;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT prix FROM voiture WHERE voitID="+voitID);
+
+            if(rs.next()){
+            	prixVoiture= Double.parseDouble(rs.getString("prix"));
+        	}
+            else {
+            	return 0;
+            }
+            rs = stmt.executeQuery("SELECT prix FROM assurance WHERE assurID="+assurID);
+            if(rs.next()) {
+            prixAssurance=Double.parseDouble(rs.getString("prix"));
+            }
+            else {
+            	return 0;
+            }
+            return prixVoiture+prixAssurance;
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 		return 0.0;
 	}
 	/**
@@ -242,7 +372,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema", "tanguybmx", "1234");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM assurance");
             
@@ -281,12 +411,57 @@ public class Client extends Personne {
 	 * @param assurID L'ID de l'assurance
 	 * @return Retournera la validation de la location
 	 */
-	public int valideLocation(int voitID, int assurID) {
-		// Besoin de la base de données
+	public int createLocation(int voitID, int assurID) {
+		Connection conn = null;
+        Statement stmt = null;
+        int result ;
+        ResultSet rs = null;
+        long kilometrage;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            stmt = conn.createStatement();
+            	rs= stmt.executeQuery("SELECT kilometrage from voiture where voitID="+voitID);
+            	System.out.println("test1");
+            	if(rs.next()) {
+            	kilometrage=Long.parseLong(rs.getString("kilometrage"));
+            	}
+            	else {
+            		return -1;
+            	}
+            	//System.out.println(this.getClientID());
+            	result = stmt.executeUpdate("insert into location (personneID, assurID, voitureID, accompte, accomptePaye, kmInitial) values ("+this.getClientID()+","+assurID+","+voitID+",200,0,"+kilometrage+")");
+            	System.out.println("test2");
+            	if(result>0) {
+					result= stmt.executeUpdate("update voiture set estLouee=1 where voitID="+voitID);
+					return 1;
+				}
+            	else {
+            		return 0;
+            	}
+                    
+    	} catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
 		return 0;
 	}
+	
 	public static void main(String[] args) {
 		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
-		dewulf.getAssurance();
+		dewulf.connect("dewulf", "dewulf");
+		dewulf.getLocationID(11);
+		System.out.println(dewulf.getTarif(11, 11));
+		dewulf.setClientID(1);
+		System.out.println(dewulf.createLocation(12, 11));
 	}
 }
