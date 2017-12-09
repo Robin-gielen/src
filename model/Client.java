@@ -30,20 +30,46 @@ public class Client extends Personne {
 	 * @param adresse l'adresse où habite le client
 	 * @param adresseMail l'adresse mail du client
 	 */
-	
-	public Client(String pseudo, String motDePasse, String nom, String prenom,
+	public Client(String pseudo1, String motDePasse, String nom, String prenom,
 			String dateInscription, String dateNaissance, String adresse, String adresseMail) {
-		super(pseudo, motDePasse, nom, prenom, 2);
+		super(pseudo1, motDePasse, nom, prenom, 2);
 		this.dateInscription = dateInscription;
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.adresseMail = adresseMail;
+		Connection conn = null;
+        Statement stmt = null;
+        int rs;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            String temp = "INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, dateInscription, dateNaissance, adresse, adresseMail) VALUES ('" + pseudo1 + "', '" + motDePasse + "', '" + nom + "', '" + prenom + "', 2, '" + dateInscription + "', '" + dateNaissance + "', '" + adresse + "', '" + adresseMail + "')";
+            System.out.println(temp);
+            rs = stmt.executeUpdate(temp);
+            if (rs!=1) {
+            	System.out.println("Erreur lors de l'insertion dans la BDD");
+            }
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
+		
 	}
 	public Client(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 2);
 	}
 	public Client(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse);
+		super(pseudo, motDePasse, 2);
 	}
 	
 	/**
@@ -125,53 +151,7 @@ public class Client extends Personne {
 		return super.toString()+ "clientID=" + clientID + ", dateInscription=" + dateInscription + ", dateNaissance="
 				+ dateNaissance + ", adresse=" + adresse + ", adresseMail=" + adresseMail;
 	}
-	/**
-	 * Cette méthode nécessite d'avoir accès à la bande de données.
-	 */
-	@Override
-	public int connect(String pseudo, String motDePasse) {
-		Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-    	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
-
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=2");
-            rs.next();
-            System.out.println("personneID" + rs.getString("personneID") + "pseudo" + rs.getString("pseudo") + "mdp" + rs.getString("motDePasse"));
-            if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
-            	System.out.println("vous etes connecté");
-            	return 0; //connection OK 
-            }
-            else {
-            	System.out.println("vous etes poas connecté");
-            	return -1; //connection pas OK
-            }
-            
-        } catch (Exception ex) {
-            // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
-        	return -1; //connection pas OK
-        }
-    	finally {
-    		 if (rs != null) {
-    		        try {
-    		            rs.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        rs = null;
-    		    }
-
-    		    if (stmt != null) {
-    		        try {
-    		            stmt.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        stmt = null;
-    		    }
-    	}
-	}
+	
 	/**
 	 * Cette méthode donnera la liste des voitures qui ne sont pas encore louées
 	 * @return Elle retournera la liste des voitures non louées
@@ -448,7 +428,6 @@ public class Client extends Personne {
 	
 	public static void main(String[] args) {
 		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
-		dewulf.connect("dewulf", "dewulf");
 		dewulf.getLocationID(11);
 		System.out.println(dewulf.getTarif(11, 11));
 		dewulf.setClientID(1);

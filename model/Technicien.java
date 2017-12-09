@@ -40,7 +40,7 @@ public class Technicien extends Personne{
 	}
 	
 	public Technicien(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse);
+		super(pseudo, motDePasse, 1);
 	}
 	
 	@Override
@@ -51,60 +51,8 @@ public class Technicien extends Personne{
 		return super.toString()+"techID=" + techID;
 	}
 
-	@Override
-	/**
-	 * Cette mÃ©thode permetra au technicien de se connecter Ã  l'application 
-	 * @param pseudo c'est le pseudo du technicien
-	 * @param motDePasse c'est le mot de passe du technicien
-	 */
-	public int connect(String pseudo, String motDePasse) {
-		Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-    	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=1");
-            if(rs.next()) {
-            	 System.out.println("personneID: " + rs.getString("personneID") + " pseudo: " + rs.getString("pseudo") + " mdp: " + rs.getString("motDePasse"));
-                 if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
-                 	System.out.println("vous etes connecté");
-                 	return 0; //connection OK 
-                 }
-                 else {
-                 	System.out.println("vous etes pas connecté");
-                 	return -1; //connection pas OK
-                 }
-            }
-            else {
-            	System.out.println("L'utilisateur ou le mot de passe est incorrect");
-            	return -1;
-            }
-           
-            
-        } catch (Exception ex) {
-            // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
-        	return -1; //connection pas OK
-        }
-    	finally {
-    		 if (rs != null) {
-    		        try {
-    		            rs.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        rs = null;
-    		    }
-
-    		    if (stmt != null) {
-    		        try {
-    		            stmt.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        stmt = null;
-    		    }
-    	}
-	}
+	
+	
 	/**
 	 * cette mÃ©thode sert Ã  rÃ©cupÃ©rer une voiture pour afficher les attributs de celle-ci
 	 * @param voitID c'est l'identifiant de la voiture 
@@ -526,7 +474,6 @@ public class Technicien extends Personne{
 
 	public static void main(String[] args) {
 		Technicien dewulf = new Technicien("moi", "moi", "moi", "moi");
-		dewulf.connect("moi", "moi");
 		System.out.println(dewulf.getVoiture(23));
 		//dewulf.setKilometrage(11, 22000);
 		//dewulf.setNote(1, "Test");

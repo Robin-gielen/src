@@ -11,7 +11,7 @@ public class Admin extends Personne {
 	Voiture [] voitures;
 	
 	public Admin() {
-		super("pseudo", "motDePasse");
+		super("pseudo", "motDePasse", 0);
 	}
 	
 	public Admin(String pseudo, String motDePasse, String nom, String prenom) {
@@ -20,7 +20,7 @@ public class Admin extends Personne {
 
 	
 	public Admin(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse);
+		super(pseudo, motDePasse, 0);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class Admin extends Personne {
 		return null;
 	}
 	
-	public String addVoiture(double prix, String marque, String modele, int annee, String carburant, String couleur, String type, boolean estManuelle, int roueMotrice, long kilometrage, double volumeCoffre, double hauteur, double poids, String note, int agenceID) {
+	public int addVoiture(double prix, String marque, String modele, int annee, String carburant, String couleur, String type, boolean estManuelle, int roueMotrice, long kilometrage, double volumeCoffre, double hauteur, double poids, String note, int agenceID) {
 		int tempEstManuelle;
 		if (estManuelle) {
 			tempEstManuelle = 1; 
@@ -140,9 +140,9 @@ public class Admin extends Personne {
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("INSERT INTO voiture (prix, marque, modele, annee, carburant, couleur, type, estManuelle, roueMotrice, kilometrage, volumeCoffre, hauteur, poids, note, agenceID) VALUES (" + prix + ", '" + marque + "', '" + modele + "', " + annee + ", '" + carburant + "', '" + couleur + "', '" + type + "', " + tempEstManuelle + ", " + roueMotrice + ", " + kilometrage + ", " + volumeCoffre + ", " + hauteur + ", " + poids + ", '" + note + "', " + agenceID+")");
             if (rs == 1) {
-                return ("Voiture ajoutée");
+                return 1;
             }
-            else return ("Voiture pas ajoutée");
+            else return -1;
             
         } catch (SQLException ex) {
             // handle the error
@@ -157,7 +157,7 @@ public class Admin extends Personne {
     		        stmt = null;
     		    }
     	}
-    	return "Probleme co BDD";
+    	return -1;
 	}
 
 	public int rmVoiture(int voitID) {
@@ -454,7 +454,6 @@ public class Admin extends Personne {
 	
 	public static void main(String[] args) {
 		Admin admin = new Admin("moi", "moi", "moi", "moi");
-		admin.connect("moi", "moi");
 		/*Voiture listVoit[] = admin.getListVoit();
 		for (Voiture voiture : listVoit) {
 			System.out.println(voiture);
@@ -477,50 +476,6 @@ public class Admin extends Personne {
 		//System.out.println(admin.getLocationsClient(2));
 	}
 	
-	@Override
-	public int connect(String pseudo, String motDePasse) {
-		Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-    	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'" + "AND privilege=0");
-            if(rs.next()) {
-            	System.out.println("personneID: " + rs.getString("personneID") + " pseudo: " + rs.getString("pseudo") + " mdp: " + rs.getString("motDePasse"));
-	            if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
-	            	System.out.println("vous etes connecté");
-	            	return 0; //connection OK 
-	            }
-	            else {
-	            	System.out.println("vous n'etes pas connecté");
-	            	return -1; //connection pas OK
-	            }
-            }
-            else System.out.println("Cet utilisateur n'existe pas ou le mot de passe n'est pas le bon"); return -1;
-        } catch (SQLException ex) {
-            // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
-        	return -1; //connection pas OK
-        }
-    	finally {
-    		 if (rs != null) {
-    		        try {
-    		            rs.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        rs = null;
-    		    }
-
-    		    if (stmt != null) {
-    		        try {
-    		            stmt.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-
-    		        stmt = null;
-    		    }
-    	}
-	}
 	
 	private Location[] resultSetToLocations(ResultSet rs) {
 		Location tempLoc[];

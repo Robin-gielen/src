@@ -4,10 +4,13 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
+
 import controller.AdminController;
 import model.Admin;
+import model.Client;
 import model.Facture;
 import model.Location;
+import model.Personne;
 import model.Voiture;
 
 

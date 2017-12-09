@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Observable;
 import java.util.Observer;
@@ -47,7 +48,8 @@ public class PersonneMVC2 implements Observer{
 	
 	private class ReadInput implements Runnable{
 		public void run() {
-			while(true){
+			boolean connecte = false;
+			while(!connecte){
 				try{
 					printHelp();
 					String c = sc.next();
@@ -59,39 +61,34 @@ public class PersonneMVC2 implements Observer{
 						affiche("Entrez votre mot de passe");
 						String tempMdp=sc.next();
 						Personne model = connect(tempLogin,tempMdp);
-						if (((Admin)model).getPrivilege() == 0) {
+						if (model.getPrivilege()==0) {  // instanceof v�rifie si model est bien une instance de admin (evite les erreurs de cast)
 							//Création des contrôleurs : Un pour chaque vue
-							//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
-							
 							//PersonneController ctrlGUI = new PersonneController(model);
 							AdminController ctrlConsole = new AdminController((Admin)model);
 							
 							//Création des vues.
-							//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
-							
 							//PersonneVue vueGUI = new PersonneVueGUI(model, ctrlGUI, 200, 200);
 							AdminVue vueConsole = new AdminVueConsole((Admin)model, ctrlConsole);
 							
 							//On donne la référence à la vue pour chaque contrôleur
 							ctrlConsole.addView(vueConsole);
+							connecte = true;
 						}
-						else if (((Technicien)model).getPrivilege() == 1) {
+						else if (model.getPrivilege() == 1) { // instanceof v�rifie si model est bien une instance de technicien (evite les erreurs de cast)
+							affiche("TEST 1");
 							//Création des contrôleurs : Un pour chaque vue
-							//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
-							
 							//PersonneController ctrlGUI = new PersonneController(model);
 							TechnicienController ctrlConsole = new TechnicienController((Technicien)model);
 							
 							//Création des vues.
-							//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
-							
 							//PersonneVue vueGUI = new PersonneVueGUI(model, ctrlGUI, 200, 200);
 							TechnicienVue vueConsole = new TechnicienVueConsole((Technicien)model, ctrlConsole);
 							
 							//On donne la référence à la vue pour chaque contrôleur
 							ctrlConsole.addView(vueConsole);
+							connecte = true;
 						}
-						else if (((Client)model).getPrivilege() == 2) {
+						else if (model.getPrivilege() == 2) {
 							//Création des contrôleurs : Un pour chaque vue
 							//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
 							
@@ -106,11 +103,35 @@ public class PersonneMVC2 implements Observer{
 							
 							//On donne la référence à la vue pour chaque contrôleur
 							ctrlConsole.addView(vueConsole);
+							connecte = true;
+						}
+						else {
+							affiche ("Votre nom d'utilisateur et/ou votre mot de passe est incorrect, si vous etes surs de vous, contactez un admin.");
 						}
 							break;
 						case"non" :
-							
-							
+							affiche("Vous allez maintenant cr�er un compte.");
+							affiche("Choisissez votre pseudo :");
+							String pseudo = sc.next();
+							while ((pseudo.length() < 0) || (pseudo.length() > 45)) {
+								affiche("Format de pseudo incorrect (doit etre > 0 et < 45 en un seul mot), r�-entrez");
+								pseudo = sc.next();
+							}
+							affiche("Choisissez votre mot de passe :");
+							String motDePasse = sc.next();
+							String dateInscription = LocalDate.now().toString();
+							affiche("Entrez votre date de naissance, selon le format JJ-MM-AAAA :");
+							String dateNaissance = sc.next();
+							affiche("Entrez votre nom :");
+							String nom = sc.next();
+							affiche("Entrez votre pr�nom :");
+							String prenom = sc.next();
+							affiche("Entrez votre adresse :");
+							String adresse = sc.next();
+							affiche("Entrez votre adresse mail :");
+							String adresseMail = sc.next();
+							Client nouveauClient = new Client(pseudo, motDePasse, nom, prenom, dateInscription, dateNaissance, adresse, adresseMail);
+							break;
 						default : 
 							affiche("Opération incorrecte");
 							printHelp();
@@ -143,33 +164,29 @@ public class PersonneMVC2 implements Observer{
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'");
-            rs.next();
+            if(!rs.next()) {
+            	return null;
+            }
             System.out.println("personneID" + rs.getString("personneID") + "pseudo" + rs.getString("pseudo") + "mdp" + rs.getString("motDePasse"));
             if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
             	if(Integer.parseInt(rs.getString("privilege"))==0) {
-            		Admin admin = new Admin(pseudo, motDePasse);
-            		affiche("connect�");
+            		Admin admin = new Admin(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"));
             		return admin;
             	}
             	else if(Integer.parseInt(rs.getString("privilege"))==1) {
-            		
-            		Technicien technicien = new Technicien(pseudo, motDePasse );
-            		affiche("connect�");
+            		Technicien technicien = new Technicien(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"));
             		return technicien;
             	}
             	
             	else if(Integer.parseInt(rs.getString("privilege"))==2) {
-            		Client client = new Client(pseudo, motDePasse);
-            		affiche("connect�");
+            		Client client = new Client(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"));
             		return client;
             	}
             	else {
-            		affiche("Il y a un brobl�me votre compte");
             		return null;
             	}
             }
             else {
-            	affiche("login ou/et mot de passe incorrect");
             	return null;
             	
             }
