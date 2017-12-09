@@ -59,16 +59,6 @@ public class Location {
 		this.accompte = accompte;
 		this.accomptePaye = accomptePaye;
 	}
-	public Location(int locationID, int clientID, int assurID, int voitureID, int accompte, boolean accomptePaye, long kmInitial) {
-		this.locationID = locationID;
-		this.clientID = clientID;
-		this.assurID = assurID;
-		this.voitureID = voitureID;
-		this.accompte = accompte;
-		this.accomptePaye = accomptePaye;
-		this.kmInitial = kmInitial;
-	}
-	
 	@Override
 	public String toString() {
 		return "locationID=" + locationID + ", clientID=" + clientID + ", assurID=" + assurID + ", voitureID="

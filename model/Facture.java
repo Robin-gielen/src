@@ -15,7 +15,6 @@ public class Facture {
 	private int locationID;
 	private int techID;
 	private boolean estPaye;
-	private String note; 
 	
 	/**
 	 * @return l'ID d'une facture 
@@ -91,13 +90,12 @@ public class Facture {
 	 * @param techID l'ID du technicien qui créé la facture
 	 * @param estPaye, true si le client a payé sa location, false sinon
 	 */
-	public Facture(int factID, int locationID, int techID, boolean estPaye, String note) {
+	public Facture(int factID, int locationID, int techID, boolean estPaye) {
 		this.factID = factID;
 		this.montant = this.CalculMontant();
 		this.locationID = locationID;
 		this.techID = techID;
 		this.estPaye = estPaye;
-		this.note = note;
 	}
 	
 	/**
@@ -106,7 +104,7 @@ public class Facture {
 	@Override
 	public String toString() {
 		return "factID=" + factID + ", montant=" + montant + ", locationID=" + locationID + ", techID="
-				+ techID + ", estPaye=" + estPaye + ", note=" + note;
+				+ techID + ", estPaye=" + estPaye;
 	}
 	
 	/**

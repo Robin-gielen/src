@@ -65,7 +65,7 @@ public class Voiture {
 		this.agenceID = agenceID;
 	}
 
-	
+
 	public int getVoitID() {
 		return voitID;
 	}
