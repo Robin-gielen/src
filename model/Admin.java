@@ -318,7 +318,7 @@ public class Admin extends Personne {
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
-            rs = stmt.executeUpdate("DELETE FROM personne WHERE personneID =" + clientID);
+            rs = stmt.executeUpdate("DELETE FROM personne WHERE personneID =" + clientID + " AND NOT privilege = 0");
             if (rs == 1) {
             	return 1;
             }
@@ -454,13 +454,13 @@ public class Admin extends Personne {
 	
 	public static void main(String[] args) {
 		Admin admin = new Admin("moi", "moi", "moi", "moi");
-		/*Voiture listVoit[] = admin.getListVoit();
+		Voiture listVoit[] = admin.getListVoit();
 		for (Voiture voiture : listVoit) {
 			System.out.println(voiture);
-		}*/
-		Voiture listVoit[] = admin.getListVoitLouees();
+		}
+		Voiture listVoit2[] = admin.getListVoitLouees();
 		if(listVoit!=null) {
-			for (Voiture voiture : listVoit) {
+			for (Voiture voiture : listVoit2) {
 				System.out.println(voiture);
 			}
 		}

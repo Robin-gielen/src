@@ -32,21 +32,25 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 	
 
 	private void printHelp(){
-		affiche("Pour afficher les donn√©es d'une voiture gr√¢ce √† son ID : A");
+		affiche("Pour afficher les donnÈes d'une voiture gr‚ce ‡† son ID : A");
 		
 		affiche("Pour enregistrer le nouveau kilometrage d'une voiture : B");
 		
-		affiche("Pour cr√©er une nouvelle facture : C");
+		affiche("Pour crÈer une nouvelle facture : C");
 		
-		affiche("Pour afficher les donn√©es d'une facture : D");
+		affiche("Pour afficher les donnÈes d'une facture : D");
 		affiche("Pour afficher les factures d'un client : E");
 		
-		affiche("Pour afficher les donn√©es d'une location : F");
+		affiche("Pour afficher les donnÈes d'une location : F");
 		affiche("Pour afficher les locations d'un client : G");
 		
 		affiche("Pour changer le statut de l'accompte d'une location : H");
 		
 		affiche("Pour changer la note d'une facture : I");
+		
+		//affiche mes infos
+		
+		//affiche les infos d'un client
 	}
 	
 	private class ReadInput implements Runnable{

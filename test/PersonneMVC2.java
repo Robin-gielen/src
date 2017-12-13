@@ -23,6 +23,7 @@ import model.Personne;
 import model.Technicien;
 import vue.AdminVue;
 import vue.AdminVueConsole;
+import vue.AdminVueGui;
 import vue.ClientVue;
 import vue.ClientVueConsole;
 import vue.TechnicienVue;
@@ -70,7 +71,7 @@ public class PersonneMVC2 implements Observer{
 							//Création des vues.
 							//PersonneVue vueGUI = new PersonneVueGUI(model, ctrlGUI, 200, 200);
 							AdminVue vueConsole = new AdminVueConsole((Admin)model, ctrlConsole);
-							AdminVue vueGui = new AdminVueGui((Admin)model, ctrlGui);
+							AdminVue vueGui = new AdminVueGui((Admin)model, ctrlGui, 200, 200);
 							
 							//On donne la référence à la vue pour chaque contrôleur
 							ctrlConsole.addView(vueConsole);
@@ -134,6 +135,7 @@ public class PersonneMVC2 implements Observer{
 							affiche("Entrez votre adresse mail :");
 							String adresseMail = sc.next();
 							Client nouveauClient = new Client(pseudo, motDePasse, nom, prenom, dateInscription, dateNaissance, adresse, adresseMail);
+							System.out.println(nouveauClient);
 							break;
 						default : 
 							affiche("Opération incorrecte");

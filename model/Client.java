@@ -44,7 +44,6 @@ public class Client extends Personne {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             String temp = "INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, dateInscription, dateNaissance, adresse, adresseMail) VALUES ('" + pseudo1 + "', '" + motDePasse + "', '" + nom + "', '" + prenom + "', 2, '" + dateInscription + "', '" + dateNaissance + "', '" + adresse + "', '" + adresseMail + "')";
-            System.out.println(temp);
             rs = stmt.executeUpdate(temp);
             if (rs!=1) {
             	System.out.println("Erreur lors de l'insertion dans la BDD");

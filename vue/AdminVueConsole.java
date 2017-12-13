@@ -4,13 +4,10 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-
 import controller.AdminController;
 import model.Admin;
-import model.Client;
 import model.Facture;
 import model.Location;
-import model.Personne;
 import model.Voiture;
 
 
@@ -35,7 +32,10 @@ public class AdminVueConsole extends AdminVue implements Observer {
 	
 
 	private void printHelp(){
-		affiche("Pour afficher les données d'un client grâce à son ID : A");
+		
+		//affiche tous le monde
+		affiche("Pour afficher les données d'une personne grâce à son ID : A");
+		//affiche mes infos
 		
 		affiche("Pour afficher les données d'une facture grace à son ID : B");
 		affiche("Pour afficher toutes les factures d'un client : C + ID du client");
@@ -43,10 +43,11 @@ public class AdminVueConsole extends AdminVue implements Observer {
 		affiche("pour afficher les données d'une location grace à son ID : D");
 		affiche("Pour afficher toutes les locations d'un client : E + ID du client");
 		
+		//affiche une voiture
 		affiche("Pour afficher la liste des voitures : F");
 		affiche("Pour afficher toutes les voitures louees : G");
 		
-		affiche("Pour afficher l'ID du client qui loue la voiture : H");
+		affiche("Pour afficher les infos du client qui loue la voiture : H");
 		
 		affiche("Pour modifier un client : I");
 		affiche("Pour supprimer un client de la BDD : J");
@@ -68,7 +69,7 @@ public class AdminVueConsole extends AdminVue implements Observer {
 						case "A" :
 							affiche("Entrez maintenant l'ID du client :");
 							int client1 = sc.nextInt();
-							affiche("Les infos du client numéro " + client1 + " sont :");
+							affiche("Les infos de la personne numéro " + client1 + " sont :");
 							System.out.println(model.getClient(client1));
 							printHelp();
 							break;

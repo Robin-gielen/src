@@ -31,13 +31,14 @@ public class ClientVueConsole extends ClientVue implements Observer {
 	}
 
 	private void printHelp(){
+		
 		affiche("Pour afficher la liste des voitures dispo : A");
-		affiche("Pour afficher la liste des voitures louées: B");
+		affiche("Pour afficher la liste de vos voitures louées: B");
 		affiche("Pour afficher l'ID de la location : C");
 		affiche("Pour afficher le tarif d'une voiture : D");
 		affiche("Pour afficher la liste des assurances : E");
 		affiche("Pour louer une voiture : F");
-		
+		//affiche mes infos
 		
 	}
 	

@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 
 import controller.AdminController;
 import model.Admin;
+import model.Client;
+import model.Facture;
+import model.Location;
+import model.Technicien;
 import model.Voiture;
 
 
@@ -77,7 +81,69 @@ public class AdminVueGui extends AdminVue implements ActionListener{
 		
 		
 	}
+	
+	
+	
+	
+	
+	public void afficheListVoiture(Voiture [] listVoit) {
+		Voiture [] voitures =  model.getListVoit();
+		Object [][] data = new Object[voitures.length][3];
 
+		for(int i=0; i<voitures.length; i++){
+			data[i][0] = i;
+			data[i][1] = voitures[i].getMarque();
+			data[i][2] = voitures[i].getModele();
+			data[i][0] = i;
+			data[i][0] = i;
+			data[i][0] = i;
+			data[i][0] = i;
+			data[i][0] = i;
+			data[i][0] = i;
+			data[i][0] = i;
+			data[i][0] = i;
+			
+		}
+		String[] head = {"Numero voiture", "Marque voiture", "Modele voiture"};
+		table = new JTable(data, head);
+	}
+	
+	public void afficheListClient(Client [] listClient) {
+		
+	}
+	
+	public void afficheListTechnicien(Technicien [] listTech) {
+		
+	}
+	
+	public void afficheListAdmin(Admin [] listAdmin) {
+	
+	}
+	
+	public void afficheListFacture(Facture [] listFacture) {
+		
+	}
+	
+	public void afficheListLocation(Location [] listLocation) {
+		
+	}
+	
+	public void alterClient() {
+		
+	}
+	
+	public void rmClient() {
+		
+	}
+	
+	public void ajouterVoiture() {
+		
+	}
+	
+	public void rmVoiture() {
+		
+	}
+	
 	public void affiche(String msg){
 		message.setText(msg);
 	}
