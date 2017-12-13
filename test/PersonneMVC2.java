@@ -65,13 +65,16 @@ public class PersonneMVC2 implements Observer{
 							//Création des contrôleurs : Un pour chaque vue
 							//PersonneController ctrlGUI = new PersonneController(model);
 							AdminController ctrlConsole = new AdminController((Admin)model);
+							AdminController ctrlGui = new AdminController((Admin)model);
 							
 							//Création des vues.
 							//PersonneVue vueGUI = new PersonneVueGUI(model, ctrlGUI, 200, 200);
 							AdminVue vueConsole = new AdminVueConsole((Admin)model, ctrlConsole);
+							AdminVue vueGui = new AdminVueGui((Admin)model, ctrlGui);
 							
 							//On donne la référence à la vue pour chaque contrôleur
 							ctrlConsole.addView(vueConsole);
+							ctrlGui.addView(vueGui);
 							connecte = true;
 						}
 						else if (model.getPrivilege() == 1) { // instanceof v�rifie si model est bien une instance de technicien (evite les erreurs de cast)
