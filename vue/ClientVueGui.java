@@ -580,6 +580,7 @@ public class ClientVueGui extends JFrame {
 	    
 	    mnTest.add(mntmNewMenuItem);
 	    this.setVisible(true);
+	    **/
 	}
 
 }
