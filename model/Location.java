@@ -45,6 +45,11 @@ public class Location {
 	public void setAccomptePaye(boolean accomptePaye) {
 		this.accomptePaye = accomptePaye;
 	}
+	public Location(int clientID, int assurID, int voitureID) {
+		this.clientID = clientID;
+		this.assurID = assurID;
+		this.voitureID = voitureID;
+	}
 	public Location(int clientID, int assurID, int voitureID, int accompte) {
 		this.clientID = clientID;
 		this.assurID = assurID;
