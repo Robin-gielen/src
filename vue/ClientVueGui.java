@@ -465,6 +465,121 @@ public class ClientVueGui extends JFrame {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 7;
 		locationJPanel.add(btnNewButton, gbc_btnNewButton);
+		
+		/**
+		Pour afficher la liste des voitures 
+		private JMenuBar menuBar = new JMenuBar();
+	  private JMenu test1 = new JMenu("style de la voiture");
+	  private final JMenu mnTest = new JMenu("Test");
+	  private final JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+	  private final JMenu mnBerline = new JMenu("Berline");
+	  private final JMenu mnCamionette = new JMenu("Camionette");
+	  private final JMenu mnBmw = new JMenu("BMW");
+	  private final JMenu mnVw = new JMenu("VW");
+	  private final JMenu mnAudi = new JMenu("Audi");
+	  private final JMenu mnCitroen = new JMenu("Citroen");
+	  private final JMenu mnJaune = new JMenu("Jaune");
+	  private final JMenu mnJaune_1 = new JMenu("Jaune");
+	  private final JMenu mnJaune_2 = new JMenu("Jaune");
+	  private final JMenu mnCitroen_1 = new JMenu("Citroen");
+	  private final JMenu mnJaune_3 = new JMenu("Jaune");
+	  private final JMenu mnNoir = new JMenu("Noir");
+	  private final JMenu mnBleu = new JMenu("Bleu");
+	  private final JMenu mnRouge = new JMenu("Rouge");
+	  private final JMenu mnVert = new JMenu("Vert");
+	  private final JMenu mnAutomatique = new JMenu("Automatique");
+	  private final JMenu mnAutomatique_1 = new JMenu("Automatique");
+	  private final JMenu mnManuelle = new JMenu("Manuelle");
+	  private final JMenu mnAutomatique_2 = new JMenu("Automatique");
+	  private final JMenu mnManuelle_1 = new JMenu("Manuelle");
+	  private final JMenu mnAutomatique_3 = new JMenu("Automatique");
+	  private final JMenu mnManuelle_2 = new JMenu("Manuelle");
+	  private final JMenu mnAutomatique_4 = new JMenu("Automatique");
+	  private final JMenu mnManuelle_3 = new JMenu("Manuelle");
+	  private final JMenu mnManuelle_4 = new JMenu("Manuelle");
+	  private final JMenu mnAutomatique_5 = new JMenu("Automatique");
+	  private final JMenu mnManuelle_5 = new JMenu("Manuelle");
+
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ListeVoituresWindowBuilder frame = new ListeVoituresWindowBuilder();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public ListeVoituresWindowBuilder() {
+		this.setSize(400, 200);
+	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.setLocationRelativeTo(null);
+	    //On met nos radios dans un ButtonGroup
+	    ButtonGroup bg = new ButtonGroup();
+
+	    this.menuBar.add(test1);
+	    
+	    test1.add(mnBerline);
+	    
+	    mnBerline.add(mnBmw);
+	    
+	    mnBmw.add(mnJaune);
+	    
+	    mnJaune.add(mnAutomatique_1);
+	    
+	    mnJaune.add(mnManuelle);
+	    
+	    mnBmw.add(mnNoir);
+	    
+	    mnNoir.add(mnAutomatique_2);
+	    
+	    mnNoir.add(mnManuelle_1);
+	    
+	    mnBmw.add(mnBleu);
+	    
+	    mnBleu.add(mnAutomatique_3);
+	    
+	    mnBleu.add(mnManuelle_2);
+	    
+	    mnBmw.add(mnRouge);
+	    
+	    mnRouge.add(mnAutomatique_4);
+	    
+	    mnRouge.add(mnManuelle_4);
+	    
+	    mnBmw.add(mnVert);
+	    
+	    mnVert.add(mnAutomatique_5);
+	    
+	    mnVert.add(mnManuelle_5);
+	    
+	    mnBerline.add(mnVw);
+	    
+	    mnVw.add(mnJaune_1);
+	    
+	    mnJaune_1.add(mnAutomatique);
+	    mnAutomatique.add(mnManuelle_3);
+	    mnAutomatique.add(mnJaune_2);
+	    
+	    mnBerline.add(mnAudi);
+	    
+	    mnBerline.add(mnCitroen);
+	    
+	    mnCitroen.add(mnJaune_3);
+	    
+	    test1.add(mnCamionette);
+	    
+	    mnCamionette.add(mnCitroen_1);
+	    this.setJMenuBar(menuBar);
+	    
+	    menuBar.add(mnTest);
+	    
+	    mnTest.add(mntmNewMenuItem);
+	    this.setVisible(true);
 	}
 
 }
