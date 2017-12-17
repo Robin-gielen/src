@@ -40,6 +40,13 @@ public class ClientVueGui extends JFrame {
 	private JTextField textFieldMailT;
 	private JTextField textFieldNomT;
 	private JTextField textFieldPrenomT;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
 
 	
 
@@ -466,121 +473,144 @@ public class ClientVueGui extends JFrame {
 		gbc_btnNewButton.gridy = 7;
 		locationJPanel.add(btnNewButton, gbc_btnNewButton);
 		
-		/**
-		Pour afficher la liste des voitures 
-		private JMenuBar menuBar = new JMenuBar();
-	  private JMenu test1 = new JMenu("style de la voiture");
-	  private final JMenu mnTest = new JMenu("Test");
-	  private final JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-	  private final JMenu mnBerline = new JMenu("Berline");
-	  private final JMenu mnCamionette = new JMenu("Camionette");
-	  private final JMenu mnBmw = new JMenu("BMW");
-	  private final JMenu mnVw = new JMenu("VW");
-	  private final JMenu mnAudi = new JMenu("Audi");
-	  private final JMenu mnCitroen = new JMenu("Citroen");
-	  private final JMenu mnJaune = new JMenu("Jaune");
-	  private final JMenu mnJaune_1 = new JMenu("Jaune");
-	  private final JMenu mnJaune_2 = new JMenu("Jaune");
-	  private final JMenu mnCitroen_1 = new JMenu("Citroen");
-	  private final JMenu mnJaune_3 = new JMenu("Jaune");
-	  private final JMenu mnNoir = new JMenu("Noir");
-	  private final JMenu mnBleu = new JMenu("Bleu");
-	  private final JMenu mnRouge = new JMenu("Rouge");
-	  private final JMenu mnVert = new JMenu("Vert");
-	  private final JMenu mnAutomatique = new JMenu("Automatique");
-	  private final JMenu mnAutomatique_1 = new JMenu("Automatique");
-	  private final JMenu mnManuelle = new JMenu("Manuelle");
-	  private final JMenu mnAutomatique_2 = new JMenu("Automatique");
-	  private final JMenu mnManuelle_1 = new JMenu("Manuelle");
-	  private final JMenu mnAutomatique_3 = new JMenu("Automatique");
-	  private final JMenu mnManuelle_2 = new JMenu("Manuelle");
-	  private final JMenu mnAutomatique_4 = new JMenu("Automatique");
-	  private final JMenu mnManuelle_3 = new JMenu("Manuelle");
-	  private final JMenu mnManuelle_4 = new JMenu("Manuelle");
-	  private final JMenu mnAutomatique_5 = new JMenu("Automatique");
-	  private final JMenu mnManuelle_5 = new JMenu("Manuelle");
-
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListeVoituresWindowBuilder frame = new ListeVoituresWindowBuilder();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public ListeVoituresWindowBuilder() {
-		this.setSize(400, 200);
-	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    this.setLocationRelativeTo(null);
-	    //On met nos radios dans un ButtonGroup
-	    ButtonGroup bg = new ButtonGroup();
-
-	    this.menuBar.add(test1);
-	    
-	    test1.add(mnBerline);
-	    
-	    mnBerline.add(mnBmw);
-	    
-	    mnBmw.add(mnJaune);
-	    
-	    mnJaune.add(mnAutomatique_1);
-	    
-	    mnJaune.add(mnManuelle);
-	    
-	    mnBmw.add(mnNoir);
-	    
-	    mnNoir.add(mnAutomatique_2);
-	    
-	    mnNoir.add(mnManuelle_1);
-	    
-	    mnBmw.add(mnBleu);
-	    
-	    mnBleu.add(mnAutomatique_3);
-	    
-	    mnBleu.add(mnManuelle_2);
-	    
-	    mnBmw.add(mnRouge);
-	    
-	    mnRouge.add(mnAutomatique_4);
-	    
-	    mnRouge.add(mnManuelle_4);
-	    
-	    mnBmw.add(mnVert);
-	    
-	    mnVert.add(mnAutomatique_5);
-	    
-	    mnVert.add(mnManuelle_5);
-	    
-	    mnBerline.add(mnVw);
-	    
-	    mnVw.add(mnJaune_1);
-	    
-	    mnJaune_1.add(mnAutomatique);
-	    mnAutomatique.add(mnManuelle_3);
-	    mnAutomatique.add(mnJaune_2);
-	    
-	    mnBerline.add(mnAudi);
-	    
-	    mnBerline.add(mnCitroen);
-	    
-	    mnCitroen.add(mnJaune_3);
-	    
-	    test1.add(mnCamionette);
-	    
-	    mnCamionette.add(mnCitroen_1);
-	    this.setJMenuBar(menuBar);
-	    
-	    menuBar.add(mnTest);
-	    
-	    mnTest.add(mntmNewMenuItem);
-	    this.setVisible(true);
-	    **/
+		//liste voiture
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 587, 370);
+		listeVoitureJPanel = new JPanel();
+		listeVoitureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		listeVoitureJPanel.setLayout(gbl_contentPane);
+		
+		JLabel lblVeuillezIndiquerVos = new JLabel("Veuillez indiquer vos options");
+		GridBagConstraints gbc_lblVeuillezIndiquerVos = new GridBagConstraints();
+		gbc_lblVeuillezIndiquerVos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVeuillezIndiquerVos.gridx = 0;
+		gbc_lblVeuillezIndiquerVos.gridy = 0;
+		listeVoitureJPanel.add(lblVeuillezIndiquerVos, gbc_lblVeuillezIndiquerVos);
+		
+		JLabel lblIndiquezLaMarque = new JLabel("Indiquez la marque ");
+		GridBagConstraints gbc_lblIndiquezLaMarque = new GridBagConstraints();
+		gbc_lblIndiquezLaMarque.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIndiquezLaMarque.gridx = 0;
+		gbc_lblIndiquezLaMarque.gridy = 2;
+		listeVoitureJPanel.add(lblIndiquezLaMarque, gbc_lblIndiquezLaMarque);
+		
+		textField = new JTextField("BMW, VW, Audi, Skoda, Citroen");
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 2;
+		listeVoitureJPanel.add(textField, gbc_textField);
+		textField.setColumns(10);
+		
+		JLabel lblIndiquezLaCouleur = new JLabel("Indiquez la couleur");
+		GridBagConstraints gbc_lblIndiquezLaCouleur = new GridBagConstraints();
+		gbc_lblIndiquezLaCouleur.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIndiquezLaCouleur.gridx = 0;
+		gbc_lblIndiquezLaCouleur.gridy = 3;
+		listeVoitureJPanel.add(lblIndiquezLaCouleur, gbc_lblIndiquezLaCouleur);
+		
+		textField_1 = new JTextField("Noir, Brun, Jaune, Orange");
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 2;
+		gbc_textField_1.gridy = 3;
+		listeVoitureJPanel.add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblIndiquezLeKilometrage = new JLabel("Indiquez le kilometrage");
+		GridBagConstraints gbc_lblIndiquezLeKilometrage = new GridBagConstraints();
+		gbc_lblIndiquezLeKilometrage.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIndiquezLeKilometrage.gridx = 0;
+		gbc_lblIndiquezLeKilometrage.gridy = 4;
+		listeVoitureJPanel.add(lblIndiquezLeKilometrage, gbc_lblIndiquezLeKilometrage);
+		
+		textField_2 = new JTextField();
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 2;
+		gbc_textField_2.gridy = 4;
+		listeVoitureJPanel.add(textField_2, gbc_textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblAutomatiquemanuel = new JLabel("Boite de transmission");
+		GridBagConstraints gbc_lblAutomatiquemanuel = new GridBagConstraints();
+		gbc_lblAutomatiquemanuel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAutomatiquemanuel.gridx = 0;
+		gbc_lblAutomatiquemanuel.gridy = 5;
+		listeVoitureJPanel.add(lblAutomatiquemanuel, gbc_lblAutomatiquemanuel);
+		
+		textField_3 = new JTextField("Automatique ou manuel");
+		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_3.gridx = 2;
+		gbc_textField_3.gridy = 5;
+		listeVoitureJPanel.add(textField_3, gbc_textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel lblTypeberlineBreakEtc = new JLabel("Type de voiture");
+		GridBagConstraints gbc_lblTypeberlineBreakEtc = new GridBagConstraints();
+		gbc_lblTypeberlineBreakEtc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTypeberlineBreakEtc.gridx = 0;
+		gbc_lblTypeberlineBreakEtc.gridy = 6;
+		listeVoitureJPanel.add(lblTypeberlineBreakEtc, gbc_lblTypeberlineBreakEtc);
+		
+		textField_4 = new JTextField("Berline, Break, citadine, camionette");
+		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
+		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_4.gridx = 2;
+		gbc_textField_4.gridy = 6;
+		listeVoitureJPanel.add(textField_4, gbc_textField_4);
+		textField_4.setColumns(10);
+		
+		JLabel lblNbrDeRoues = new JLabel("Nbr de roues motrices");
+		GridBagConstraints gbc_lblNbrDeRoues = new GridBagConstraints();
+		gbc_lblNbrDeRoues.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNbrDeRoues.gridx = 0;
+		gbc_lblNbrDeRoues.gridy = 7;
+		listeVoitureJPanel.add(lblNbrDeRoues, gbc_lblNbrDeRoues);
+		
+		textField_5 = new JTextField("2 ou 4");
+		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
+		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_5.gridx = 2;
+		gbc_textField_5.gridy = 7;
+		listeVoitureJPanel.add(textField_5, gbc_textField_5);
+		textField_5.setColumns(10);
+		
+		JLabel lblPrix = new JLabel("Prix");
+		GridBagConstraints gbc_lblPrix = new GridBagConstraints();
+		gbc_lblPrix.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrix.gridx = 0;
+		gbc_lblPrix.gridy = 8;
+		listeVoitureJPanel.add(lblPrix, gbc_lblPrix);
+		
+		textField_6 = new JTextField();
+		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
+		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_6.gridx = 2;
+		gbc_textField_6.gridy = 8;
+		listeVoitureJPanel.add(textField_6, gbc_textField_6);
+		textField_6.setColumns(10);
+		
+		JButton btnValider = new JButton("Valider");
+		GridBagConstraints gbc_btnValider = new GridBagConstraints();
+		gbc_btnValider.anchor = GridBagConstraints.EAST;
+		gbc_btnValider.gridx = 2;
+		gbc_btnValider.gridy = 11;
+		listeVoitureJPanel.add(btnValider, gbc_btnValider);
 	}
 
 }
