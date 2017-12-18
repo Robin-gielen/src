@@ -134,7 +134,7 @@ public class PersonneMVC2 implements Observer{
 							String adresse = sc.next();
 							affiche("Entrez votre adresse mail :");
 							String adresseMail = sc.next();
-							Client nouveauClient = new Client(pseudo, motDePasse, nom, prenom, dateInscription, dateNaissance, adresse, adresseMail);
+							Client nouveauClient = new Client(pseudo, motDePasse, nom, prenom, dateInscription, dateNaissance, adresse, adresseMail, true, 0);
 							System.out.println(nouveauClient);
 							break;
 						default : 
@@ -175,16 +175,16 @@ public class PersonneMVC2 implements Observer{
             System.out.println("personneID" + rs.getString("personneID") + "pseudo" + rs.getString("pseudo") + "mdp" + rs.getString("motDePasse"));
             if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
             	if(Integer.parseInt(rs.getString("privilege"))==0) {
-            		Admin admin = new Admin(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"));
+            		Admin admin = new Admin(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
             		return admin;
             	}
             	else if(Integer.parseInt(rs.getString("privilege"))==1) {
-            		Technicien technicien = new Technicien(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"));
+            		Technicien technicien = new Technicien(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
             		return technicien;
             	}
             	
             	else if(Integer.parseInt(rs.getString("privilege"))==2) {
-            		Client client = new Client(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"));
+            		Client client = new Client(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"), false, Integer.parseInt(rs.getString("personneID")));
             		return client;
             	}
             	else {

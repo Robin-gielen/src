@@ -15,6 +15,20 @@ import java.sql.Statement;
  */
 public class Technicien extends Personne{
 	private int techID;
+	
+	/**
+	 * @return the techID
+	 */
+	public int getTechID() {
+		return techID;
+	}
+	/**
+	 * @param techID the techID to set
+	 */
+	public void setTechID(int techID) {
+		this.techID = techID;
+	}
+	
 	/**
 	 * Ce constructeur permet de crÃ©er un technicien sans spÃ©cifier son techID qui sera crÃ©er dans la DB et son privilÃ¨ge sera par dÃ©faut Ã  1 (=technicien)
 	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
@@ -34,8 +48,8 @@ public class Technicien extends Personne{
 	 * @param privilege cela reprÃ©sente les privilÃ¨ges qu'il aura (0=Admin, 1=Technicien, 2= Client)
 	 * @param techID c'est l'identifiant du technicien
 	 */
-	public Technicien(String pseudo, String motDePasse, String nom, String prenom, int privilege, int techID) {
-		super(pseudo, motDePasse, nom, prenom, privilege);
+	public Technicien(String pseudo, String motDePasse, String nom, String prenom, int techID) {
+		super(pseudo, motDePasse, nom, prenom, 1);
 		this.techID = techID;
 	}
 	
@@ -63,7 +77,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];
@@ -101,7 +115,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             if(rs.next()) {
@@ -143,7 +157,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
         	result = stmt.executeUpdate("update facture set note='"+note+"' where factID='"+factID+"'");
             if (result > 0) {
@@ -177,7 +191,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             if(estPaye== true) {
                 	result = stmt.executeUpdate("update location set accomptePaye='"+1+"' where locationID='"+locationID+"'");
@@ -227,7 +241,7 @@ public class Technicien extends Personne{
         ResultSet rs = null;
         int tempMontant = 0;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT voiture.prix+assurance.prix as montant FROM voiture JOIN location ON voiture.voitID=location.voitureID JOIN assurance ON location.assurID=assurance.assurID where location.locationID="+locationID);
             if (rs.next()) {
@@ -275,7 +289,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE locationID =" + locationID);
             if(rs.next()) {
@@ -316,7 +330,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
             if(rs.next()) {
@@ -353,7 +367,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM facture WHERE factID="+factID);
             if(rs.next()) {
@@ -393,7 +407,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
             if(rs.next()) {
@@ -472,6 +486,53 @@ public class Technicien extends Personne{
         return null;
     }
 
+	/**
+	 * Cette m�thode retourne toutes les infos qui concernent l'admin courant
+	 * @param 
+	 * @return
+	 */
+	public Technicien getMesInfos() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            String temp = "SELECT * FROM personne WHERE personneID = " + this.getTechID() + "";
+            rs = stmt.executeQuery(temp);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToTechnicien(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
 	public static void main(String[] args) {
 		Technicien dewulf = new Technicien("moi", "moi", "moi", "moi");
 		System.out.println(dewulf.getVoiture(23));
@@ -491,14 +552,19 @@ public class Technicien extends Personne{
 			tempLoc = new Location[count];
 			int countTwo = 0;
 			boolean tempAccomptePaye;
+			boolean tempEstEnCours;
 			while(rs.previous());
 			while(rs.next()) {
 				if(Integer.parseInt(rs.getString("accomptePaye"))==1) {
 					tempAccomptePaye = true; 
 				}
 				else tempAccomptePaye = false;
+				if(Integer.parseInt(rs.getString("estEnCours"))==1) {
+					tempEstEnCours = true; 
+				}
+				else tempEstEnCours = false;
 				tempLoc[countTwo] = new Location(Integer.parseInt(rs.getString("locationId")), Integer.parseInt(rs.getString("personneID")), Integer.parseInt(rs.getString("assurID")), Integer.parseInt(rs.getString("voitureID")), 
-						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")));
+						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")), tempEstEnCours);
 				countTwo++;
 			}
 			return tempLoc;
@@ -507,7 +573,8 @@ public class Technicien extends Personne{
         	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
-	}
+	} 
+	
 	
 	/**
 	 * 
@@ -543,5 +610,25 @@ public class Technicien extends Personne{
         return null;
 	}
 	
-	
+	private Technicien[] resultSetToTechnicien(ResultSet rs) {
+		Technicien tempTech[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempTech = new Technicien[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempTech[countTwo] = new Technicien(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
+				countTwo++;
+			}
+			return tempTech;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
 }

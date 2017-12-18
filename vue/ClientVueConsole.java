@@ -31,14 +31,19 @@ public class ClientVueConsole extends ClientVue implements Observer {
 	}
 
 	private void printHelp(){
-		
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
 		affiche("Pour afficher la liste des voitures dispo : A");
 		affiche("Pour afficher la liste de vos voitures louées: B");
 		affiche("Pour afficher l'ID de la location : C");
 		affiche("Pour afficher le tarif d'une voiture : D");
 		affiche("Pour afficher la liste des assurances : E");
 		affiche("Pour louer une voiture : F");
-		//affiche mes infos
+		affiche("Pour afficher toutes vos infos : G");
 		
 	}
 	
@@ -109,6 +114,10 @@ public class ClientVueConsole extends ClientVue implements Observer {
 							else if (tempResult == -2) {
 								System.out.println("Voiture déjà louee");
 							}
+							printHelp();
+							break;
+						case "G" :
+							System.out.println(model.getMesInfos());
 							printHelp();
 							break;
 						default : 

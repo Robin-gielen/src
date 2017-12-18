@@ -32,6 +32,11 @@ public class Admin extends Personne {
 	public Admin(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 0);
 	}
+	
+	public Admin(String pseudo, String motDePasse, String nom, String prenom, int adminID) {
+		super(pseudo, motDePasse, nom, prenom, 0);
+		this.adminID = adminID;
+	}
 
 	
 	public Admin(String pseudo, String motDePasse) {
@@ -139,6 +144,51 @@ public class Admin extends Personne {
     	}
 		return null;
 	}
+	
+	/**
+	 * @param voitID l'ID de la voiture dont on veut les infos
+	 * @return les infos liées a une seule voiture (voitID)
+	 */
+	public Voiture getVoitInfos(int voitID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM voiture WHERE voitID = " + voitID + "");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToVoitures(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+            
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
+		return null;
+	}
+	
 	/**
 	 * Cette methode permet a l'administrateur d'ajouter une voiture dans la base de donnees.
 	 * @param prix de la voiture
@@ -521,6 +571,229 @@ public class Admin extends Personne {
     	}
         return null;
 	}
+	
+	/**
+	 * Cette méthode retourne la liste complete de tous les clients
+	 * @return
+	 */
+	public Client[] getClients() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM personne WHERE privilege = 2");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToClients(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
+	/**
+	 * Cette méthode retourne la liste complete de tous les techniciens
+	 * @param techID
+	 * @return
+	 */
+	public Technicien[] getTechs() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM personne WHERE privilege = 1");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToTechnicien(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
+	/**
+	 * Cette méthode retourne la liste complete de tous les admins
+	 * @param 
+	 * @return
+	 */
+	public Admin[] getAdmins() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM personne WHERE privilege = 0");
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToAdmin(rs);
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
+	/**
+	 * Cette méthode retourne toutes les infos qui concernent l'admin courant
+	 * @param 
+	 * @return
+	 */
+	public Admin getMesInfos() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            String temp = "SELECT * FROM personne WHERE personneID = " + this.getAdminID() + "";
+            rs = stmt.executeQuery(temp);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToAdmin(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
+	/**
+	 * cette mÃƒÂ©thode sert Ãƒ  rÃƒÂ©cupÃƒÂ©rer une voiture pour afficher les attributs de celle-ci
+	 * @param voitID c'est l'identifiant de la voiture 
+	 * @return un objet de type voiture 
+	 */
+	public Voiture getVoiture(int voitID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+    	try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
+            return resultSetToVoitures(rs)[0];
+        } catch (Exception ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+    		        try {
+    		            rs.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        rs = null;
+    		    }
+
+    		    if (stmt != null) {
+    		        try {
+    		            stmt.close();
+    		        } catch (SQLException sqlEx) { } // ignore
+
+    		        stmt = null;
+    		    }
+    	}
+		return null;
+	}
+	
 	/**
 	 * Cette methode permet de retrouver l'ID d'un client en specifiant l'ID de la voiture qu'il loue ou qu'il a louÃ©
 	 * @param voitId
@@ -532,16 +805,16 @@ public class Admin extends Personne {
 	
 	public static void main(String[] args) {
 		Admin admin = new Admin("moi", "moi", "moi", "moi");
-		Voiture listVoit[] = admin.getListVoit();
+		/*Voiture listVoit[] = admin.getListVoit();
 		for (Voiture voiture : listVoit) {
 			System.out.println(voiture);
-		}
-		Voiture listVoit2[] = admin.getListVoitLouees();
+		}*/
+		/*Voiture listVoit2[] = admin.getListVoitLouees();
 		if(listVoit!=null) {
 			for (Voiture voiture : listVoit2) {
 				System.out.println(voiture);
 			}
-		}
+		}*/
 		// Les mÃ©thodes misent en commentaires fonctionnent
 		//System.out.println(admin.addVoiture(600.0, "opel", "corsa", 2015, "diesel", "rouge", "citadine", false, 4, 51213, 150.4, 194.5, 987.6, "Bonne voiture", 1));
 		//System.out.println(admin.rmVoiture(16));
@@ -552,6 +825,20 @@ public class Admin extends Personne {
 		//System.out.println(admin.alterClient(3, "michel", "goffin", "01-01-2000", "10-07-1998", "ruelle fay", "at@ephec.be"));
 		//System.out.println(admin.getLocation(2));
 		//System.out.println(admin.getLocationsClient(2));
+		//System.out.println(admin.getVoitInfos(25));
+		/*Client listClient[] = admin.getClients();
+		for (Client client : listClient) {
+			System.out.println(client);
+		}*/
+		/*Technicien[] listTechs = admin.getTechs();
+		for (Technicien tech : listTechs) {
+			System.out.println(tech);
+		}*/
+		/*Admin[] listAdmins = admin.getAdmins();
+		for (Admin admins : listAdmins) {
+			System.out.println(admins);
+		}*/
+		//System.out.println(admin.getMesInfos());
 	}
 	
 	
@@ -565,14 +852,19 @@ public class Admin extends Personne {
 			tempLoc = new Location[count];
 			int countTwo = 0;
 			boolean tempAccomptePaye;
+			boolean tempEstEnCours;
 			while(rs.previous());
 			while(rs.next()) {
 				if(Integer.parseInt(rs.getString("accomptePaye"))==1) {
 					tempAccomptePaye = true; 
 				}
 				else tempAccomptePaye = false;
+				if(Integer.parseInt(rs.getString("estEnCours"))==1) {
+					tempEstEnCours = true; 
+				}
+				else tempEstEnCours = false;
 				tempLoc[countTwo] = new Location(Integer.parseInt(rs.getString("locationId")), Integer.parseInt(rs.getString("personneID")), Integer.parseInt(rs.getString("assurID")), Integer.parseInt(rs.getString("voitureID")), 
-						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")));
+						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")), tempEstEnCours);
 				countTwo++;
 			}
 			return tempLoc;
@@ -628,7 +920,7 @@ public class Admin extends Personne {
 			int countTwo = 0;
 			while(rs.previous());
 			while(rs.next()) {
-				tempClient[countTwo] = new Client(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"));
+				tempClient[countTwo] = new Client(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"), false,  Integer.parseInt(rs.getString("personneID")));
 				countTwo++;
 			}
 			return tempClient;
@@ -639,6 +931,49 @@ public class Admin extends Personne {
         return null;
 	}
 	
+	private Technicien[] resultSetToTechnicien(ResultSet rs) {
+		Technicien tempTech[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempTech = new Technicien[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempTech[countTwo] = new Technicien(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
+				countTwo++;
+			}
+			return tempTech;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
+	
+	private Admin[] resultSetToAdmin(ResultSet rs) {
+		Admin tempAdmin[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempAdmin = new Admin[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempAdmin[countTwo] = new Admin(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
+				countTwo++;
+			}
+			return tempAdmin;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
 	
 	/**
 	 * 

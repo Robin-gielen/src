@@ -15,6 +15,7 @@ public class Location {
 	private int accompte;
 	private boolean accomptePaye;
 	private long kmInitial;
+	private boolean estEnCours;
 	/**
 	 * 
 	 * @return l'ID de la location
@@ -153,7 +154,7 @@ public class Location {
 	 * @param accomptePaye true si le client a payé son accompte, false sinon
 	 * @param kmInitial le kilimetrage initial de la voiture avant la location
 	 */
-	public Location(int locationID, int clientID, int assurID, int voitureID, int accompte, boolean accomptePaye, long kmInitial) {
+	public Location(int locationID, int clientID, int assurID, int voitureID, int accompte, boolean accomptePaye, long kmInitial, boolean estEnCours) {
 		this.locationID = locationID;
 		this.clientID = clientID;
 		this.assurID = assurID;
@@ -161,6 +162,7 @@ public class Location {
 		this.accompte = accompte;
 		this.accomptePaye = accomptePaye;
 		this.kmInitial = kmInitial;
+		this.estEnCours = estEnCours;
 	}
 	/**
 	 * Cette methode affiche en chaine de caracteres les informations concernant la location
@@ -168,6 +170,15 @@ public class Location {
 	@Override
 	public String toString() {
 		return "locationID=" + locationID + ", clientID=" + clientID + ", assurID=" + assurID + ", voitureID="
-				+ voitureID + ", accompte=" + accompte + ", accomptePaye=" + accomptePaye;
+				+ voitureID + ", accompte=" + accompte + ", accomptePaye=" + accomptePaye + ", estEnCours=" + estEnCours;
+	}
+	
+	
+	public boolean isEstEnCours() {
+		return estEnCours;
+	}
+	
+	public void setEstEnCours(boolean estEnCours) {
+		this.estEnCours = estEnCours;
 	}
 }

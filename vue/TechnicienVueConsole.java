@@ -32,6 +32,12 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 	
 
 	private void printHelp(){
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
 		affiche("Pour afficher les données d'une voiture grâce à  son ID : A");
 		
 		affiche("Pour enregistrer le nouveau kilometrage d'une voiture : B");
@@ -48,7 +54,7 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 		
 		affiche("Pour changer la note d'une facture : I");
 		
-		//affiche mes infos
+		affiche("Pour afficher toutes vos infos : J");
 		
 		//affiche les infos d'un client
 	}
@@ -183,8 +189,12 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 							else System.out.println("ProblÃ¨me lors de la mise Ã  jour");
 							printHelp();
 							break;
+						case "J" :
+							System.out.println(model.getMesInfos());
+							printHelp();
+							break;
 						default : 
-							affiche("OpÃƒÂ©ration incorrecte");
+							affiche("Operation incorrecte");
 							printHelp();
 					}
 				}

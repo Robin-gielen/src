@@ -6,8 +6,10 @@ import java.util.Scanner;
 
 import controller.AdminController;
 import model.Admin;
+import model.Client;
 import model.Facture;
 import model.Location;
+import model.Technicien;
 import model.Voiture;
 
 
@@ -32,28 +34,37 @@ public class AdminVueConsole extends AdminVue implements Observer {
 	
 
 	private void printHelp(){
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("");
+		affiche("Pour afficher les données de tous les clients : A");
+		affiche("Pour afficher les données de tous les techniciens : B");
+		affiche("Pour afficher les données de tous les admins : C");
 		
-		//affiche tous le monde
-		affiche("Pour afficher les données d'une personne grâce à son ID : A");
-		//affiche mes infos
+		affiche("Pour afficher les données d'une personne grâce à son ID : D");
+		affiche("Pour afficher toutes mes données : E");
 		
-		affiche("Pour afficher les données d'une facture grace à son ID : B");
-		affiche("Pour afficher toutes les factures d'un client : C + ID du client");
+		affiche("Pour afficher les données d'une facture grace à son ID : F");
+		affiche("Pour afficher toutes les factures d'un client : G");
 		
-		affiche("pour afficher les données d'une location grace à son ID : D");
-		affiche("Pour afficher toutes les locations d'un client : E + ID du client");
+		affiche("pour afficher les données d'une location grace à son ID : H");
+		affiche("Pour afficher toutes les locations d'un client : I");
 		
-		//affiche une voiture
-		affiche("Pour afficher la liste des voitures : F");
-		affiche("Pour afficher toutes les voitures louees : G");
 		
-		affiche("Pour afficher les infos du client qui loue la voiture : H");
+		affiche("Pour afficher la liste des voitures : J");
+		affiche("Pour afficher toutes les voitures louees : K");
 		
-		affiche("Pour modifier un client : I");
-		affiche("Pour supprimer un client de la BDD : J");
+		affiche("Pour afficher les infos du client qui loue la voiture : L");
 		
-		affiche("Pour ajouter une voiture à la BDD : K");
-		affiche("Pour supprimer une voiture de la BDD : L");
+		affiche("Pour modifier un client : M");
+		affiche("Pour supprimer un client de la BDD : N");
+		
+		affiche("Pour afficher les infos liées à une voiture : O");
+		affiche("Pour ajouter une voiture à la BDD : P");
+		affiche("Pour supprimer une voiture de la BDD : Q");
 	}
 	
 	private class ReadInput implements Runnable{
@@ -66,21 +77,49 @@ public class AdminVueConsole extends AdminVue implements Observer {
 						printHelp();
 					}
 					switch(c){
-						case "A" :
+						case "A" : 
+							affiche("Tous les clients inscrits dans la base de données sont les suivants : ");
+							Client [] tempClients = model.getClients();
+							for (Client client : tempClients) {
+								System.out.println(client);
+							}
+							printHelp();
+							break;
+						case "B" : 
+							affiche("Tous les techniciens inscrits dans la base de données sont les suivants : ");
+							Technicien [] tempTechs = model.getTechs();
+							for (Technicien technicien : tempTechs) {
+								System.out.println(technicien);
+							}
+							printHelp();
+							break;
+						case "C" : 
+							affiche("Tous les admins inscrits dans la base de données sont les suivants : ");
+							Admin [] tempAdmin = model.getAdmins();
+							for (Admin admin : tempAdmin) {
+								System.out.println(admin);
+							}
+							printHelp();
+							break;
+						case "D" :
 							affiche("Entrez maintenant l'ID du client :");
 							int client1 = sc.nextInt();
 							affiche("Les infos de la personne numéro " + client1 + " sont :");
 							System.out.println(model.getClient(client1));
 							printHelp();
 							break;
-						case "B" : 
+						case "E" : 
+							affiche("Les infos vous concernant sont les suivantes : ");
+							System.out.println(model.getMesInfos());
+							break;
+						case "F" : 
 							affiche("Entrez maintenant l'ID de la facture :");
 							int fact1 = sc.nextInt();
 							affiche("Les infos de la facture numéro " + fact1 + " sont :");
 							System.out.println(model.getFacture(fact1));
 							printHelp();
 							break;
-						case "C" :
+						case "G" :
 							affiche("Entrez maintenant l'ID du client :");
 							int clientFact1 = sc.nextInt();
 							affiche("Les factures du client numéro " + clientFact1 + " sont :");
@@ -92,14 +131,14 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							}
 							printHelp();
 							break;
-						case "D" :
+						case "H" :
 							affiche("Entrez maintenant l'ID de la location :");
 							int loc1 = sc.nextInt();
 							affiche("Les infos de la location numéro " + loc1 + " sont :");
 							System.out.println(model.getLocation(loc1));
 							printHelp();
 							break;
-						case "E" :
+						case "I" :
 							affiche("Entrez maintenant l'ID du client :");
 							int clientLoc1 = sc.nextInt();							
 							affiche("Les locations du client numéro " + clientLoc1 + " sont :");
@@ -111,26 +150,26 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							}
 							printHelp();
 							break;
-						case "F" :
+						case "J" :
 							Voiture [] tempVoiture = model.getListVoit();
 							for (Voiture voiture : tempVoiture) {
 								System.out.println(voiture);
 							}
 							printHelp();
 							break;
-						case "G" :
+						case "K" :
 							Voiture [] tempVoiture2 = model.getListVoitLouees();
 							for (Voiture voiture : tempVoiture2) {
 								System.out.println(voiture);
 							}
 							printHelp();
 							break;
-						case "H" :
+						case "L" :
 							int clientLoc2 = sc.nextInt();
 							System.out.println(model.getClientIDFromVoitID(clientLoc2));
 							printHelp();
 							break;
-						case "I" :
+						case "M" :
 							int tempClientID;
 							String tempNom;
 							String tempPrenom;
@@ -163,7 +202,7 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							}
 							printHelp();
 							break;
-						case "J" :
+						case "N" :
 							affiche("Entrez maintenant l'ID du client :");
 							int client2 = sc.nextInt();
 							int tempInt1 = model.rmClient(client2);
@@ -178,7 +217,13 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							}
 							printHelp();
 							break;
-						case "K" :
+						case "O" : 
+							affiche("Entrez maintenant l'ID de la voiture :");
+							int tempVoitID = sc.nextInt();
+							System.out.println(model.getVoiture(tempVoitID));
+							printHelp();
+							break;
+						case "P" :
 							double tempPrix;
 							String tempMarque;
 							String tempModele;
@@ -232,7 +277,7 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							model.addVoiture(tempPrix, tempMarque, tempModele, tempAnnee, tempCarburant, tempCouleur, tempType, tempEstManuelle, tempRoueMotrice, tempKilometrage, tempVolumeCoffre, tempHauteur, tempPoids, tempNote, tempAgenceId);
 							printHelp();
 							break;
-						case "L" :
+						case "Q" :
 							affiche("Entrez maintenant l'ID de la voiture :");
 							int voit1 = sc.nextInt();
 							int tempInt2 = model.rmVoiture(voit1);

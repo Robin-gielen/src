@@ -31,38 +31,40 @@ public class Client extends Personne {
 	 * @param adresseMail l'adresse mail du client
 	 */
 	public Client(String pseudo1, String motDePasse, String nom, String prenom,
-			String dateInscription, String dateNaissance, String adresse, String adresseMail) {
+			String dateInscription, String dateNaissance, String adresse, String adresseMail, boolean insertInto, int clientID) {
 		super(pseudo1, motDePasse, nom, prenom, 2);
 		this.dateInscription = dateInscription;
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.adresseMail = adresseMail;
+		this.clientID = clientID;
 		Connection conn = null;
         Statement stmt = null;
         int rs;
-    	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
-            stmt = conn.createStatement();
-            String temp = "INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, dateInscription, dateNaissance, adresse, adresseMail) VALUES ('" + pseudo1 + "', '" + motDePasse + "', '" + nom + "', '" + prenom + "', 2, '" + dateInscription + "', '" + dateNaissance + "', '" + adresse + "', '" + adresseMail + "')";
-            rs = stmt.executeUpdate(temp);
-            if (rs!=1) {
-            	System.out.println("Erreur lors de l'insertion dans la BDD");
+        if(insertInto) {
+        	try {
+                conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+                stmt = conn.createStatement();
+                String temp = "INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, dateInscription, dateNaissance, adresse, adresseMail) VALUES ('" + pseudo1 + "', '" + motDePasse + "', '" + nom + "', '" + prenom + "', 2, '" + dateInscription + "', '" + dateNaissance + "', '" + adresse + "', '" + adresseMail + "')";
+                rs = stmt.executeUpdate(temp);
+                if (rs!=1) {
+                	System.out.println("Erreur lors de l'insertion dans la BDD");
+                }
+                
+            } catch (SQLException ex) {
+                // handle the error
+            	System.out.println("SQLException: " + ex.getMessage());
             }
-            
-        } catch (SQLException ex) {
-            // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
-        }
-    	finally {
-    		    if (stmt != null) {
-    		        try {
-    		            stmt.close();
-    		        } catch (SQLException sqlEx) { } // ignore
+        	finally {
+        		    if (stmt != null) {
+        		        try {
+        		            stmt.close();
+        		        } catch (SQLException sqlEx) { } // ignore
 
-    		        stmt = null;
-    		    }
-    	}
-		
+        		        stmt = null;
+        		    }
+        	}
+        }
 	}
 	/**
 	 * Ce constructeur creer un client en ne specifiant pas sa date d'inscription, sa date de naissance, son adresse et son adresse mail.
@@ -437,6 +439,53 @@ public class Client extends Personne {
 		return 0;
 	}
 	
+	/**
+	 * Cette méthode retourne toutes les infos qui concernent l'admin courant
+	 * @param 
+	 * @return
+	 */
+	public Client getMesInfos() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            String temp = "SELECT * FROM personne WHERE personneID = " + this.getClientID() + "";
+            rs = stmt.executeQuery(temp);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToClients(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
 	public static void main(String[] args) {
 		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
 		dewulf.getLocationID(11);
@@ -511,4 +560,26 @@ public class Client extends Personne {
         }
         return null;
     }
+	
+	private Client[] resultSetToClients(ResultSet rs) {
+		Client tempClient[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempClient = new Client[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempClient[countTwo] = new Client(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"), false, Integer.parseInt(rs.getString("clientID")));
+				countTwo++;
+			}
+			return tempClient;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
 }
