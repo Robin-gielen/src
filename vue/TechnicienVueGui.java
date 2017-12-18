@@ -36,10 +36,6 @@ public class TechnicienVueGui extends JFrame {
 	private JTextField textFieldCheckKmActu;
 	private JTextField textFieldCheckNouvNote;
 	private JTextField textFieldFactNumFact;
-<<<<<<< HEAD
-	private JTextField textFieldClientNumFact;
-=======
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
 	private JTextField textFieldFactNumClient;
 	private JTextField textFieldLocaNumClient;
 	
@@ -299,11 +295,8 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textPaneListeFact.fill = GridBagConstraints.BOTH;
 		gbc_textPaneListeFact.gridx = 1;
 		gbc_textPaneListeFact.gridy = 8;
-<<<<<<< HEAD
-		infoJPanel.add(textPaneListeFact, gbc_textPaneListeFact);
-=======
 		infoJPanel.add(textPaneListeFact, gbc_textPaneListeFact);*/
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
+
 		infoJPanel.setVisible(true);
 		
 		//facture
@@ -395,17 +388,6 @@ public class TechnicienVueGui extends JFrame {
 		locationJPanel.add(lblNDeLocation1, gbc_lblNDeLocation1);
 		
 		textFieldLocaNumLoca = new JTextField();
-<<<<<<< HEAD
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 0, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		locationJPanel.add(textFieldLocaNumLoca, gbc_textField);
-		textFieldLocaNumLoca.setColumns(10);
-		
-		btnRechercher = new JButton("Rechercher à partir du n° de location");
-=======
 		GridBagConstraints gbc_textFieldLocaNumLoca = new GridBagConstraints();
 		gbc_textFieldLocaNumLoca.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldLocaNumLoca.fill = GridBagConstraints.HORIZONTAL;
@@ -415,7 +397,6 @@ public class TechnicienVueGui extends JFrame {
 		textFieldLocaNumLoca.setColumns(10);
 		
 		btnRechercher = new JButton("Rechercher location");
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
 		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
 		gbc_btnRechercher.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercher.gridx = 1;
@@ -438,37 +419,20 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textFieldLocaNumClient.gridy = 2;
 		locationJPanel.add(textFieldLocaNumClient, gbc_textFieldLocaNumClient);
 		textFieldLocaNumClient.setColumns(10);
-		
-<<<<<<< HEAD
-		btnRechercherNumClient = new JButton("Rechercher à partir du n° de client");
-=======
+
 		btnRechercherNumClient = new JButton("Rechercher location Ã pd du nÂ° de client");
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
 		GridBagConstraints gbc_btnRechercherNumClient = new GridBagConstraints();
 		gbc_btnRechercherNumClient.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercherNumClient.gridx = 1;
 		gbc_btnRechercherNumClient.gridy = 3;
 		locationJPanel.add(btnRechercherNumClient, gbc_btnRechercherNumClient);
-		
-<<<<<<< HEAD
-		
-		
-		
-		
-		
-		
-=======
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
+
 		textPaneLocation = new JTextPane();
 		GridBagConstraints gbc_textPaneLocation = new GridBagConstraints();
 		gbc_textPaneLocation.insets = new Insets(0, 0, 5, 0);
 		gbc_textPaneLocation.fill = GridBagConstraints.BOTH;
 		gbc_textPaneLocation.gridx = 1;
-<<<<<<< HEAD
-		gbc_textPaneLocation.gridy = 6;
-=======
 		gbc_textPaneLocation.gridy = 4;
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
 		locationJPanel.add(textPaneLocation, gbc_textPaneLocation);
 		
 		locationJPanel.setVisible(false);
@@ -664,10 +628,6 @@ public class TechnicienVueGui extends JFrame {
 		JButton btnRechercherFacture = new JButton("Rechercher facture");
 		GridBagConstraints gbc_btnRechercherFacture = new GridBagConstraints();
 		gbc_btnRechercherFacture.insets = new Insets(0, 0, 5, 0);
-<<<<<<< HEAD
-		gbc_btnRechercherFacture.fill=GridBagConstraints.HORIZONTAL;
-=======
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
 		gbc_btnRechercherFacture.gridx = 1;
 		gbc_btnRechercherFacture.gridy = 1;
 		infoFactureJPanel.add(btnRechercherFacture, gbc_btnRechercherFacture);
@@ -692,10 +652,6 @@ public class TechnicienVueGui extends JFrame {
 		JButton btnRechercherFacturepd = new JButton("Rechercher facture \u00E0pd du n\u00B0 de client");
 		GridBagConstraints gbc_btnRechercherFacturepd = new GridBagConstraints();
 		gbc_btnRechercherFacturepd.insets = new Insets(0, 0, 5, 0);
-<<<<<<< HEAD
-		gbc_btnRechercherFacturepd.fill=GridBagConstraints.HORIZONTAL;
-=======
->>>>>>> e95bcc96f8aa86f0b9b2fa11f7f3476655428149
 		gbc_btnRechercherFacturepd.gridx = 1;
 		gbc_btnRechercherFacturepd.gridy = 3;
 		infoFactureJPanel.add(btnRechercherFacturepd, gbc_btnRechercherFacturepd);
