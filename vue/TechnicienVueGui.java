@@ -16,10 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
 
 public class TechnicienVueGui extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel infoJPanel;
 	private JPanel factureJPanel;
 	private JPanel locationJPanel;
@@ -41,10 +41,10 @@ public class TechnicienVueGui extends JFrame {
 	
 	
 	private JLabel lblMesInfos;
-	private JLabel lblListeVoiture;
+	/*private JLabel lblListeVoiture;
 	private JLabel lblInfoListeClient;
 	private JLabel lblInfoListeLoca;
-	private JLabel lblInfoListeFact;
+	private JLabel lblInfoListeFact;*/
 	private JLabel lblNDeLocation;
 	private JLabel lblEtatDePayement;
 	private JLabel lblNote;
@@ -60,10 +60,10 @@ public class TechnicienVueGui extends JFrame {
 	private JTextPane textPaneLocation;
 	private JTextPane textPaneVoit;
 	private JTextPane textPaneInfo;
-	private JTextPane textPaneListeVoit;
+	/*private JTextPane textPaneListeVoit;
 	private JTextPane textPaneListeClient;
 	private JTextPane textPaneListeLoca;
-	private JTextPane textPaneListeFact;
+	private JTextPane textPaneListeFact;*/
 	private JTextPane textPaneAncienKm;
 	private JTextPane textPaneNote;
 	
