@@ -15,7 +15,7 @@ public class Admin extends Personne {
 	private int adminID;
 	Voiture [] voitures;
 	/**
-	 * Cette methode creer un technicien en ne specifiant que son pseudo et son mot de passe, avec comme privilege par defaut 0.
+	 * Ce constructeur creer un technicien en ne specifiant que son pseudo et son mot de passe, avec comme privilege par defaut 0.
 	 */
 	
 	public Admin() {
