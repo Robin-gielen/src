@@ -14,5 +14,6 @@ public class AdminController {
 	public void addView(AdminVue vueConsole) {
 		this.vue = vueConsole;
 	}
+	
 
 }

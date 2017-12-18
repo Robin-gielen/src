@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,16 +18,13 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import controller.AdminController;
 import model.Admin;
 import model.Client;
 
-public class AdminVueGui extends JFrame {
+public class AdminVueGui extends AdminVue {
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private JFrame AdminJFrame;
 	private JPanel infoJPanel;
 	private JPanel factureJPanel;
 	private JPanel locationJPanel;
@@ -49,8 +47,9 @@ public class AdminVueGui extends JFrame {
 			public void run() {
 				try {
 					Admin model = new Admin();
-					AdminVueGui frame = new AdminVueGui(model);
-					frame.setVisible(true);
+					AdminController controller = new AdminController(model);
+					AdminVueGui frame = new AdminVueGui(model, controller);
+					frame.AdminJFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,18 +60,22 @@ public class AdminVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminVueGui(Admin model) {
+	public AdminVueGui(Admin model,
+			AdminController controller) {
+		super(model, controller);
+		
+		AdminJFrame = new JFrame("Admin MVC");
 		infoJPanel = new JPanel();
 		factureJPanel = new JPanel();
 		locationJPanel = new JPanel();
 		voitureJPanel = new JPanel();
 		clientJPanel = new JPanel();
 		voitureGestionJPanel = new JPanel();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 600);
+		AdminJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		AdminJFrame.setBounds(100, 100, 900, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		AdminJFrame.setJMenuBar(menuBar);
 		JButton btnInfo = new JButton("INFO");
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +85,7 @@ public class AdminVueGui extends JFrame {
 				voitureJPanel.setVisible(false);
 				clientJPanel.setVisible(false);
 				voitureGestionJPanel.setVisible(false);
-				getContentPane().add(infoJPanel);
+				AdminJFrame.getContentPane().add(infoJPanel);
 			}
 		});
 		menuBar.add(btnInfo);
@@ -104,7 +107,7 @@ public class AdminVueGui extends JFrame {
 				voitureJPanel.setVisible(false);
 				clientJPanel.setVisible(false);
 				voitureGestionJPanel.setVisible(false);
-				getContentPane().add(factureJPanel);
+				AdminJFrame.getContentPane().add(factureJPanel);
 			}
 		});
 		menuBar.add(btnFacture);
@@ -326,7 +329,7 @@ public class AdminVueGui extends JFrame {
 		btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getContentPane().add(afficheListClient(Integer.parseInt(textField_4.getText()), model));
+				AdminJFrame.getContentPane().add(afficheListClient(Integer.parseInt(textField_4.getText()), model));
 			}
 		});
 		GridBagConstraints gbc_btnValider = new GridBagConstraints();
@@ -336,7 +339,7 @@ public class AdminVueGui extends JFrame {
 		factureJPanel.add(btnValider, gbc_btnValider);
 		
 		infoJPanel.setVisible(true);
-		getContentPane().add(infoJPanel);
+		AdminJFrame.getContentPane().add(infoJPanel);
 	}
 	
 	public JPanel afficheListClient(int clientID, Admin model) {
@@ -439,6 +442,19 @@ public class AdminVueGui extends JFrame {
 		gbc_textPane_3.gridy = 7;
 		infoJPanel.add(textPane_3, gbc_textPane_3);
 		return tempClientJPanel;
+		
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void affiche(String string) {
+		// TODO Auto-generated method stub
 		
 	}
 }

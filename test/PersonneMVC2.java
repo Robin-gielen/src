@@ -23,7 +23,6 @@ import model.Personne;
 import model.Technicien;
 import vue.AdminVue;
 import vue.AdminVueConsole;
-import vue.AdminVueGui;
 import vue.ClientVue;
 import vue.ClientVueConsole;
 import vue.TechnicienVue;

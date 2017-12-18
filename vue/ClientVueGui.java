@@ -598,19 +598,6 @@ public class ClientVueGui extends JFrame {
 		gbc_btnValider.gridx = 2;
 		gbc_btnValider.gridy = 11;
 		listeVoitureJPanel.add(btnValider, gbc_btnValider);
-		
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PagePourSIdentifier frame = new PagePourSIdentifier();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	public PagePourSIdentifier() {
