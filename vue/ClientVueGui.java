@@ -528,22 +528,6 @@ public class ClientVueGui extends JFrame {
 		listeVoitureJPanel.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblIndiquezLeKilometrage = new JLabel("Indiquez le kilometrage");
-		GridBagConstraints gbc_lblIndiquezLeKilometrage = new GridBagConstraints();
-		gbc_lblIndiquezLeKilometrage.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIndiquezLeKilometrage.gridx = 0;
-		gbc_lblIndiquezLeKilometrage.gridy = 4;
-		listeVoitureJPanel.add(lblIndiquezLeKilometrage, gbc_lblIndiquezLeKilometrage);
-		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 4;
-		listeVoitureJPanel.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
-		
 		JLabel lblAutomatiquemanuel = new JLabel("Boite de transmission");
 		GridBagConstraints gbc_lblAutomatiquemanuel = new GridBagConstraints();
 		gbc_lblAutomatiquemanuel.insets = new Insets(0, 0, 5, 5);
