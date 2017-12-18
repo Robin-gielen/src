@@ -417,6 +417,9 @@ public class ClientVueGui extends JFrame {
 		contactJPanel.add(textFieldPrenomT, gbc_textFieldPrenomT);
 		textFieldPrenomT.setColumns(10);
 		
+		infoJPanel.setVisible(true);
+		getContentPane().add(infoJPanel);
+		
 		// Location
 		
 		locationJPanel = new JPanel();
