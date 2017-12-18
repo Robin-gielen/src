@@ -485,7 +485,53 @@ public class Technicien extends Personne{
         }
         return null;
     }
+	
+	/**
+	 * Cette methode permet de retrouver un client avec son ID
+	 * @param clientID
+	 * @return
+	 */
+	public Client getClient(int clientID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM personne WHERE personneID =" + clientID);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToClients(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
 
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
 	/**
 	 * Cette méthode retourne toutes les infos qui concernent l'admin courant
 	 * @param 
@@ -625,6 +671,27 @@ public class Technicien extends Personne{
 				countTwo++;
 			}
 			return tempTech;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
+	private Client[] resultSetToClients(ResultSet rs) {
+		Client tempClient[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempClient = new Client[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempClient[countTwo] = new Client(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"), false,  Integer.parseInt(rs.getString("personneID")));
+				countTwo++;
+			}
+			return tempClient;
 		} catch (SQLException ex) {
             // handle the error
         	System.out.println("SQLException: " + ex.getMessage());

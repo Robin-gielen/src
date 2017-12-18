@@ -56,7 +56,7 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 		
 		affiche("Pour afficher toutes vos infos : J");
 		
-		//affiche les infos d'un client
+		affiche("Pour afficher les données d'un client : K");
 	}
 	
 	private class ReadInput implements Runnable{
@@ -192,6 +192,11 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 						case "J" :
 							System.out.println(model.getMesInfos());
 							printHelp();
+							break;
+						case "K" :
+							affiche("Entrez maintenant l'ID du client :");
+							int client2 = sc.nextInt();
+							System.out.println(model.getClient(client2));
 							break;
 						default : 
 							affiche("Operation incorrecte");
