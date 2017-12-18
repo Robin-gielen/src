@@ -1,16 +1,33 @@
 package model;
-
+/**
+ * Cette classe implemente une assurance avec un ID, un prix, un prix au kilometre supplementaire et un type specifique.
+ * @author fabia
+ *
+ */
 public class Assurance {
 	private int assurID;
 	private double prix;
 	private String type;
 	private double prixKmSupp;
+	/**
+	 * Ce constructeur permet de creer une assurance en specifiant son prix, son prix au kilometre supplementaire et son type sans specifier l'ID de cette assurance.
+	 * @param prix
+	 * @param type
+	 * @param prixKmSupp
+	 */
 	public Assurance(double prix, String type, double prixKmSupp) {
 		super();
 		this.prix = prix;
 		this.type = type;
 		this.prixKmSupp = prixKmSupp;
 	}
+	/**
+	 * Ce constructeur creer une assurance en specifiant tout ses parametres
+	 * @param assurID
+	 * @param prix
+	 * @param type
+	 * @param prixKmSupp
+	 */
 	public Assurance(int assurID, double prix, String type, double prixKmSupp) {
 		super();
 		this.assurID = assurID;
@@ -42,10 +59,11 @@ public class Assurance {
 	public void setPrixKmSupp(double prixKmSupp) {
 		this.prixKmSupp = prixKmSupp;
 	}
+	/**
+	 * Cette methode permet d'afficher en chaine de caracteres les differents parametres d'une assurance.
+	 */
 	@Override
 	public String toString() {
 		return "assurID=" + assurID + ", prix=" + prix + ", type=" + type + ", prixKmSupp=" + prixKmSupp;
 	}
-	
-	
 }

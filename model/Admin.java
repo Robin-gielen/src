@@ -5,14 +5,29 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+/**
+ * 
+ * @author fabia
+ * Cette classe implemente un administrateur qui est une Personne et qui est identifié par un ID
+ */
 
 public class Admin extends Personne {
 	private int adminID;
 	Voiture [] voitures;
+	/**
+	 * Ce constructeur creer un technicien en ne specifiant que son pseudo et son mot de passe, avec comme privilege par defaut 0.
+	 */
 	
 	public Admin() {
 		super("pseudo", "motDePasse", 0);
 	}
+	/**
+	 * Ce constructeur creer un administrateur en specifiant son pseudo, son mot de passe, son prenom, son nom et 0 comme privilege (par defaut pour un admin)
+	 * @param pseudo
+	 * @param motDePasse
+	 * @param nom
+	 * @param prenom
+	 */
 	
 	public Admin(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 0);
@@ -124,7 +139,25 @@ public class Admin extends Personne {
     	}
 		return null;
 	}
-	
+	/**
+	 * Cette methode permet a l'administrateur d'ajouter une voiture dans la base de donnees.
+	 * @param prix de la voiture
+	 * @param marque de la voiture
+	 * @param modele de la voiture
+	 * @param annee de la voiture
+	 * @param carburant de la voiture
+	 * @param couleur de la voiture
+	 * @param type de la voiture
+	 * @param estManuelle de la voiture
+	 * @param roueMotrice de la voiture
+	 * @param kilometrage de la voiture
+	 * @param volumeCoffre de la voiture
+	 * @param hauteur de la voiture
+	 * @param poids de la voiture
+	 * @param note de la voiture
+	 * @param agenceID de la voiture
+	 * @return 
+	 */
 	public int addVoiture(double prix, String marque, String modele, int annee, String carburant, String couleur, String type, boolean estManuelle, int roueMotrice, long kilometrage, double volumeCoffre, double hauteur, double poids, String note, int agenceID) {
 		int tempEstManuelle;
 		if (estManuelle) {
@@ -159,6 +192,11 @@ public class Admin extends Personne {
     	}
     	return -1;
 	}
+	/**
+	 * Cette methode permet de retirer une voiture de la liste avec son ID
+	 * @param voitID de la voiture
+	 * @return 
+	 */
 
 	public int rmVoiture(int voitID) {
 		Connection conn = null;
@@ -188,6 +226,11 @@ public class Admin extends Personne {
     	}
     	return -1;
 	}
+	/**
+	 * Cette methode permet d'obtenir une facture deja creer au prealable avec l'ID de cette facture
+	 * @param factID
+	 * @return
+	 */
 	
 	public Facture getFacture(int factID) {
 		Connection conn = null;
@@ -228,6 +271,11 @@ public class Admin extends Personne {
     	}
     	return null;
 	}
+	/**
+	 * Cette methode permet d'obtenir un tableau des factures des clients
+	 * @param clientID
+	 * @return
+	 */
 
 	public Facture[] getFacturesClient(int clientID) {
 		Connection conn = null;
@@ -269,7 +317,11 @@ public class Admin extends Personne {
         System.out.println("Probleme co BDD");
     	return null;
 	}
-	
+	/**
+	 * Cette methode permet de retrouver un client avec son ID
+	 * @param clientID
+	 * @return
+	 */
 	public Client getClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
@@ -310,7 +362,11 @@ public class Admin extends Personne {
         System.out.println("Probleme co BDD");
     	return null;
 	}
-	
+	/**
+	 * Cette methode permet d'enlever un client en specifiant son ID
+	 * @param clientID
+	 * @return
+	 */
 	public int rmClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
@@ -339,7 +395,17 @@ public class Admin extends Personne {
     	}
     	return -1;
 	}
-	
+	/**
+	 * Cette methode permet de modifier une (ou plusieurs) information(s) a propos du client
+	 * @param clientID
+	 * @param nom
+	 * @param prenom
+	 * @param dateInscription
+	 * @param dateNaissance
+	 * @param adresse
+	 * @param adresseMail
+	 * @return les informations du client modifie
+	 */
 	public int alterClient(int clientID, String nom, String prenom, String dateInscription, String dateNaissance, String adresse, String adresseMail) {
 		Connection conn = null;
         Statement stmt = null;
@@ -369,7 +435,11 @@ public class Admin extends Personne {
     	}
     	return -1;
 	}
-	
+	/**
+	 * Cette methode permet d'obtenir la location d'une voiture en indiquant l'ID de celle-ci
+	 * @param locationID
+	 * @return
+	 */
 	public Location getLocation(int locationID) {
 		Connection conn = null;
         Statement stmt = null;
@@ -410,7 +480,11 @@ public class Admin extends Personne {
         System.out.println("Probleme co BDD");
     	return null;
 	}
-	
+	/**
+	 * Cette methode permet d'obtenir le tableau des locations fait par un client en specifiant son ID
+	 * @param clientID
+	 * @return un tableau de location 
+	 */
 	public Location[] getLocationsClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
@@ -447,7 +521,11 @@ public class Admin extends Personne {
     	}
         return null;
 	}
-	
+	/**
+	 * Cette methode permet de retrouver l'ID d'un client en specifiant l'ID de la voiture qu'il loue ou qu'il a loué
+	 * @param voitId
+	 * @return
+	 */
 	public int getClientIDFromVoitID(int voitId) {
 		return 0;
 	}
