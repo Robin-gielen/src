@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import model.Admin;
 import model.Client;
 
-public class AdminVueGui extends JFrame {
+public class AdminVueGui2 extends JFrame {
 
 	
 	/**
@@ -49,7 +49,7 @@ public class AdminVueGui extends JFrame {
 			public void run() {
 				try {
 					Admin model = new Admin();
-					AdminVueGui frame = new AdminVueGui(model);
+					AdminVueGui2 frame = new AdminVueGui2(model);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +61,7 @@ public class AdminVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminVueGui(Admin model) {
+	public AdminVueGui2(Admin model) {
 		infoJPanel = new JPanel();
 		factureJPanel = new JPanel();
 		locationJPanel = new JPanel();
