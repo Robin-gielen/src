@@ -1,28 +1,21 @@
 package vue;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
-import javax.swing.JToolBar;
-import javax.swing.JComboBox;
-import javax.swing.JMenuBar;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JInternalFrame;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class TechnicienVueGui extends JFrame {
 
@@ -32,15 +25,50 @@ public class TechnicienVueGui extends JFrame {
 	private JPanel voitureJPanel;
 	private JPanel kilometrageJPanel;
 	private JPanel clientJPanel;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
+	
+	private JTextField textFieldFactureNumLoca;
+	private JTextField textFieldFactEtatDePayement;
+	private JTextField textFieldFactNote;
+	private JTextField textFieldLocaNumLoca;
+	private JTextField textFieldLocaNumVoit;
+	private JTextField textFieldCheckNumVoit;
+	private JTextField textFieldCheckKmActu;
+	private JTextField textFieldCheckNouvNote;
+	
+	private JTextPane textPaneLocation;
+	private JTextPane textPaneVoit;
+	
+	
+	private JLabel lblMesInfos;
+	private JLabel lblNDeLocation;
+	private JLabel lblEtatDePayement;
+	private JLabel lblNote;
+	private JLabel lblNDeLocation1;
+	private JLabel lblNDeVoiture;
+	private JLabel lblNDeVoitureCheckUp;
+	private JLabel lblAncienKilometrage;
+	private JLabel lblKilometrageActuel;
+	private JLabel lblAncienneNote;
+	private JLabel lblNouvelleNote;
+	private JLabel lblListeDesClients;
+	
+	
+	private JTextPane textPaneInfo;
+	private JTextPane textPaneAncienKm;
+	private JTextPane textPaneNote;
+	private JTextPane textPaneClient;
+	
+	private JButton btnInfo;
+	private JButton btnNouvelleFacture;
+	private JButton btnInfoLocation;
+	private JButton btnInfoVoiture;
+	private JButton btnCheckUp;
+	private JButton btnListeClient;
+	private JButton btnRechercher;
+	private JButton btnRechercherVoit;
 	private JButton btnValider;
+	private JButton btnSoumettreKilometrage;
+	private JButton btnSoumettreNote;
 
 	/**
 	 * Launch the application.
@@ -75,7 +103,7 @@ public class TechnicienVueGui extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JButton btnInfo = new JButton("INFO");
+		btnInfo = new JButton("INFO");
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				infoJPanel.setVisible(true);
@@ -85,11 +113,12 @@ public class TechnicienVueGui extends JFrame {
 				clientJPanel.setVisible(false);
 				kilometrageJPanel.setVisible(false);
 				getContentPane().add(infoJPanel);
+				
 			}
 		});
 		menuBar.add(btnInfo);
 		
-		JButton btnNouvelleFacture = new JButton("Nouvelle Facture");
+		btnNouvelleFacture = new JButton("Nouvelle Facture");
 		btnNouvelleFacture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				factureJPanel.setVisible(true);
@@ -104,7 +133,7 @@ public class TechnicienVueGui extends JFrame {
 		});
 		menuBar.add(btnNouvelleFacture);
 		
-		JButton btnInfoLocation = new JButton("Info Location");
+		btnInfoLocation = new JButton("Info Location");
 		btnInfoLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				locationJPanel.setVisible(true);
@@ -119,7 +148,7 @@ public class TechnicienVueGui extends JFrame {
 		});
 		menuBar.add(btnInfoLocation);
 		
-		JButton btnInfoVoiture = new JButton("Info Voiture");
+		btnInfoVoiture = new JButton("Info Voiture");
 		btnInfoVoiture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				voitureJPanel.setVisible(true);
@@ -134,7 +163,7 @@ public class TechnicienVueGui extends JFrame {
 		});
 		menuBar.add(btnInfoVoiture);
 		
-		JButton btnCheckUp = new JButton("CheckUp");
+		btnCheckUp = new JButton("CheckUp");
 		btnCheckUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kilometrageJPanel.setVisible(true);
@@ -148,7 +177,7 @@ public class TechnicienVueGui extends JFrame {
 		});
 		menuBar.add(btnCheckUp);
 		
-		JButton btnListeClient = new JButton("Liste Clients");
+		btnListeClient = new JButton("Liste Clients");
 		btnListeClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clientJPanel.setVisible(true);
@@ -174,7 +203,7 @@ public class TechnicienVueGui extends JFrame {
 		getContentPane().add(infoJPanel);
 		
 		//infos 
-		JLabel lblMesInfos = new JLabel("Mes infos :");
+		lblMesInfos = new JLabel("Mes infos :");
 		lblMesInfos.setHorizontalAlignment(SwingConstants.TRAILING);
 		GridBagConstraints gbc_lblMesInfos = new GridBagConstraints();
 		gbc_lblMesInfos.anchor = GridBagConstraints.EAST;
@@ -183,13 +212,13 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblMesInfos.gridy = 3;
 		infoJPanel.add(lblMesInfos, gbc_lblMesInfos);
 		
-		JTextPane textPane = new JTextPane();
-		GridBagConstraints gbc_textPane = new GridBagConstraints();
-		gbc_textPane.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane.fill = GridBagConstraints.BOTH;
-		gbc_textPane.gridx = 1;
-		gbc_textPane.gridy = 4;
-		infoJPanel.add(textPane, gbc_textPane);
+		textPaneInfo = new JTextPane();
+		GridBagConstraints gbc_textPaneInfo = new GridBagConstraints();
+		gbc_textPaneInfo.insets = new Insets(0, 0, 5, 0);
+		gbc_textPaneInfo.fill = GridBagConstraints.BOTH;
+		gbc_textPaneInfo.gridx = 1;
+		gbc_textPaneInfo.gridy = 4;
+		infoJPanel.add(textPaneInfo, gbc_textPaneInfo);
 		
 		//facture
 		
@@ -201,7 +230,7 @@ public class TechnicienVueGui extends JFrame {
 		gbl_factureJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		factureJPanel.setLayout(gbl_factureJPanel);
 		
-		JLabel lblNDeLocation = new JLabel("N\u00B0 de location :");
+		lblNDeLocation = new JLabel("N\u00B0 de location :");
 		GridBagConstraints gbc_lblNDeLocation = new GridBagConstraints();
 		gbc_lblNDeLocation.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNDeLocation.anchor = GridBagConstraints.EAST;
@@ -209,16 +238,16 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblNDeLocation.gridy = 0;
 		factureJPanel.add(lblNDeLocation, gbc_lblNDeLocation);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 1;
-		gbc_textField_4.gridy = 0;
-		factureJPanel.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		textFieldFactureNumLoca = new JTextField();
+		GridBagConstraints gbc_textFieldFactureNumLoca = new GridBagConstraints();
+		gbc_textFieldFactureNumLoca.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldFactureNumLoca.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactureNumLoca.gridx = 1;
+		gbc_textFieldFactureNumLoca.gridy = 0;
+		factureJPanel.add(textFieldFactureNumLoca, gbc_textFieldFactureNumLoca);
+		textFieldFactureNumLoca.setColumns(10);
 		
-		JLabel lblEtatDePayement = new JLabel("Etat de payement :");
+		lblEtatDePayement = new JLabel("Etat de payement :");
 		GridBagConstraints gbc_lblEtatDePayement = new GridBagConstraints();
 		gbc_lblEtatDePayement.anchor = GridBagConstraints.EAST;
 		gbc_lblEtatDePayement.insets = new Insets(0, 0, 5, 5);
@@ -226,16 +255,16 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblEtatDePayement.gridy = 2;
 		factureJPanel.add(lblEtatDePayement, gbc_lblEtatDePayement);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 1;
-		gbc_textField_5.gridy = 2;
-		factureJPanel.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		textFieldFactEtatDePayement = new JTextField();
+		GridBagConstraints gbc_textFieldFactEtatDePayement = new GridBagConstraints();
+		gbc_textFieldFactEtatDePayement.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldFactEtatDePayement.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactEtatDePayement.gridx = 1;
+		gbc_textFieldFactEtatDePayement.gridy = 2;
+		factureJPanel.add(textFieldFactEtatDePayement, gbc_textFieldFactEtatDePayement);
+		textFieldFactEtatDePayement.setColumns(10);
 		
-		JLabel lblNote = new JLabel("Note :");
+		lblNote = new JLabel("Note :");
 		GridBagConstraints gbc_lblNote = new GridBagConstraints();
 		gbc_lblNote.anchor = GridBagConstraints.EAST;
 		gbc_lblNote.insets = new Insets(0, 0, 5, 5);
@@ -243,14 +272,14 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblNote.gridy = 4;
 		factureJPanel.add(lblNote, gbc_lblNote);
 		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 1;
-		gbc_textField_6.gridy = 4;
-		factureJPanel.add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		textFieldFactNote = new JTextField();
+		GridBagConstraints gbc_textFieldFactNote = new GridBagConstraints();
+		gbc_textFieldFactNote.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldFactNote.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactNote.gridx = 1;
+		gbc_textFieldFactNote.gridy = 4;
+		factureJPanel.add(textFieldFactNote, gbc_textFieldFactNote);
+		textFieldFactNote.setColumns(10);
 		
 		btnValider = new JButton("Valider");
 		GridBagConstraints gbc_btnValider = new GridBagConstraints();
@@ -262,7 +291,6 @@ public class TechnicienVueGui extends JFrame {
 		factureJPanel.setVisible(false);
 		
 		//location
-		locationJPanel = new JPanel();
 		locationJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		GridBagLayout gbl_locationJPanel = new GridBagLayout();
@@ -272,7 +300,7 @@ public class TechnicienVueGui extends JFrame {
 		gbl_locationJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		locationJPanel.setLayout(gbl_locationJPanel);
 		
-		JLabel lblNDeLocation1 = new JLabel("N\u00B0 de location :");
+		lblNDeLocation1 = new JLabel("N\u00B0 de location :");
 		GridBagConstraints gbc_lblNDeLocation1 = new GridBagConstraints();
 		gbc_lblNDeLocation1.anchor = GridBagConstraints.EAST;
 		gbc_lblNDeLocation1.insets = new Insets(0, 0, 5, 5);
@@ -280,29 +308,29 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblNDeLocation1.gridy = 3;
 		locationJPanel.add(lblNDeLocation1, gbc_lblNDeLocation1);
 		
-		textField_7 = new JTextField();
+		textFieldLocaNumLoca = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 3;
-		locationJPanel.add(textField_7, gbc_textField);
-		textField_7.setColumns(10);
+		locationJPanel.add(textFieldLocaNumLoca, gbc_textField);
+		textFieldLocaNumLoca.setColumns(10);
 		
-		JButton btnRechercher = new JButton("Rechercher");
+		btnRechercher = new JButton("Rechercher");
 		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
 		gbc_btnRechercher.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercher.gridx = 1;
 		gbc_btnRechercher.gridy = 4;
 		locationJPanel.add(btnRechercher, gbc_btnRechercher);
 		
-		JTextPane textPane1 = new JTextPane();
-		GridBagConstraints gbc_textPane1 = new GridBagConstraints();
-		gbc_textPane1.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane1.fill = GridBagConstraints.BOTH;
-		gbc_textPane1.gridx = 1;
-		gbc_textPane1.gridy = 5;
-		locationJPanel.add(textPane1, gbc_textPane1);
+		textPaneLocation = new JTextPane();
+		GridBagConstraints gbc_textPaneLocation = new GridBagConstraints();
+		gbc_textPaneLocation.insets = new Insets(0, 0, 5, 0);
+		gbc_textPaneLocation.fill = GridBagConstraints.BOTH;
+		gbc_textPaneLocation.gridx = 1;
+		gbc_textPaneLocation.gridy = 5;
+		locationJPanel.add(textPaneLocation, gbc_textPaneLocation);
 		
 		locationJPanel.setVisible(false);
 		
@@ -317,7 +345,7 @@ public class TechnicienVueGui extends JFrame {
 		gbl_voitureJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		voitureJPanel.setLayout(gbl_voitureJPanel);
 		
-		JLabel lblNDeVoiture = new JLabel("N° de Voiture :");
+		lblNDeVoiture = new JLabel("N° de Voiture :");
 		GridBagConstraints gbc_lblNDeVoiture = new GridBagConstraints();
 		gbc_lblNDeVoiture.anchor = GridBagConstraints.EAST;
 		gbc_lblNDeVoiture.insets = new Insets(0, 0, 5, 5);
@@ -325,30 +353,30 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblNDeVoiture.gridy = 3;
 		voitureJPanel.add(lblNDeVoiture, gbc_lblNDeVoiture);
 		
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.gridx = 1;
-		gbc_textField_8.gridy = 3;
-		voitureJPanel.add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
+		textFieldLocaNumVoit = new JTextField();
+		GridBagConstraints gbc_textFieldLocaNumVoit = new GridBagConstraints();
+		gbc_textFieldLocaNumVoit.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldLocaNumVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLocaNumVoit.gridx = 1;
+		gbc_textFieldLocaNumVoit.gridy = 3;
+		voitureJPanel.add(textFieldLocaNumVoit, gbc_textFieldLocaNumVoit);
+		textFieldLocaNumVoit.setColumns(10);
 		
 		
-		JButton btnRechercherVoit = new JButton("Rechercher");
+		btnRechercherVoit = new JButton("Rechercher");
 		GridBagConstraints gbc_btnRechercherVoit = new GridBagConstraints();
 		gbc_btnRechercherVoit.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercherVoit.gridx = 1;
 		gbc_btnRechercherVoit.gridy = 4;
 		voitureJPanel.add(btnRechercherVoit, gbc_btnRechercherVoit);
 		
-		JTextPane textPane1Voit = new JTextPane();
-		GridBagConstraints gbc_textPane1Voit = new GridBagConstraints();
-		gbc_textPane1Voit.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane1Voit.fill = GridBagConstraints.BOTH;
-		gbc_textPane1Voit.gridx = 1;
-		gbc_textPane1Voit.gridy = 5;
-		voitureJPanel.add(textPane1Voit, gbc_textPane1Voit);
+		textPaneVoit = new JTextPane();
+		GridBagConstraints gbc_textPaneVoit = new GridBagConstraints();
+		gbc_textPaneVoit.insets = new Insets(0, 0, 5, 0);
+		gbc_textPaneVoit.fill = GridBagConstraints.BOTH;
+		gbc_textPaneVoit.gridx = 1;
+		gbc_textPaneVoit.gridy = 5;
+		voitureJPanel.add(textPaneVoit, gbc_textPaneVoit);
 		
 		voitureJPanel.setVisible(false);
 		
@@ -361,31 +389,31 @@ public class TechnicienVueGui extends JFrame {
 		gbl_kilometrageJPanel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		kilometrageJPanel.setLayout(gbl_kilometrageJPanel);
 		
-		JLabel lblNDeVoiture1 = new JLabel("N\u00B0 de voiture :");
-		GridBagConstraints gbc_lblNDeVoiture1 = new GridBagConstraints();
-		gbc_lblNDeVoiture1.anchor = GridBagConstraints.WEST;
-		gbc_lblNDeVoiture1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNDeVoiture1.gridx = 0;
-		gbc_lblNDeVoiture1.gridy = 0;
-		kilometrageJPanel.add(lblNDeVoiture1, gbc_lblNDeVoiture1);
+		lblNDeVoitureCheckUp = new JLabel("N\u00B0 de voiture :");
+		GridBagConstraints gbc_lblNDeVoitureCheckUp = new GridBagConstraints();
+		gbc_lblNDeVoitureCheckUp.anchor = GridBagConstraints.WEST;
+		gbc_lblNDeVoitureCheckUp.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNDeVoitureCheckUp.gridx = 0;
+		gbc_lblNDeVoitureCheckUp.gridy = 0;
+		kilometrageJPanel.add(lblNDeVoitureCheckUp, gbc_lblNDeVoitureCheckUp);
 		
-		textField_9 = new JTextField();
-		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_9.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_9.gridx = 1;
-		gbc_textField_9.gridy = 0;
-		kilometrageJPanel.add(textField_9, gbc_textField_9);
-		textField_9.setColumns(10);
+		textFieldCheckNumVoit = new JTextField();
+		GridBagConstraints gbc_textFieldCheckNumVoit = new GridBagConstraints();
+		gbc_textFieldCheckNumVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCheckNumVoit.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldCheckNumVoit.gridx = 1;
+		gbc_textFieldCheckNumVoit.gridy = 0;
+		kilometrageJPanel.add(textFieldCheckNumVoit, gbc_textFieldCheckNumVoit);
+		textFieldCheckNumVoit.setColumns(10);
 		
-		JButton btnValider = new JButton("Valider");
+		btnValider = new JButton("Valider");
 		GridBagConstraints gbc_btnValider1 = new GridBagConstraints();
 		gbc_btnValider1.insets = new Insets(0, 0, 5, 0);
 		gbc_btnValider1.gridx = 1;
 		gbc_btnValider1.gridy = 1;
 		kilometrageJPanel.add(btnValider, gbc_btnValider1);
 		
-		JLabel lblAncienKilometrage = new JLabel("Ancien kilometrage :");
+		lblAncienKilometrage = new JLabel("Ancien kilometrage :");
 		GridBagConstraints gbc_lblAncienKilometrage = new GridBagConstraints();
 		gbc_lblAncienKilometrage.anchor = GridBagConstraints.NORTH;
 		gbc_lblAncienKilometrage.insets = new Insets(0, 0, 5, 5);
@@ -393,15 +421,15 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblAncienKilometrage.gridy = 2;
 		kilometrageJPanel.add(lblAncienKilometrage, gbc_lblAncienKilometrage);
 		
-		JTextPane textPane11 = new JTextPane();
-		GridBagConstraints gbc_textPane11 = new GridBagConstraints();
-		gbc_textPane11.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane11.fill = GridBagConstraints.BOTH;
-		gbc_textPane11.gridx = 1;
-		gbc_textPane11.gridy = 2;
-		kilometrageJPanel.add(textPane11, gbc_textPane11);
+		textPaneAncienKm = new JTextPane();
+		GridBagConstraints gbc_textPaneAncienKm = new GridBagConstraints();
+		gbc_textPaneAncienKm.insets = new Insets(0, 0, 5, 0);
+		gbc_textPaneAncienKm.fill = GridBagConstraints.BOTH;
+		gbc_textPaneAncienKm.gridx = 1;
+		gbc_textPaneAncienKm.gridy = 2;
+		kilometrageJPanel.add(textPaneAncienKm, gbc_textPaneAncienKm);
 		
-		JLabel lblKilometrageActuel = new JLabel("Kilometrage actuel :");
+		lblKilometrageActuel = new JLabel("Kilometrage actuel :");
 		GridBagConstraints gbc_lblKilometrageActuel = new GridBagConstraints();
 		gbc_lblKilometrageActuel.anchor = GridBagConstraints.EAST;
 		gbc_lblKilometrageActuel.insets = new Insets(0, 0, 5, 5);
@@ -409,23 +437,23 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblKilometrageActuel.gridy = 3;
 		kilometrageJPanel.add(lblKilometrageActuel, gbc_lblKilometrageActuel);
 		
-		textField_10 = new JTextField();
-		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
-		gbc_textField_10.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_10.gridx = 1;
-		gbc_textField_10.gridy = 3;
-		kilometrageJPanel.add(textField_10, gbc_textField_10);
-		textField_10.setColumns(10);
+		textFieldCheckKmActu = new JTextField();
+		GridBagConstraints gbc_textFieldCheckKmActu = new GridBagConstraints();
+		gbc_textFieldCheckKmActu.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldCheckKmActu.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCheckKmActu.gridx = 1;
+		gbc_textFieldCheckKmActu.gridy = 3;
+		kilometrageJPanel.add(textFieldCheckKmActu, gbc_textFieldCheckKmActu);
+		textFieldCheckKmActu.setColumns(10);
 		
-		JButton btnSoumettreKilometrage = new JButton("Soumettre kilometrage");
+		btnSoumettreKilometrage = new JButton("Soumettre kilometrage");
 		GridBagConstraints gbc_btnSoumettreKilometrage = new GridBagConstraints();
 		gbc_btnSoumettreKilometrage.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSoumettreKilometrage.gridx = 1;
 		gbc_btnSoumettreKilometrage.gridy = 5;
 		kilometrageJPanel.add(btnSoumettreKilometrage, gbc_btnSoumettreKilometrage);
 		
-		JLabel lblAncienneNote = new JLabel("Ancienne note :");
+		lblAncienneNote = new JLabel("Ancienne note :");
 		GridBagConstraints gbc_lblAncienneNote = new GridBagConstraints();
 		gbc_lblAncienneNote.anchor = GridBagConstraints.WEST;
 		gbc_lblAncienneNote.insets = new Insets(0, 0, 5, 5);
@@ -433,15 +461,15 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblAncienneNote.gridy = 6;
 		kilometrageJPanel.add(lblAncienneNote, gbc_lblAncienneNote);
 		
-		JTextPane textPane_11 = new JTextPane();
-		GridBagConstraints gbc_textPane_11 = new GridBagConstraints();
-		gbc_textPane_11.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane_11.fill = GridBagConstraints.BOTH;
-		gbc_textPane_11.gridx = 1;
-		gbc_textPane_11.gridy = 6;
-		kilometrageJPanel.add(textPane_11, gbc_textPane_11);
+		textPaneNote = new JTextPane();
+		GridBagConstraints gbc_textPaneNote = new GridBagConstraints();
+		gbc_textPaneNote.insets = new Insets(0, 0, 5, 0);
+		gbc_textPaneNote.fill = GridBagConstraints.BOTH;
+		gbc_textPaneNote.gridx = 1;
+		gbc_textPaneNote.gridy = 6;
+		kilometrageJPanel.add(textPaneNote, gbc_textPaneNote);
 		
-		JLabel lblNouvelleNote = new JLabel("Nouvelle note :");
+		lblNouvelleNote = new JLabel("Nouvelle note :");
 		GridBagConstraints gbc_lblNouvelleNote = new GridBagConstraints();
 		gbc_lblNouvelleNote.anchor = GridBagConstraints.WEST;
 		gbc_lblNouvelleNote.insets = new Insets(0, 0, 5, 5);
@@ -449,16 +477,16 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblNouvelleNote.gridy = 7;
 		kilometrageJPanel.add(lblNouvelleNote, gbc_lblNouvelleNote);
 		
-		textField_11 = new JTextField();
-		GridBagConstraints gbc_textField_11 = new GridBagConstraints();
-		gbc_textField_11.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_11.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_11.gridx = 1;
-		gbc_textField_11.gridy = 7;
-		kilometrageJPanel.add(textField_11, gbc_textField_11);
-		textField_11.setColumns(10);
+		textFieldCheckNouvNote = new JTextField();
+		GridBagConstraints gbc_textFieldCheckNouvNote = new GridBagConstraints();
+		gbc_textFieldCheckNouvNote.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldCheckNouvNote.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCheckNouvNote.gridx = 1;
+		gbc_textFieldCheckNouvNote.gridy = 7;
+		kilometrageJPanel.add(textFieldCheckNouvNote, gbc_textFieldCheckNouvNote);
+		textFieldCheckNouvNote.setColumns(10);
 		
-		JButton btnSoumettreNote = new JButton("Soumettre note");
+		btnSoumettreNote = new JButton("Soumettre note");
 		GridBagConstraints gbc_btnSoumettreNote = new GridBagConstraints();
 		gbc_btnSoumettreNote.gridx = 1;
 		gbc_btnSoumettreNote.gridy = 8;
@@ -476,20 +504,20 @@ public class TechnicienVueGui extends JFrame {
 		gbl_clientJPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		clientJPanel.setLayout(gbl_clientJPanel);
 		
-		JLabel lblListeDesClients = new JLabel("Liste des clients :");
+		lblListeDesClients = new JLabel("Liste des clients :");
 		GridBagConstraints gbc_lblListeDesClients = new GridBagConstraints();
 		gbc_lblListeDesClients.insets = new Insets(0, 0, 5, 5);
 		gbc_lblListeDesClients.gridx = 0;
 		gbc_lblListeDesClients.gridy = 0;
 		clientJPanel.add(lblListeDesClients, gbc_lblListeDesClients);
 		
-		JTextPane textPane111 = new JTextPane();
-		GridBagConstraints gbc_textPane111 = new GridBagConstraints();
-		gbc_textPane111.fill = GridBagConstraints.BOTH;
-		gbc_textPane111.gridx = 1;
-		gbc_textPane111.gridy = 1;
-		clientJPanel.add(textPane111, gbc_textPane111);
+		textPaneClient = new JTextPane();
+		GridBagConstraints gbc_textPaneClient = new GridBagConstraints();
+		gbc_textPaneClient.fill = GridBagConstraints.BOTH;
+		gbc_textPaneClient.gridx = 1;
+		gbc_textPaneClient.gridy = 1;
+		clientJPanel.add(textPaneClient, gbc_textPaneClient);
 		clientJPanel.setVisible(false);
 
-}
 	}
+}
