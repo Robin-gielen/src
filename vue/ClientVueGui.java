@@ -614,6 +614,224 @@ public class ClientVueGui extends JFrame {
 		gbc_btnValider.gridx = 2;
 		gbc_btnValider.gridy = 11;
 		listeVoitureJPanel.add(btnValider, gbc_btnValider);
+		
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PagePourSIdentifier frame = new PagePourSIdentifier();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	public PagePourSIdentifier() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("38dlu:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblBienvenue = new JLabel("Bienvenue");
+		contentPane.add(lblBienvenue, "4, 2");
+		
+		JLabel lblVousAvezDj = new JLabel("Vous avez d\u00E9j\u00E0 un compte?");
+		contentPane.add(lblVousAvezDj, "2, 4");
+		
+		JLabel lblPseudo = new JLabel("Pseudo");
+		contentPane.add(lblPseudo, "2, 8, right, default");
+		
+		textField = new JTextField();
+		contentPane.add(textField, "4, 8, fill, default");
+		textField.setColumns(10);
+		
+		JLabel lblMotDePasse = new JLabel("Mot de passe");
+		contentPane.add(lblMotDePasse, "2, 10, right, default");
+		
+		passwordField = new JPasswordField();
+		contentPane.add(passwordField, "4, 10, fill, default");
+		
+		JButton btnSeConnecter = new JButton("Se connecter");
+		contentPane.add(btnSeConnecter, "6, 10, center, default");
+		
+		JLabel lblVousNavezPas = new JLabel("Vous n'avez pas de compte?");
+		contentPane.add(lblVousNavezPas, "2, 16");
+		
+		JButton btnCliquezIciPour = new JButton("Cliquez ici pour le cr\u00E9er");
+		btnCliquezIciPour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		contentPane.add(btnCliquezIciPour, "6, 16, left, default");
+		**/
+		
+		/**
+	public class PagePourSeConnecterGUI extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+	private JLabel lblVotreNom;
+	private JTextField textField_1;
+	private JLabel lblVotreDateDe;
+	private JTextField textField_2;
+	private JLabel lblVotreAdresseMail;
+	private JTextField textField_3;
+	private JLabel lblVotreAdresseville;
+	private JTextField textField_4;
+	private JLabel lblVotreAssurance;
+	private JTextField textField_5;
+	private JLabel lblVotrePseudo;
+	private JTextField textField_6;
+	private JLabel lblVotreMotDe;
+	private JPasswordField passwordField;
+	private JButton btnCrerLeCompte;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PagePourSeConnecterGUI frame = new PagePourSeConnecterGUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public PagePourSeConnecterGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 622, 393);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblVeuillezIndiquerVos = new JLabel("Veuillez indiquer vos donn\u00E9es personnelles");
+		contentPane.add(lblVeuillezIndiquerVos, "2, 2");
+		
+		JLabel lblVotrePrnom = new JLabel("Votre pr\u00E9nom");
+		contentPane.add(lblVotrePrnom, "2, 6, right, default");
+		
+		textField = new JTextField();
+		contentPane.add(textField, "4, 6, fill, default");
+		textField.setColumns(10);
+		
+		lblVotreNom = new JLabel("Votre nom");
+		contentPane.add(lblVotreNom, "2, 8, right, default");
+		
+		textField_1 = new JTextField();
+		contentPane.add(textField_1, "4, 8, fill, default");
+		textField_1.setColumns(10);
+		
+		lblVotreDateDe = new JLabel("Votre date de naissance");
+		contentPane.add(lblVotreDateDe, "2, 10, right, default");
+		
+		textField_2 = new JTextField();
+		contentPane.add(textField_2, "4, 10, fill, default");
+		textField_2.setColumns(10);
+		
+		lblVotreAdresseMail = new JLabel("Votre adresse mail");
+		contentPane.add(lblVotreAdresseMail, "2, 12, right, default");
+		
+		textField_3 = new JTextField();
+		contentPane.add(textField_3, "4, 12, fill, default");
+		textField_3.setColumns(10);
+		
+		lblVotreAdresseville = new JLabel("Votre adresse(Ville + rue)");
+		contentPane.add(lblVotreAdresseville, "2, 14, right, default");
+		
+		textField_4 = new JTextField();
+		contentPane.add(textField_4, "4, 14, fill, default");
+		textField_4.setColumns(10);
+		
+		lblVotreAssurance = new JLabel("Votre assurance");
+		contentPane.add(lblVotreAssurance, "2, 16, right, default");
+		
+		textField_5 = new JTextField();
+		contentPane.add(textField_5, "4, 16, fill, default");
+		textField_5.setColumns(10);
+		
+		lblVotrePseudo = new JLabel("Votre pseudo");
+		contentPane.add(lblVotrePseudo, "2, 18, right, default");
+		
+		textField_6 = new JTextField();
+		contentPane.add(textField_6, "4, 18, fill, default");
+		textField_6.setColumns(10);
+		
+		lblVotreMotDe = new JLabel("Votre mot de passe");
+		contentPane.add(lblVotreMotDe, "2, 20, right, default");
+		
+		passwordField = new JPasswordField();
+		contentPane.add(passwordField, "4, 20, fill, default");
+		
+		btnCrerLeCompte = new JButton("Cr\u00E9er le compte");
+		contentPane.add(btnCrerLeCompte, "4, 22, right, default");
+
+		**/
 	}
 
 }
