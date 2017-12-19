@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,8 @@ public class ClientVueGui extends JFrame {
 	private JPanel listeVoitureJPanel;
 	private JPanel contactJPanel;
 	private JPanel locationJPanel;
+	
+	
 	private JTextField textFieldPrenomC;
 	private JTextField textFieldNomC;
 	private JTextField textFieldID;
@@ -48,6 +51,7 @@ public class ClientVueGui extends JFrame {
 	private JTextField textField_5;
 	private JTextField textField_6;
 
+	
 	
 
 	/**
@@ -74,8 +78,7 @@ public class ClientVueGui extends JFrame {
 		listeVoitureJPanel = new JPanel();
 		contactJPanel = new JPanel();
 		locationJPanel = new JPanel();
-		
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 772, 525);
 		
@@ -139,7 +142,6 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		infoJPanel.setLayout(gridBagLayout);
-		infoJPanel.setVisible(false);
 		
 		JLabel lblMesInfos = new JLabel("Mes infos :");
 		lblMesInfos.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -325,6 +327,8 @@ public class ClientVueGui extends JFrame {
 		contactJPanel.add(textFieldMailA, gbc_textFieldMailA);
 		textFieldMailA.setColumns(10);
 		
+		textFieldMailA.setText("admin@hotmail.be");
+		
 		JLabel lblNom = new JLabel("Nom :");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
 		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
@@ -342,6 +346,8 @@ public class ClientVueGui extends JFrame {
 		contactJPanel.add(textFieldNomA, gbc_textFieldNomA);
 		textFieldNomA.setColumns(10);
 		
+		textFieldNomA.setText("admin");
+		
 		JLabel lblPrnom = new JLabel("Prenom :");
 		GridBagConstraints gbc_lblPrnom = new GridBagConstraints();
 		gbc_lblPrnom.anchor = GridBagConstraints.EAST;
@@ -358,6 +364,8 @@ public class ClientVueGui extends JFrame {
 		gbc_textFieldPrenomA.gridy = 4;
 		contactJPanel.add(textFieldPrenomA, gbc_textFieldPrenomA);
 		textFieldPrenomA.setColumns(10);
+		
+		textFieldPrenomA.setText("admin");
 		
 		JLabel lblInfoSurLe = new JLabel("Infos sur le technicien");
 		GridBagConstraints gbc_lblInfoSurLe = new GridBagConstraints();
@@ -384,6 +392,8 @@ public class ClientVueGui extends JFrame {
 		contactJPanel.add(textFieldMailT, gbc_textFieldMailT);
 		textFieldMailT.setColumns(10);
 		
+		textFieldMailT.setText("technicien@mail.be");
+		
 		JLabel lblNomT = new JLabel("Nom :");
 		GridBagConstraints gbc_lblNomT = new GridBagConstraints();
 		gbc_lblNomT.anchor = GridBagConstraints.EAST;
@@ -401,6 +411,8 @@ public class ClientVueGui extends JFrame {
 		contactJPanel.add(textFieldNomT, gbc_textFieldNomT);
 		textFieldNomT.setColumns(10);
 		
+		textFieldNomT.setText("technicien");
+		
 		JLabel lblPrenomT = new JLabel("Prenom :");
 		GridBagConstraints gbc_lblPrenomT = new GridBagConstraints();
 		gbc_lblPrenomT.anchor = GridBagConstraints.EAST;
@@ -416,6 +428,8 @@ public class ClientVueGui extends JFrame {
 		gbc_textFieldPrenomT.gridy = 10;
 		contactJPanel.add(textFieldPrenomT, gbc_textFieldPrenomT);
 		textFieldPrenomT.setColumns(10);
+		
+		textFieldPrenomT.setText("technicien");
 		
 		infoJPanel.setVisible(true);
 		getContentPane().add(infoJPanel);
@@ -528,6 +542,22 @@ public class ClientVueGui extends JFrame {
 		listeVoitureJPanel.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
+		JLabel lblIndiquezLeKilometrage = new JLabel("Indiquez le kilometrage");
+		GridBagConstraints gbc_lblIndiquezLeKilometrage = new GridBagConstraints();
+		gbc_lblIndiquezLeKilometrage.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIndiquezLeKilometrage.gridx = 0;
+		gbc_lblIndiquezLeKilometrage.gridy = 4;
+		listeVoitureJPanel.add(lblIndiquezLeKilometrage, gbc_lblIndiquezLeKilometrage);
+		
+		textField_2 = new JTextField();
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 2;
+		gbc_textField_2.gridy = 4;
+		listeVoitureJPanel.add(textField_2, gbc_textField_2);
+		textField_2.setColumns(10);
+		
 		JLabel lblAutomatiquemanuel = new JLabel("Boite de transmission");
 		GridBagConstraints gbc_lblAutomatiquemanuel = new GridBagConstraints();
 		gbc_lblAutomatiquemanuel.insets = new Insets(0, 0, 5, 5);
@@ -598,6 +628,9 @@ public class ClientVueGui extends JFrame {
 		gbc_btnValider.gridx = 2;
 		gbc_btnValider.gridy = 11;
 		listeVoitureJPanel.add(btnValider, gbc_btnValider);
+	}
+
+}
 
 	/**
 	public PagePourSIdentifier() {
