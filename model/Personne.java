@@ -23,30 +23,6 @@ public abstract class Personne extends Observable {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.privilege = privilege;
-		/*Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        int resultUpdate;
-    	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test", "gimkil", "cisco");
-            stmt = conn.createStatement();
-            resultUpdate = stmt.executeUpdate("CREATE USER '" + pseudo +"'@'DESKTOP-GMCCSDC' IDENTIFIED BY '" + motDePasse +"';");
-            System.out.println(resultUpdate);
-            resultUpdate = stmt.executeUpdate("INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, adresse, adresseMail) VALUES (");
-            System.out.println(resultUpdate);
-            
-        } catch (Exception ex) {
-            // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
-        }
-    	finally {
-    		    if (stmt != null) {
-    		        try {
-    		            stmt.close();
-    		        } catch (SQLException sqlEx) { } // ignore
-    		        stmt = null;
-    		    }
-    	}*/
 	}
 	
 	public String getPseudo() {
