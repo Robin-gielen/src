@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,11 +22,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import controller.AdminController;
 import model.Admin;
 import model.Client;
 import model.Location;
 
-public class AdminVueGui2 extends JFrame {
+public class AdminVueGui2 extends AdminVue {
 
 	
 	/**
@@ -110,13 +112,14 @@ public class AdminVueGui2 extends JFrame {
 	/**
 	 * 
 	 */
-	public AdminVueGui2(Admin model) {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 600);
+	public AdminVueGui2(Admin model, AdminController controlleur) {
+		super(model, controlleur);
+		JFrame AdminJFrame = new JFrame();
+		AdminJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		AdminJFrame.setBounds(100, 100, 1200, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		AdminJFrame.setJMenuBar(menuBar);
 		
 		personneJPanel = new JPanel();
 
@@ -146,7 +149,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(false);
 				alterClientJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				setContentPane(personneJPanel);
+				AdminJFrame.setContentPane(personneJPanel);
 			}
 		});
 		btnInfosJPanel.addActionListener(new ActionListener() {
@@ -158,7 +161,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(false);
 				alterClientJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				setContentPane(infosJPanel);
+				AdminJFrame.setContentPane(infosJPanel);
 			}
 		});
 		btnFactureJPanel.addActionListener(new ActionListener() {
@@ -170,7 +173,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(false);
 				alterClientJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				setContentPane(factureJPanel);
+				AdminJFrame.setContentPane(factureJPanel);
 			}
 		});
 		btnLocationJPanel.addActionListener(new ActionListener() {
@@ -182,7 +185,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(false);
 				alterClientJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				setContentPane(locationJPanel);
+				AdminJFrame.setContentPane(locationJPanel);
 			}
 		});
 		btnVoitureJPanel.addActionListener(new ActionListener() {
@@ -194,7 +197,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(true);
 				alterClientJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				setContentPane(voitureJPanel);
+				AdminJFrame.setContentPane(voitureJPanel);
 			}
 		});
 		btnAlterClientJPanel.addActionListener(new ActionListener() {
@@ -206,7 +209,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(false);
 				alterClientJPanel.setVisible(true);
 				alterVoitureJPanel.setVisible(false);
-				setContentPane(alterClientJPanel);
+				AdminJFrame.setContentPane(alterClientJPanel);
 			}
 		});
 		btnAlterVoitureJPanel.addActionListener(new ActionListener() {
@@ -218,7 +221,7 @@ public class AdminVueGui2 extends JFrame {
 				voitureJPanel.setVisible(false);
 				alterClientJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(true);
-				setContentPane(alterVoitureJPanel);
+				AdminJFrame.setContentPane(alterVoitureJPanel);
 			}
 		});
 		
@@ -645,6 +648,8 @@ public class AdminVueGui2 extends JFrame {
 		gbc_textFieldLocaEstEnCours.gridy = 9;
 		locationJPanel.add(textFieldLocaEstEnCours, gbc_textFieldLocaEstEnCours);
 		textFieldLocaEstEnCours.setColumns(10);
+
+		AdminJFrame.setVisible(true);
 		
 	}
 	
@@ -655,11 +660,9 @@ public class AdminVueGui2 extends JFrame {
 	      SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
 	            Admin model = new Admin();
-				AdminVueGui2 frame = new AdminVueGui2(model);
-	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	            frame.setLocationRelativeTo(null);
-	            frame.setVisible(true);
+	            AdminController controlleur = new AdminController(model);
+				AdminVueGui2 frame = new AdminVueGui2(model, controlleur);
+	           
 	         }
 	      });
 	   }
@@ -671,6 +674,18 @@ public class AdminVueGui2 extends JFrame {
 	    } catch (NumberFormatException e) {
 	        return false;
 	    }
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void affiche(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
