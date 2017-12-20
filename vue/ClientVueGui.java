@@ -533,7 +533,7 @@ public class ClientVueGui extends JFrame {
 		listeVoitureJPanel.add(textPane_1, gbc_textPane_1);
 	}
 	
-}
+
 		
 		//liste voiture
 		/**
@@ -883,4 +883,4 @@ public class ClientVueGui extends JFrame {
 		**/
 	}
 
-}
+

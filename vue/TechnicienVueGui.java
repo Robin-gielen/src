@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -42,6 +41,11 @@ public class TechnicienVueGui extends JFrame {
 	private JTextField textFieldFactNumFact;
 	private JTextField textFieldFactNumClient;
 	private JTextField textFieldLocaNumClient;
+	private JTextField textFieldLocation;
+	private JTextField textFieldVoit;
+	private JTextField textFieldInfo;
+	private JTextField textFieldInfoFact;
+	private JTextField textFieldAncienKm;
 	
 	
 	private JLabel lblMesInfos;
@@ -56,12 +60,6 @@ public class TechnicienVueGui extends JFrame {
 	private JLabel lblKilometrageActuel;
 	private JLabel lblNDeClient;
 	private JLabel lblNDeFacture;
-	
-	private JTextPane textPaneLocation;
-	private JTextPane textPaneVoit;
-	private JTextPane textPaneInfo;
-	private JTextPane textPaneInfoFact;
-	private JTextPane textPaneAncienKm;
 	
 	private JButton btnInfo;
 	private JButton btnNouvelleFacture;
@@ -122,7 +120,7 @@ public class TechnicienVueGui extends JFrame {
 				voitureJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
-				getContentPane().add(infoJPanel);
+				setContentPane(infoJPanel);
 				
 			}
 		});
@@ -137,7 +135,7 @@ public class TechnicienVueGui extends JFrame {
 				voitureJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
-				getContentPane().add(factureJPanel);
+				setContentPane(factureJPanel);
 				
 			}
 		});
@@ -152,7 +150,7 @@ public class TechnicienVueGui extends JFrame {
 				voitureJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
-				getContentPane().add(locationJPanel);
+				setContentPane(locationJPanel);
 				
 			}
 		});
@@ -167,7 +165,7 @@ public class TechnicienVueGui extends JFrame {
 				infoJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
-				getContentPane().add(voitureJPanel);
+				setContentPane(voitureJPanel);
 				
 			}
 		});
@@ -182,7 +180,7 @@ public class TechnicienVueGui extends JFrame {
 				factureJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
-				getContentPane().add(infoFactureJPanel);
+				setContentPane(infoFactureJPanel);
 			}
 		});
 		menuBar.add(btnInfoFacture);
@@ -196,7 +194,7 @@ public class TechnicienVueGui extends JFrame {
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
-				getContentPane().add(checkUpJPanel);
+				setContentPane(checkUpJPanel);
 			}
 		});
 		menuBar.add(btnCheckUp);
@@ -223,16 +221,16 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblMesInfos.gridy = 1;
 		infoJPanel.add(lblMesInfos, gbc_lblMesInfos);
 		
-		textPaneInfo = new JTextPane();
-		GridBagConstraints gbc_textPaneInfo = new GridBagConstraints();
-		gbc_textPaneInfo.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneInfo.fill = GridBagConstraints.BOTH;
-		gbc_textPaneInfo.gridx = 1;
-		gbc_textPaneInfo.gridy = 1;
+		textFieldInfo = new JTextField();
+		GridBagConstraints gbc_textFieldInfo = new GridBagConstraints();
+		gbc_textFieldInfo.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldInfo.fill = GridBagConstraints.BOTH;
+		gbc_textFieldInfo.gridx = 1;
+		gbc_textFieldInfo.gridy = 1;
 		
-		textPaneInfo.setText("information du technicien");
+		textFieldInfo.setText("information du technicien");
 		
-		infoJPanel.add(textPaneInfo, gbc_textPaneInfo);
+		infoJPanel.add(textFieldInfo, gbc_textFieldInfo);
 
 		infoJPanel.setVisible(true);
 		
@@ -297,7 +295,7 @@ public class TechnicienVueGui extends JFrame {
 		factureJPanel.add(textFieldFactNote, gbc_textFieldFactNote);
 		textFieldFactNote.setColumns(10);
 		
-		lblKmSupp = new JLabel("KilomÃ¨tre supplÃ©mentaire :");
+		lblKmSupp = new JLabel("Kilomètre supplémentaire :");
 		GridBagConstraints gbc_lblKmSupp = new GridBagConstraints();
 		gbc_lblKmSupp.anchor = GridBagConstraints.EAST;
 		gbc_lblKmSupp.insets = new Insets(0, 0, 5, 5);
@@ -365,7 +363,7 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textPaneLocation.setText(model.getLocation(Integer.parseInt(textFieldLocaNumLoca.getText())).toString());
+				textFieldLocation.setText(model.getLocation(Integer.parseInt(textFieldLocaNumLoca.getText())).toString());
 				
 			}
 		});
@@ -387,7 +385,7 @@ public class TechnicienVueGui extends JFrame {
 		locationJPanel.add(textFieldLocaNumClient, gbc_textFieldLocaNumClient);
 		textFieldLocaNumClient.setColumns(10);
 		
-		btnRechercherNumClient = new JButton("Rechercher location Ã pd du nÂ° de client");
+		btnRechercherNumClient = new JButton("Rechercher location àpd du n° de client");
 		GridBagConstraints gbc_btnRechercherNumClient = new GridBagConstraints();
 		gbc_btnRechercherNumClient.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercherNumClient.gridx = 1;
@@ -401,17 +399,17 @@ public class TechnicienVueGui extends JFrame {
 				for (Location location : tempLocas) {
 					tempString+= location.toString()+"\n";
 				}
-				textPaneLocation.setText(tempString);
+				textFieldLocation.setText(tempString);
 			}
 		});
 		
-		textPaneLocation = new JTextPane();
-		GridBagConstraints gbc_textPaneLocation = new GridBagConstraints();
-		gbc_textPaneLocation.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneLocation.fill = GridBagConstraints.BOTH;
-		gbc_textPaneLocation.gridx = 1;
-		gbc_textPaneLocation.gridy = 4;
-		locationJPanel.add(textPaneLocation, gbc_textPaneLocation);
+		textFieldLocation = new JTextField();
+		GridBagConstraints gbc_textFieldLocation = new GridBagConstraints();
+		gbc_textFieldLocation.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldLocation.fill = GridBagConstraints.BOTH;
+		gbc_textFieldLocation.gridx = 1;
+		gbc_textFieldLocation.gridy = 4;
+		locationJPanel.add(textFieldLocation, gbc_textFieldLocation);
 		
 		locationJPanel.setVisible(false);
 		
@@ -426,7 +424,7 @@ public class TechnicienVueGui extends JFrame {
 		gbl_voitureJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		voitureJPanel.setLayout(gbl_voitureJPanel);
 		
-		lblNDeVoiture = new JLabel("NÂ° de Voiture :");
+		lblNDeVoiture = new JLabel("N° de Voiture :");
 		GridBagConstraints gbc_lblNDeVoiture = new GridBagConstraints();
 		gbc_lblNDeVoiture.anchor = GridBagConstraints.EAST;
 		gbc_lblNDeVoiture.insets = new Insets(0, 0, 5, 5);
@@ -453,18 +451,18 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnRechercherVoit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textPaneVoit.setText(model.getVoiture(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
+				textFieldVoit.setText(model.getVoiture(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
 				
 			}
 		});
 		
-		textPaneVoit = new JTextPane();
-		GridBagConstraints gbc_textPaneVoit = new GridBagConstraints();
-		gbc_textPaneVoit.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneVoit.fill = GridBagConstraints.BOTH;
-		gbc_textPaneVoit.gridx = 1;
-		gbc_textPaneVoit.gridy = 5;
-		voitureJPanel.add(textPaneVoit, gbc_textPaneVoit);
+		textFieldVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoit = new GridBagConstraints();
+		gbc_textFieldVoit.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldVoit.fill = GridBagConstraints.BOTH;
+		gbc_textFieldVoit.gridx = 1;
+		gbc_textFieldVoit.gridy = 5;
+		voitureJPanel.add(textFieldVoit, gbc_textFieldVoit);
 		
 		voitureJPanel.setVisible(false);
 		
@@ -505,7 +503,7 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnRechercherFacture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textPaneInfoFact.setText(model.getFacture(Integer.parseInt(textFieldFactNumFact.getText())).toString());
+				textFieldInfoFact.setText(model.getFacture(Integer.parseInt(textFieldFactNumFact.getText())).toString());
 				
 			}
 		});
@@ -541,17 +539,17 @@ public class TechnicienVueGui extends JFrame {
 				for (Facture facture : tempFacts) {
 					tempString+= facture.toString()+"\n";
 				}
-				textPaneInfoFact.setText(tempString);
+				textFieldInfoFact.setText(tempString);
 				
 			}
 		});
 		
-		textPaneInfoFact = new JTextPane();
-		GridBagConstraints gbc_textPaneInfoFact = new GridBagConstraints();
-		gbc_textPaneInfoFact.fill = GridBagConstraints.BOTH;
-		gbc_textPaneInfoFact.gridx = 1;
-		gbc_textPaneInfoFact.gridy = 5;
-		infoFactureJPanel.add(textPaneInfoFact, gbc_textPaneInfoFact);
+		textFieldInfoFact = new JTextField();
+		GridBagConstraints gbc_textFieldInfoFact = new GridBagConstraints();
+		gbc_textFieldInfoFact.fill = GridBagConstraints.BOTH;
+		gbc_textFieldInfoFact.gridx = 1;
+		gbc_textFieldInfoFact.gridy = 5;
+		infoFactureJPanel.add(textFieldInfoFact, gbc_textFieldInfoFact);
 		infoFactureJPanel.setVisible(false);
 		
 		//check up
@@ -589,13 +587,13 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnValider2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Ã  faire
+				//à faire
 				lblAncienKilometrage.setVisible(true);
-				textPaneAncienKm.setVisible(true);
+				textFieldAncienKm.setVisible(true);
 				lblKilometrageActuel.setVisible(true);
 				textFieldCheckKmActu.setVisible(true);
 				btnSoumettreKilometrage.setVisible(true);
-				textPaneAncienKm.setText((model.getVoiture(Integer.parseInt(textFieldCheckNumVoit.getText()))).getKilometrage()+"");
+				textFieldAncienKm.setText((model.getVoiture(Integer.parseInt(textFieldCheckNumVoit.getText()))).getKilometrage()+"");
 				
 				
 				
@@ -610,13 +608,13 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblAncienKilometrage.gridy = 2;
 		checkUpJPanel.add(lblAncienKilometrage, gbc_lblAncienKilometrage);
 		
-		textPaneAncienKm = new JTextPane();
-		GridBagConstraints gbc_textPaneAncienKm = new GridBagConstraints();
-		gbc_textPaneAncienKm.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneAncienKm.fill = GridBagConstraints.BOTH;
-		gbc_textPaneAncienKm.gridx = 1;
-		gbc_textPaneAncienKm.gridy = 2;
-		checkUpJPanel.add(textPaneAncienKm, gbc_textPaneAncienKm);
+		textFieldAncienKm = new JTextField();
+		GridBagConstraints gbc_textFieldAncienKm = new GridBagConstraints();
+		gbc_textFieldAncienKm.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldAncienKm.fill = GridBagConstraints.BOTH;
+		gbc_textFieldAncienKm.gridx = 1;
+		gbc_textFieldAncienKm.gridy = 2;
+		checkUpJPanel.add(textFieldAncienKm, gbc_textFieldAncienKm);
 		
 		lblKilometrageActuel = new JLabel("Kilometrage actuel :");
 		GridBagConstraints gbc_lblKilometrageActuel = new GridBagConstraints();
@@ -644,24 +642,25 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnSoumettreKilometrage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Ã  faire
+				//à faire
 				model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
 			}
 		});
 		
 		checkUpJPanel.setVisible(false);
 		lblAncienKilometrage.setVisible(false);
-		textPaneAncienKm.setVisible(false);
+		textFieldAncienKm.setVisible(false);
 		lblKilometrageActuel.setVisible(false);
 		textFieldCheckKmActu.setVisible(false);
 		btnSoumettreKilometrage.setVisible(false);
 
 		
-		//rendre non Ã©ditable tout les JTextPane
-		textPaneLocation.setEditable(false);
-		textPaneVoit.setEditable(false);
-		textPaneInfo.setEditable(false);
-		textPaneAncienKm.setEditable(false);
+		//rendre non éditable tout les JTextField
+		textFieldLocation.setEditable(false);
+		textFieldVoit.setEditable(false);
+		textFieldInfo.setEditable(false);
+		textFieldAncienKm.setEditable(false);
+		textFieldInfoFact.setEditable(false);
 
 	}
 }
