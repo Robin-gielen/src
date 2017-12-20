@@ -64,7 +64,6 @@ public class ClientVueGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientVueGui frame = new ClientVueGui();
 					ClientVueGui frame = new ClientVueGui(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -77,7 +76,6 @@ public class ClientVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientVueGui() {
 	public ClientVueGui(Client model) {
 		infoJPanel = new JPanel();
 		listeVoitureJPanel = new JPanel();
@@ -85,7 +83,6 @@ public class ClientVueGui extends JFrame {
 		locationJPanel = new JPanel();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 772, 525);
 		setBounds(100, 100, 1000, 500);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -146,7 +143,6 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		infoJPanel.setLayout(gridBagLayout);
 		
@@ -305,7 +301,6 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout1.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout1.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contactJPanel.setLayout(gridBagLayout1);
 		contactJPanel.setVisible(false);
@@ -541,19 +536,18 @@ public class ClientVueGui extends JFrame {
 		GridBagConstraints gbc_lblAssurancesDisponibles = new GridBagConstraints();
 		gbc_lblAssurancesDisponibles.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAssurancesDisponibles.gridx = 0;
-		gbc_lblAssurancesDisponibles.gridy = 3;
 		gbc_lblAssurancesDisponibles.gridy = 2;
 		listeVoitureJPanel.add(lblAssurancesDisponibles, gbc_lblAssurancesDisponibles);
 		
 		JTextPane textPane_1 = new JTextPane();
 		GridBagConstraints gbc_textPane_1 = new GridBagConstraints();
-		gbc_textPane_1.insets = new Insets(0, 0, 5, 0);
 		gbc_textPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane_1.fill = GridBagConstraints.BOTH;
 		gbc_textPane_1.gridx = 1;
 		gbc_textPane_1.gridy = 3;
 		listeVoitureJPanel.add(textPane_1, gbc_textPane_1);
 	}
+<<<<<<< HEAD
 	
 
 		
@@ -904,5 +898,7 @@ public class ClientVueGui extends JFrame {
 
 		**/
 	}
+=======
+>>>>>>> e574633cb82b2fa11069f3b04ca8025620ac3da9
 
 

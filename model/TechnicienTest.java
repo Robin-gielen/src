@@ -8,6 +8,7 @@ public class TechnicienTest {
 
 	@Test
 	public void testToString() {
+		Technicien tech = new Technicien("JC", "mdp","Jesus", "Christ");
 		assertEquals("pseudo=JC, motDePasse=mdp, nom=Jesus, prenom=Christ, privilege=1techID=1", tech.toString());
 	}
 

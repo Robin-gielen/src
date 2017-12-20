@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ * cette classe implÃƒÂ©mente un technicien qui est une Personne qui est identifiÃƒÂ© par son techID
  * @author Tanguy Alexandre
  * 2TL2 
  * Groupe 15
@@ -15,18 +16,25 @@ import java.sql.Statement;
 public class Technicien extends Personne{
 	private int techID;
 	/**
+	 * Ce constructeur permet de crÃƒÂ©er un technicien sans spÃƒÂ©cifier son techID qui sera crÃƒÂ©er dans la DB et son privilÃƒÂ¨ge sera par dÃƒÂ©faut Ãƒ  1 (=technicien)
+	 * @param pseudo c'est son pseudo pour se connecter Ãƒ  l'application
+	 * @param motDePasse c'est son mot de passe pour ce connecter Ãƒ  l'application
 	 * @param nom c'est son nom
+	 * @param prenom c'est son prÃƒÂ©nom
 	 */
 	public Technicien(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 1);
 	}
 	
 	/**
+	 * Ce constructeur permet de crÃƒÂ©er un technicien 
+	 * @param pseudo c'est son pseudo pour se connecter Ãƒ  l'application
+	 * @param motDePasse c'est son mot de passe pour ce connecter Ãƒ  l'application
 	 * @param nom c'est son nom
+	 * @param prenom c'est son prÃƒÂ©nom
+	 * @param privilege cela reprÃƒÂ©sente les privilÃƒÂ¨ges qu'il aura (0=Admin, 1=Technicien, 2= Client)
 	 * @param techID c'est l'identifiant du technicien
 	 */
-	public Technicien(String pseudo, String motDePasse, String nom, String prenom, int privilege, int techID) {
-		super(pseudo, motDePasse, nom, prenom, privilege);
 	public Technicien(String pseudo, String motDePasse, String nom, String prenom, int techID) {
 		super(pseudo, motDePasse, nom, prenom, 1);
 		this.techID = techID;
@@ -52,7 +60,6 @@ public class Technicien extends Personne{
 	
 	@Override
 	/**
-	 * Cette mÃ©thode permet d'afficher en chaine de caractÃ¨re les diffÃ©rents attributs d'un technicien
 	 * Cette mÃƒÂ©thode permet d'afficher en chaine de caractÃƒÂ¨re les diffÃƒÂ©rents attributs d'un technicien
 	 */
 	public String toString() {
@@ -60,7 +67,6 @@ public class Technicien extends Personne{
 	}
 
 	/**
-	 * cette mÃ©thode sert Ã  rÃ©cupÃ©rer une voiture pour afficher les attributs de celle-ci
 	 * cette mÃƒÂ©thode sert Ãƒ  rÃƒÂ©cupÃƒÂ©rer une voiture pour afficher les attributs de celle-ci
 	 * @param voitID c'est l'identifiant de la voiture 
 	 * @return un objet de type voiture 
@@ -99,7 +105,6 @@ public class Technicien extends Personne{
 		return null;
 	}
 	/**
-	 * Cette mÃ©thode permet de modifier le kilometrage d'une voiture 
 	 * Cette mÃƒÂ©thode permet de modifier le kilometrage d'une voiture 
 	 * @param voitID c'est l'identifiant d'une voiture
 	 * @param kilometrage c'est le kilometrage lors de la fin de la location
@@ -142,7 +147,9 @@ public class Technicien extends Personne{
 		return -1;
 	}
 	/**
+	 * cette mÃƒÂ©thode permet d'ajouter une note par rapport Ãƒ  une location d'une voiture
 	 * @param locationID c'est l'identifiant d'une location
+	 * @param note c'est la note que l'on ajoute Ãƒ  une location
 	 */
 	public int setNote(int factID, String note) {
 		Connection conn = null;
@@ -174,7 +181,9 @@ public class Technicien extends Personne{
 		return 0;
 	}
 	/**
+	 * cette mÃƒÂ©thode permet de modifier le faite que l'accompte Ãƒ  ÃƒÂ©tÃƒÂ© payÃƒÂ© ou non 
 	 * @param locationID c'est l'identifiant d'une location
+	 * @param estPaye c'est l'ÃƒÂ©tat de l'accompte d'une location true si payÃƒÂ©, false si non payÃƒÂ©
 	 */
 	public int setAccompteStatut(int locationID, boolean estPaye) {
 		Connection conn = null;
@@ -221,6 +230,9 @@ public class Technicien extends Personne{
 	}
 		
 	/**
+	 * cette mÃƒÂ©thode permet de crÃƒÂ©er une facture 
+	 * @param locationID c'est la location Ãƒ  laquelle est liÃƒÂ© la facture
+	 * @param estPaye c'est l'ÃƒÂ©tat de payement d'une location true si payÃƒÂ©, false si non payÃƒÂ©
 	 */
 	public int createFacture(int locationID, boolean estPaye, String note, double kmSupp) {
 		Connection conn = null;
@@ -235,6 +247,7 @@ public class Technicien extends Personne{
             if (rs.next()) {
             	tempMontant=Double.parseDouble(rs.getString("montant"))+(Double.parseDouble(rs.getString("prixKmSupp"))*kmSupp);
             }
+            else System.out.println("data pas trouvê¥ dans BDD"); 
             if(!estPaye && tempMontant!=0){
 				result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 0,\" "+note+"\" )");
 				if (result > 0) {
