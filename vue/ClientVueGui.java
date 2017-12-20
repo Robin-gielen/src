@@ -19,6 +19,8 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.fabric.xmlrpc.Client;
+
 public class ClientVueGui extends JFrame {
 	
 	private JPanel infoJPanel;
@@ -50,6 +52,7 @@ public class ClientVueGui extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	
 
 	
 	
@@ -62,6 +65,7 @@ public class ClientVueGui extends JFrame {
 			public void run() {
 				try {
 					ClientVueGui frame = new ClientVueGui();
+					ClientVueGui frame = new ClientVueGui(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,6 +78,7 @@ public class ClientVueGui extends JFrame {
 	 * Create the frame.
 	 */
 	public ClientVueGui() {
+	public ClientVueGui(Client model) {
 		infoJPanel = new JPanel();
 		listeVoitureJPanel = new JPanel();
 		contactJPanel = new JPanel();
@@ -81,6 +86,7 @@ public class ClientVueGui extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 772, 525);
+		setBounds(100, 100, 1000, 500);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -141,6 +147,7 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		infoJPanel.setLayout(gridBagLayout);
 		
 		JLabel lblMesInfos = new JLabel("Mes infos :");
@@ -299,6 +306,7 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout1.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contactJPanel.setLayout(gridBagLayout1);
 		contactJPanel.setVisible(false);
 		
@@ -328,6 +336,8 @@ public class ClientVueGui extends JFrame {
 		textFieldMailA.setColumns(10);
 		
 		textFieldMailA.setText("admin@hotmail.be");
+		textFieldMailA.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMailA.setEditable(false);
 		
 		JLabel lblNom = new JLabel("Nom :");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
@@ -347,6 +357,8 @@ public class ClientVueGui extends JFrame {
 		textFieldNomA.setColumns(10);
 		
 		textFieldNomA.setText("admin");
+		textFieldNomA.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldNomA.setEditable(false);
 		
 		JLabel lblPrnom = new JLabel("Prenom :");
 		GridBagConstraints gbc_lblPrnom = new GridBagConstraints();
@@ -366,6 +378,8 @@ public class ClientVueGui extends JFrame {
 		textFieldPrenomA.setColumns(10);
 		
 		textFieldPrenomA.setText("admin");
+		textFieldPrenomA.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldPrenomA.setEditable(false);
 		
 		JLabel lblInfoSurLe = new JLabel("Infos sur le technicien");
 		GridBagConstraints gbc_lblInfoSurLe = new GridBagConstraints();
@@ -393,6 +407,8 @@ public class ClientVueGui extends JFrame {
 		textFieldMailT.setColumns(10);
 		
 		textFieldMailT.setText("technicien@mail.be");
+		textFieldMailT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMailT.setEditable(false);
 		
 		JLabel lblNomT = new JLabel("Nom :");
 		GridBagConstraints gbc_lblNomT = new GridBagConstraints();
@@ -412,6 +428,8 @@ public class ClientVueGui extends JFrame {
 		textFieldNomT.setColumns(10);
 		
 		textFieldNomT.setText("technicien");
+		textFieldNomT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldNomT.setEditable(false);
 		
 		JLabel lblPrenomT = new JLabel("Prenom :");
 		GridBagConstraints gbc_lblPrenomT = new GridBagConstraints();
@@ -430,6 +448,8 @@ public class ClientVueGui extends JFrame {
 		textFieldPrenomT.setColumns(10);
 		
 		textFieldPrenomT.setText("technicien");
+		textFieldPrenomT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldPrenomT.setEditable(false);
 		
 		infoJPanel.setVisible(true);
 		getContentPane().add(infoJPanel);
@@ -522,11 +542,13 @@ public class ClientVueGui extends JFrame {
 		gbc_lblAssurancesDisponibles.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAssurancesDisponibles.gridx = 0;
 		gbc_lblAssurancesDisponibles.gridy = 3;
+		gbc_lblAssurancesDisponibles.gridy = 2;
 		listeVoitureJPanel.add(lblAssurancesDisponibles, gbc_lblAssurancesDisponibles);
 		
 		JTextPane textPane_1 = new JTextPane();
 		GridBagConstraints gbc_textPane_1 = new GridBagConstraints();
 		gbc_textPane_1.insets = new Insets(0, 0, 5, 0);
+		gbc_textPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane_1.fill = GridBagConstraints.BOTH;
 		gbc_textPane_1.gridx = 1;
 		gbc_textPane_1.gridy = 3;

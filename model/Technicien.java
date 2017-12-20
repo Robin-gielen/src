@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * cette classe implÃ©mente un technicien qui est une Personne qui est identifiÃ© par son techID
  * @author Tanguy Alexandre
  * 2TL2 
  * Groupe 15
@@ -16,26 +15,20 @@ import java.sql.Statement;
 public class Technicien extends Personne{
 	private int techID;
 	/**
-	 * Ce constructeur permet de crÃ©er un technicien sans spÃ©cifier son techID qui sera crÃ©er dans la DB et son privilÃ¨ge sera par dÃ©faut Ã  1 (=technicien)
-	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
-	 * @param motDePasse c'est son mot de passe pour ce connecter Ã  l'application
 	 * @param nom c'est son nom
-	 * @param prenom c'est son prÃ©nom
 	 */
 	public Technicien(String pseudo, String motDePasse, String nom, String prenom) {
 		super(pseudo, motDePasse, nom, prenom, 1);
 	}
+	
 	/**
-	 * Ce constructeur permet de crÃ©er un technicien 
-	 * @param pseudo c'est son pseudo pour se connecter Ã  l'application
-	 * @param motDePasse c'est son mot de passe pour ce connecter Ã  l'application
 	 * @param nom c'est son nom
-	 * @param prenom c'est son prÃ©nom
-	 * @param privilege cela reprÃ©sente les privilÃ¨ges qu'il aura (0=Admin, 1=Technicien, 2= Client)
 	 * @param techID c'est l'identifiant du technicien
 	 */
 	public Technicien(String pseudo, String motDePasse, String nom, String prenom, int privilege, int techID) {
 		super(pseudo, motDePasse, nom, prenom, privilege);
+	public Technicien(String pseudo, String motDePasse, String nom, String prenom, int techID) {
+		super(pseudo, motDePasse, nom, prenom, 1);
 		this.techID = techID;
 	}
 	
@@ -43,9 +36,24 @@ public class Technicien extends Personne{
 		super(pseudo, motDePasse, 1);
 	}
 	
+	
+	/**
+	 * @return the techID
+	 */
+	public int getTechID() {
+		return techID;
+	}
+	/**
+	 * @param techID the techID to set
+	 */
+	public void setTechID(int techID) {
+		this.techID = techID;
+	}
+	
 	@Override
 	/**
 	 * Cette mÃ©thode permet d'afficher en chaine de caractÃ¨re les diffÃ©rents attributs d'un technicien
+	 * Cette mÃƒÂ©thode permet d'afficher en chaine de caractÃƒÂ¨re les diffÃƒÂ©rents attributs d'un technicien
 	 */
 	public String toString() {
 		return super.toString()+"techID=" + techID;
@@ -53,6 +61,7 @@ public class Technicien extends Personne{
 
 	/**
 	 * cette mÃ©thode sert Ã  rÃ©cupÃ©rer une voiture pour afficher les attributs de celle-ci
+	 * cette mÃƒÂ©thode sert Ãƒ  rÃƒÂ©cupÃƒÂ©rer une voiture pour afficher les attributs de celle-ci
 	 * @param voitID c'est l'identifiant de la voiture 
 	 * @return un objet de type voiture 
 	 */
@@ -91,6 +100,7 @@ public class Technicien extends Personne{
 	}
 	/**
 	 * Cette mÃ©thode permet de modifier le kilometrage d'une voiture 
+	 * Cette mÃƒÂ©thode permet de modifier le kilometrage d'une voiture 
 	 * @param voitID c'est l'identifiant d'une voiture
 	 * @param kilometrage c'est le kilometrage lors de la fin de la location
 	 */
@@ -132,9 +142,7 @@ public class Technicien extends Personne{
 		return -1;
 	}
 	/**
-	 * cette mÃ©thode permet d'ajouter une note par rapport Ã  une location d'une voiture
 	 * @param locationID c'est l'identifiant d'une location
-	 * @param note c'est la note que l'on ajoute Ã  une location
 	 */
 	public int setNote(int factID, String note) {
 		Connection conn = null;
@@ -166,9 +174,7 @@ public class Technicien extends Personne{
 		return 0;
 	}
 	/**
-	 * cette mÃ©thode permet de modifier le faite que l'accompte Ã  Ã©tÃ© payÃ© ou non 
 	 * @param locationID c'est l'identifiant d'une location
-	 * @param estPaye c'est l'Ã©tat de l'accompte d'une location true si payÃ©, false si non payÃ©
 	 */
 	public int setAccompteStatut(int locationID, boolean estPaye) {
 		Connection conn = null;
@@ -215,9 +221,6 @@ public class Technicien extends Personne{
 	}
 		
 	/**
-	 * cette mÃ©thode permet de crÃ©er une facture 
-	 * @param locationID c'est la location Ã  laquelle est liÃ© la facture
-	 * @param estPaye c'est l'Ã©tat de payement d'une location true si payÃ©, false si non payÃ©
 	 */
 	public int createFacture(int locationID, boolean estPaye, String note, double kmSupp) {
 		Connection conn = null;
@@ -232,7 +235,6 @@ public class Technicien extends Personne{
             if (rs.next()) {
             	tempMontant=Double.parseDouble(rs.getString("montant"))+(Double.parseDouble(rs.getString("prixKmSupp"))*kmSupp);
             }
-            else System.out.println("data pas trouvꥠdans BDD"); 
             if(!estPaye && tempMontant!=0){
 				result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 0,\" "+note+"\" )");
 				if (result > 0) {
@@ -387,6 +389,99 @@ public class Technicien extends Personne{
     	return null;
 	}
 
+	/**
+	 * Cette m�thode retourne toutes les infos qui concernent l'admin courant
+	 * @param 
+	 * @return
+	 */
+	public Technicien getMesInfos() {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            String temp = "SELECT * FROM personne WHERE personneID = " + this.getTechID() + "";
+            rs = stmt.executeQuery(temp);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToTechnicien(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
+	/**
+	 * Cette methode permet de retrouver un client avec son ID
+	 * @param clientID
+	 * @return
+	 */
+	public Client getClient(int clientID) {
+		Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM personne WHERE personneID =" + clientID);
+            if(rs.next()) {
+				rs.previous();
+				return resultSetToClients(rs)[0];
+			}
+			else throw new DataNotFoundException("Can't find this data in the database");
+           
+            
+        } catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        } catch (DataNotFoundException ex) {
+        	System.out.println(ex.getMessage());
+        }
+    	finally {
+    		 if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        rs = null;
+		    }
+		    if (stmt != null) {
+		        try {
+		            stmt.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        stmt = null;
+		    }
+    	}
+        System.out.println("Probleme co BDD");
+    	return null;
+	}
+	
 	public Facture[] getFacturesClient(int clientID) {
 		Connection conn = null;
         Statement stmt = null;
@@ -548,4 +643,46 @@ public class Technicien extends Personne{
 		
 	}
 	
+	private Technicien[] resultSetToTechnicien(ResultSet rs) {
+		Technicien tempTech[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempTech = new Technicien[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempTech[countTwo] = new Technicien(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
+				countTwo++;
+			}
+			return tempTech;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
+	private Client[] resultSetToClients(ResultSet rs) {
+		Client tempClient[];
+		int count = 0;
+		try {
+			while(rs.next()){
+				count++; 
+			}
+			tempClient = new Client[count];
+			int countTwo = 0;
+			while(rs.previous());
+			while(rs.next()) {
+				tempClient[countTwo] = new Client(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), rs.getString("dateInscription"), rs.getString("dateNaissance"), rs.getString("adresse"), rs.getString("adresseMail"), false,  Integer.parseInt(rs.getString("personneID")));
+				countTwo++;
+			}
+			return tempClient;
+		} catch (SQLException ex) {
+            // handle the error
+        	System.out.println("SQLException: " + ex.getMessage());
+        }
+        return null;
+	}
 }
