@@ -109,7 +109,9 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 							else {
 								tempBool = false;
 							}
-							int tempInt2 = model.createFacture(loc1, tempBool);
+							int loc2 = sc.nextInt();
+							affiche("Entrez maintenant le nombre de kilometre supplementaire que le client a fait :");
+							int tempInt2 = model.createFacture(loc1, tempBool, "", loc2);
 							if (tempInt2 == 1) {
 								System.out.println("Facture créé");
 							}
@@ -140,9 +142,9 @@ public class TechnicienVueConsole extends TechnicienVue implements Observer {
 							break;
 						case "F" :
 							affiche("Entrez maintenant l'ID de la location :");
-							int loc2 = sc.nextInt();
-							affiche("Les infos de la location numéro " + loc2 + " sont :");
-							System.out.println(model.getLocation(loc2));
+							int loc3 = sc.nextInt();
+							affiche("Les infos de la location numéro " + loc3 + " sont :");
+							System.out.println(model.getLocation(loc3));
 							printHelp();
 							break;
 						case "G" :
