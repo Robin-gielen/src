@@ -17,6 +17,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import controller.ClientController;
 import model.Client;
 
 
@@ -64,7 +65,8 @@ public class ClientVueGui extends JFrame {
 			public void run() {
 				try {
 					Client model = new Client("pseudo", "mdp");
-					ClientVueGui frame = new ClientVueGui(model);
+					ClientController controlleur = new ClientController(model);
+					ClientVueGui frame = new ClientVueGui(model, controlleur);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,7 +78,7 @@ public class ClientVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientVueGui(Client model) {
+	public ClientVueGui(Client model, ClientController controlleur) {
 		infoJPanel = new JPanel();
 		listeVoitureJPanel = new JPanel();
 		contactJPanel = new JPanel();

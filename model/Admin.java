@@ -574,7 +574,7 @@ public class Admin extends Personne {
 	
 	/**
 	 * Cette méthode retourne la liste complete de tous les clients
-	 * @return
+	 * @return la liste complete de tous les clients
 	 */
 	public Client[] getClients() {
 		Connection conn = null;
@@ -619,8 +619,7 @@ public class Admin extends Personne {
 	
 	/**
 	 * Cette méthode retourne la liste complete de tous les techniciens
-	 * @param techID
-	 * @return
+	 * @return la liste complete de tous les techniciens
 	 */
 	public Technicien[] getTechs() {
 		Connection conn = null;
@@ -665,8 +664,7 @@ public class Admin extends Personne {
 	
 	/**
 	 * Cette méthode retourne la liste complete de tous les admins
-	 * @param 
-	 * @return
+	 * @return la liste complete de tous les admins
 	 */
 	public Admin[] getAdmins() {
 		Connection conn = null;
@@ -710,9 +708,8 @@ public class Admin extends Personne {
 	}
 	
 	/**
-	 * Cette méthode retourne toutes les infos qui concernent l'admin courant
-	 * @param 
-	 * @return
+	 * Cette méthode retourne toutes les infos qui concernent l'admin courant 
+	 * @return les infos qui concernent l'admin courant 
 	 */
 	public Admin getMesInfos() {
 		Connection conn = null;

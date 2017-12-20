@@ -156,4 +156,11 @@ public class Facture {
 		Assurance assur= new Assurance(0, 300.0, "OMNIUM", 1.2);
 		return assur;
 	}
+
+	/**
+	 * @return the note
+	 */
+	public String getNote() {
+		return note;
+	}
 }
