@@ -40,7 +40,7 @@ public class Technicien extends Personne{
 	}
 	
 	public Technicien(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse);
+		super(pseudo, motDePasse, 1);
 	}
 	
 	@Override
@@ -481,14 +481,19 @@ public class Technicien extends Personne{
 			tempLoc = new Location[count];
 			int countTwo = 0;
 			boolean tempAccomptePaye;
+			boolean tempEstEnCours;
 			while(rs.previous());
 			while(rs.next()) {
 				if(Integer.parseInt(rs.getString("accomptePaye"))==1) {
 					tempAccomptePaye = true; 
 				}
 				else tempAccomptePaye = false;
+				if(Integer.parseInt(rs.getString("estEnCours"))==1) {
+					tempEstEnCours = true; 
+				}
+				else tempEstEnCours = false;
 				tempLoc[countTwo] = new Location(Integer.parseInt(rs.getString("locationId")), Integer.parseInt(rs.getString("personneID")), Integer.parseInt(rs.getString("assurID")), Integer.parseInt(rs.getString("voitureID")), 
-						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")));
+						Integer.parseInt(rs.getString("accompte")), tempAccomptePaye, Long.parseLong(rs.getString("kmInitial")), tempEstEnCours);
 				countTwo++;
 			}
 			return tempLoc;

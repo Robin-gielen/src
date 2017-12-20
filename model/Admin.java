@@ -942,7 +942,7 @@ public class Admin extends Personne {
 			int countTwo = 0;
 			while(rs.previous());
 			while(rs.next()) {
-				tempTech[countTwo] = new Technicien(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));
+				tempTech[countTwo] = new Technicien(rs.getString("pseudo"), rs.getString("motDePasse"), rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")), 1);
 				countTwo++;
 			}
 			return tempTech;
