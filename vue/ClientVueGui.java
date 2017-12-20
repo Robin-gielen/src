@@ -491,7 +491,52 @@ public class ClientVueGui extends JFrame {
 		locationJPanel.add(btnNewButton, gbc_btnNewButton);
 		
 		//liste voiture
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		listeVoitureJPanel = new JPanel();
+		listeVoitureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_listeVoitureJPanel = new GridBagLayout();
+		gbl_listeVoitureJPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_listeVoitureJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_listeVoitureJPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_listeVoitureJPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		listeVoitureJPanel.setLayout(gbl_listeVoitureJPanel);
 		
+		JLabel lblVoituresDisponibles = new JLabel("Voitures disponibles");
+		GridBagConstraints gbc_lblVoituresDisponibles = new GridBagConstraints();
+		gbc_lblVoituresDisponibles.anchor = GridBagConstraints.NORTH;
+		gbc_lblVoituresDisponibles.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoituresDisponibles.gridx = 0;
+		gbc_lblVoituresDisponibles.gridy = 0;
+		listeVoitureJPanel.add(lblVoituresDisponibles, gbc_lblVoituresDisponibles);
+		
+		JTextPane textPane = new JTextPane();
+		GridBagConstraints gbc_textPane = new GridBagConstraints();
+		gbc_textPane.insets = new Insets(0, 0, 5, 0);
+		gbc_textPane.fill = GridBagConstraints.BOTH;
+		gbc_textPane.gridx = 1;
+		gbc_textPane.gridy = 0;
+		listeVoitureJPanel.add(textPane, gbc_textPane);
+		
+		JLabel lblAssurancesDisponibles = new JLabel("Assurances disponibles");
+		GridBagConstraints gbc_lblAssurancesDisponibles = new GridBagConstraints();
+		gbc_lblAssurancesDisponibles.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAssurancesDisponibles.gridx = 0;
+		gbc_lblAssurancesDisponibles.gridy = 3;
+		listeVoitureJPanel.add(lblAssurancesDisponibles, gbc_lblAssurancesDisponibles);
+		
+		JTextPane textPane_1 = new JTextPane();
+		GridBagConstraints gbc_textPane_1 = new GridBagConstraints();
+		gbc_textPane_1.insets = new Insets(0, 0, 5, 0);
+		gbc_textPane_1.fill = GridBagConstraints.BOTH;
+		gbc_textPane_1.gridx = 1;
+		gbc_textPane_1.gridy = 3;
+		listeVoitureJPanel.add(textPane_1, gbc_textPane_1);
+	}
+	
+}
+		
+		//liste voiture
+		/**
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 587, 370);
 		listeVoitureJPanel = new JPanel();
@@ -631,7 +676,7 @@ public class ClientVueGui extends JFrame {
 	}
 
 }
-
+	**/
 	/**
 	public PagePourSIdentifier() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
