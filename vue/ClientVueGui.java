@@ -19,6 +19,8 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.fabric.xmlrpc.Client;
+
 public class ClientVueGui extends JFrame {
 	
 	private JPanel infoJPanel;
@@ -50,6 +52,7 @@ public class ClientVueGui extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	
 
 	
 	
@@ -61,7 +64,7 @@ public class ClientVueGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientVueGui frame = new ClientVueGui();
+					ClientVueGui frame = new ClientVueGui(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -73,14 +76,14 @@ public class ClientVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientVueGui() {
+	public ClientVueGui(Client model) {
 		infoJPanel = new JPanel();
 		listeVoitureJPanel = new JPanel();
 		contactJPanel = new JPanel();
 		locationJPanel = new JPanel();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 772, 525);
+		setBounds(100, 100, 1000, 500);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -140,7 +143,7 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		infoJPanel.setLayout(gridBagLayout);
 		
 		JLabel lblMesInfos = new JLabel("Mes infos :");
@@ -298,7 +301,7 @@ public class ClientVueGui extends JFrame {
 		gridBagLayout1.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout1.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contactJPanel.setLayout(gridBagLayout1);
 		contactJPanel.setVisible(false);
 		
@@ -328,6 +331,8 @@ public class ClientVueGui extends JFrame {
 		textFieldMailA.setColumns(10);
 		
 		textFieldMailA.setText("admin@hotmail.be");
+		textFieldMailA.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMailA.setEditable(false);
 		
 		JLabel lblNom = new JLabel("Nom :");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
@@ -347,6 +352,8 @@ public class ClientVueGui extends JFrame {
 		textFieldNomA.setColumns(10);
 		
 		textFieldNomA.setText("admin");
+		textFieldNomA.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldNomA.setEditable(false);
 		
 		JLabel lblPrnom = new JLabel("Prenom :");
 		GridBagConstraints gbc_lblPrnom = new GridBagConstraints();
@@ -366,6 +373,8 @@ public class ClientVueGui extends JFrame {
 		textFieldPrenomA.setColumns(10);
 		
 		textFieldPrenomA.setText("admin");
+		textFieldPrenomA.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldPrenomA.setEditable(false);
 		
 		JLabel lblInfoSurLe = new JLabel("Infos sur le technicien");
 		GridBagConstraints gbc_lblInfoSurLe = new GridBagConstraints();
@@ -393,6 +402,8 @@ public class ClientVueGui extends JFrame {
 		textFieldMailT.setColumns(10);
 		
 		textFieldMailT.setText("technicien@mail.be");
+		textFieldMailT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMailT.setEditable(false);
 		
 		JLabel lblNomT = new JLabel("Nom :");
 		GridBagConstraints gbc_lblNomT = new GridBagConstraints();
@@ -412,6 +423,8 @@ public class ClientVueGui extends JFrame {
 		textFieldNomT.setColumns(10);
 		
 		textFieldNomT.setText("technicien");
+		textFieldNomT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldNomT.setEditable(false);
 		
 		JLabel lblPrenomT = new JLabel("Prenom :");
 		GridBagConstraints gbc_lblPrenomT = new GridBagConstraints();
@@ -430,6 +443,8 @@ public class ClientVueGui extends JFrame {
 		textFieldPrenomT.setColumns(10);
 		
 		textFieldPrenomT.setText("technicien");
+		textFieldPrenomT.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldPrenomT.setEditable(false);
 		
 		infoJPanel.setVisible(true);
 		getContentPane().add(infoJPanel);
@@ -521,366 +536,16 @@ public class ClientVueGui extends JFrame {
 		GridBagConstraints gbc_lblAssurancesDisponibles = new GridBagConstraints();
 		gbc_lblAssurancesDisponibles.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAssurancesDisponibles.gridx = 0;
-		gbc_lblAssurancesDisponibles.gridy = 3;
+		gbc_lblAssurancesDisponibles.gridy = 2;
 		listeVoitureJPanel.add(lblAssurancesDisponibles, gbc_lblAssurancesDisponibles);
 		
 		JTextPane textPane_1 = new JTextPane();
 		GridBagConstraints gbc_textPane_1 = new GridBagConstraints();
-		gbc_textPane_1.insets = new Insets(0, 0, 5, 0);
+		gbc_textPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textPane_1.fill = GridBagConstraints.BOTH;
 		gbc_textPane_1.gridx = 1;
 		gbc_textPane_1.gridy = 3;
 		listeVoitureJPanel.add(textPane_1, gbc_textPane_1);
-	}
-	
-}
-		
-		//liste voiture
-		/**
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 587, 370);
-		listeVoitureJPanel = new JPanel();
-		listeVoitureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		listeVoitureJPanel.setLayout(gbl_contentPane);
-		
-		JLabel lblVeuillezIndiquerVos = new JLabel("Veuillez indiquer vos options");
-		GridBagConstraints gbc_lblVeuillezIndiquerVos = new GridBagConstraints();
-		gbc_lblVeuillezIndiquerVos.insets = new Insets(0, 0, 5, 5);
-		gbc_lblVeuillezIndiquerVos.gridx = 0;
-		gbc_lblVeuillezIndiquerVos.gridy = 0;
-		listeVoitureJPanel.add(lblVeuillezIndiquerVos, gbc_lblVeuillezIndiquerVos);
-		
-		JLabel lblIndiquezLaMarque = new JLabel("Indiquez la marque ");
-		GridBagConstraints gbc_lblIndiquezLaMarque = new GridBagConstraints();
-		gbc_lblIndiquezLaMarque.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIndiquezLaMarque.gridx = 0;
-		gbc_lblIndiquezLaMarque.gridy = 2;
-		listeVoitureJPanel.add(lblIndiquezLaMarque, gbc_lblIndiquezLaMarque);
-		
-		textField = new JTextField("BMW, VW, Audi, Skoda, Citroen");
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 2;
-		listeVoitureJPanel.add(textField, gbc_textField);
-		textField.setColumns(10);
-		
-		JLabel lblIndiquezLaCouleur = new JLabel("Indiquez la couleur");
-		GridBagConstraints gbc_lblIndiquezLaCouleur = new GridBagConstraints();
-		gbc_lblIndiquezLaCouleur.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIndiquezLaCouleur.gridx = 0;
-		gbc_lblIndiquezLaCouleur.gridy = 3;
-		listeVoitureJPanel.add(lblIndiquezLaCouleur, gbc_lblIndiquezLaCouleur);
-		
-		textField_1 = new JTextField("Noir, Brun, Jaune, Orange");
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 3;
-		listeVoitureJPanel.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel lblIndiquezLeKilometrage = new JLabel("Indiquez le kilometrage");
-		GridBagConstraints gbc_lblIndiquezLeKilometrage = new GridBagConstraints();
-		gbc_lblIndiquezLeKilometrage.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIndiquezLeKilometrage.gridx = 0;
-		gbc_lblIndiquezLeKilometrage.gridy = 4;
-		listeVoitureJPanel.add(lblIndiquezLeKilometrage, gbc_lblIndiquezLeKilometrage);
-		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 4;
-		listeVoitureJPanel.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
-		
-		JLabel lblAutomatiquemanuel = new JLabel("Boite de transmission");
-		GridBagConstraints gbc_lblAutomatiquemanuel = new GridBagConstraints();
-		gbc_lblAutomatiquemanuel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAutomatiquemanuel.gridx = 0;
-		gbc_lblAutomatiquemanuel.gridy = 5;
-		listeVoitureJPanel.add(lblAutomatiquemanuel, gbc_lblAutomatiquemanuel);
-		
-		textField_3 = new JTextField("Automatique ou manuel");
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 5;
-		listeVoitureJPanel.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
-		
-		JLabel lblTypeberlineBreakEtc = new JLabel("Type de voiture");
-		GridBagConstraints gbc_lblTypeberlineBreakEtc = new GridBagConstraints();
-		gbc_lblTypeberlineBreakEtc.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTypeberlineBreakEtc.gridx = 0;
-		gbc_lblTypeberlineBreakEtc.gridy = 6;
-		listeVoitureJPanel.add(lblTypeberlineBreakEtc, gbc_lblTypeberlineBreakEtc);
-		
-		textField_4 = new JTextField("Berline, Break, citadine, camionette");
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 2;
-		gbc_textField_4.gridy = 6;
-		listeVoitureJPanel.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
-		
-		JLabel lblNbrDeRoues = new JLabel("Nbr de roues motrices");
-		GridBagConstraints gbc_lblNbrDeRoues = new GridBagConstraints();
-		gbc_lblNbrDeRoues.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNbrDeRoues.gridx = 0;
-		gbc_lblNbrDeRoues.gridy = 7;
-		listeVoitureJPanel.add(lblNbrDeRoues, gbc_lblNbrDeRoues);
-		
-		textField_5 = new JTextField("2 ou 4");
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 2;
-		gbc_textField_5.gridy = 7;
-		listeVoitureJPanel.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
-		
-		JLabel lblPrix = new JLabel("Prix");
-		GridBagConstraints gbc_lblPrix = new GridBagConstraints();
-		gbc_lblPrix.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPrix.gridx = 0;
-		gbc_lblPrix.gridy = 8;
-		listeVoitureJPanel.add(lblPrix, gbc_lblPrix);
-		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 2;
-		gbc_textField_6.gridy = 8;
-		listeVoitureJPanel.add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
-		
-		JButton btnValider = new JButton("Valider");
-		GridBagConstraints gbc_btnValider = new GridBagConstraints();
-		gbc_btnValider.anchor = GridBagConstraints.EAST;
-		gbc_btnValider.gridx = 2;
-		gbc_btnValider.gridy = 11;
-		listeVoitureJPanel.add(btnValider, gbc_btnValider);
-	}
-
-}
-	**/
-	/**
-	public PagePourSIdentifier() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("38dlu:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
-		
-		JLabel lblBienvenue = new JLabel("Bienvenue");
-		contentPane.add(lblBienvenue, "4, 2");
-		
-		JLabel lblVousAvezDj = new JLabel("Vous avez d\u00E9j\u00E0 un compte?");
-		contentPane.add(lblVousAvezDj, "2, 4");
-		
-		JLabel lblPseudo = new JLabel("Pseudo");
-		contentPane.add(lblPseudo, "2, 8, right, default");
-		
-		textField = new JTextField();
-		contentPane.add(textField, "4, 8, fill, default");
-		textField.setColumns(10);
-		
-		JLabel lblMotDePasse = new JLabel("Mot de passe");
-		contentPane.add(lblMotDePasse, "2, 10, right, default");
-		
-		passwordField = new JPasswordField();
-		contentPane.add(passwordField, "4, 10, fill, default");
-		
-		JButton btnSeConnecter = new JButton("Se connecter");
-		contentPane.add(btnSeConnecter, "6, 10, center, default");
-		
-		JLabel lblVousNavezPas = new JLabel("Vous n'avez pas de compte?");
-		contentPane.add(lblVousNavezPas, "2, 16");
-		
-		JButton btnCliquezIciPour = new JButton("Cliquez ici pour le cr\u00E9er");
-		btnCliquezIciPour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		contentPane.add(btnCliquezIciPour, "6, 16, left, default");
-		**/
-		
-		/**
-	public class PagePourSeConnecterGUI extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField textField;
-	private JLabel lblVotreNom;
-	private JTextField textField_1;
-	private JLabel lblVotreDateDe;
-	private JTextField textField_2;
-	private JLabel lblVotreAdresseMail;
-	private JTextField textField_3;
-	private JLabel lblVotreAdresseville;
-	private JTextField textField_4;
-	private JLabel lblVotreAssurance;
-	private JTextField textField_5;
-	private JLabel lblVotrePseudo;
-	private JTextField textField_6;
-	private JLabel lblVotreMotDe;
-	private JPasswordField passwordField;
-	private JButton btnCrerLeCompte;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PagePourSeConnecterGUI frame = new PagePourSeConnecterGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public PagePourSeConnecterGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 622, 393);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
-		
-		JLabel lblVeuillezIndiquerVos = new JLabel("Veuillez indiquer vos donn\u00E9es personnelles");
-		contentPane.add(lblVeuillezIndiquerVos, "2, 2");
-		
-		JLabel lblVotrePrnom = new JLabel("Votre pr\u00E9nom");
-		contentPane.add(lblVotrePrnom, "2, 6, right, default");
-		
-		textField = new JTextField();
-		contentPane.add(textField, "4, 6, fill, default");
-		textField.setColumns(10);
-		
-		lblVotreNom = new JLabel("Votre nom");
-		contentPane.add(lblVotreNom, "2, 8, right, default");
-		
-		textField_1 = new JTextField();
-		contentPane.add(textField_1, "4, 8, fill, default");
-		textField_1.setColumns(10);
-		
-		lblVotreDateDe = new JLabel("Votre date de naissance");
-		contentPane.add(lblVotreDateDe, "2, 10, right, default");
-		
-		textField_2 = new JTextField();
-		contentPane.add(textField_2, "4, 10, fill, default");
-		textField_2.setColumns(10);
-		
-		lblVotreAdresseMail = new JLabel("Votre adresse mail");
-		contentPane.add(lblVotreAdresseMail, "2, 12, right, default");
-		
-		textField_3 = new JTextField();
-		contentPane.add(textField_3, "4, 12, fill, default");
-		textField_3.setColumns(10);
-		
-		lblVotreAdresseville = new JLabel("Votre adresse(Ville + rue)");
-		contentPane.add(lblVotreAdresseville, "2, 14, right, default");
-		
-		textField_4 = new JTextField();
-		contentPane.add(textField_4, "4, 14, fill, default");
-		textField_4.setColumns(10);
-		
-		lblVotreAssurance = new JLabel("Votre assurance");
-		contentPane.add(lblVotreAssurance, "2, 16, right, default");
-		
-		textField_5 = new JTextField();
-		contentPane.add(textField_5, "4, 16, fill, default");
-		textField_5.setColumns(10);
-		
-		lblVotrePseudo = new JLabel("Votre pseudo");
-		contentPane.add(lblVotrePseudo, "2, 18, right, default");
-		
-		textField_6 = new JTextField();
-		contentPane.add(textField_6, "4, 18, fill, default");
-		textField_6.setColumns(10);
-		
-		lblVotreMotDe = new JLabel("Votre mot de passe");
-		contentPane.add(lblVotreMotDe, "2, 20, right, default");
-		
-		passwordField = new JPasswordField();
-		contentPane.add(passwordField, "4, 20, fill, default");
-		
-		btnCrerLeCompte = new JButton("Cr\u00E9er le compte");
-		contentPane.add(btnCrerLeCompte, "4, 22, right, default");
-
-		**/
 	}
 
 }
