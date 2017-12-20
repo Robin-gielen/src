@@ -17,6 +17,10 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import model.Facture;
+import model.Location;
+import model.Technicien;
+
 public class TechnicienVueGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -30,64 +34,61 @@ public class TechnicienVueGui extends JFrame {
 	private JTextField textFieldFactureNumLoca;
 	private JTextField textFieldFactEtatDePayement;
 	private JTextField textFieldFactNote;
+	private JTextField textFieldFactKmSupp;
 	private JTextField textFieldLocaNumLoca;
-	private JTextField textFieldLocaNumVoit;
+	private JTextField textFieldVoitNumVoit;
 	private JTextField textFieldCheckNumVoit;
 	private JTextField textFieldCheckKmActu;
-	private JTextField textFieldCheckNouvNote;
 	private JTextField textFieldFactNumFact;
 	private JTextField textFieldFactNumClient;
 	private JTextField textFieldLocaNumClient;
 	
 	
 	private JLabel lblMesInfos;
-	/*private JLabel lblListeVoiture;
-	private JLabel lblInfoListeClient;
-	private JLabel lblInfoListeLoca;
-	private JLabel lblInfoListeFact;*/
 	private JLabel lblNDeLocation;
 	private JLabel lblEtatDePayement;
 	private JLabel lblNote;
+	private JLabel lblKmSupp;
 	private JLabel lblNDeLocation1;
 	private JLabel lblNDeVoiture;
 	private JLabel lblNDeVoitureCheckUp;
 	private JLabel lblAncienKilometrage;
 	private JLabel lblKilometrageActuel;
-	private JLabel lblAncienneNote;
-	private JLabel lblNouvelleNote;
 	private JLabel lblNDeClient;
+	private JLabel lblNDeFacture;
 	
 	private JTextPane textPaneLocation;
 	private JTextPane textPaneVoit;
 	private JTextPane textPaneInfo;
-	/*private JTextPane textPaneListeVoit;
-	private JTextPane textPaneListeClient;
-	private JTextPane textPaneListeLoca;
-	private JTextPane textPaneListeFact;*/
+	private JTextPane textPaneInfoFact;
 	private JTextPane textPaneAncienKm;
-	private JTextPane textPaneNote;
 	
 	private JButton btnInfo;
 	private JButton btnNouvelleFacture;
 	private JButton btnInfoLocation;
 	private JButton btnInfoVoiture;
 	private JButton btnCheckUp;
+	private JButton btnValider;
 	private JButton btnRechercher;
 	private JButton btnRechercherVoit;
-	private JButton btnValider;
+	private JButton btnValider2;
 	private JButton btnSoumettreKilometrage;
-	private JButton btnSoumettreNote;
 	private JButton btnInfoFacture;
 	private JButton btnRechercherNumClient;
-
+	private JButton btnRechercherFacture;
+	private JButton btnRechercherFacturepd;
+	
+	static Technicien model = new Technicien("Tanguybmx", "12345");
+	
 	/**
 	 * Launch the application.
 	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TechnicienVueGui frame = new TechnicienVueGui();
+					TechnicienVueGui frame = new TechnicienVueGui(model);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,7 +100,7 @@ public class TechnicienVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TechnicienVueGui() {
+	public TechnicienVueGui(Technicien model) {
 		infoJPanel = new JPanel();
 		factureJPanel = new JPanel();
 		locationJPanel = new JPanel();
@@ -172,20 +173,6 @@ public class TechnicienVueGui extends JFrame {
 		});
 		menuBar.add(btnInfoVoiture);
 		
-		btnCheckUp = new JButton("CheckUp");
-		btnCheckUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				checkUpJPanel.setVisible(true);
-				infoJPanel.setVisible(false);
-				factureJPanel.setVisible(false);
-				locationJPanel.setVisible(false);
-				voitureJPanel.setVisible(false);
-				infoFactureJPanel.setVisible(false);
-				getContentPane().add(checkUpJPanel);
-			}
-		});
-		menuBar.add(btnCheckUp);
-		
 		btnInfoFacture = new JButton("Info Facture");
 		btnInfoFacture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -199,6 +186,20 @@ public class TechnicienVueGui extends JFrame {
 			}
 		});
 		menuBar.add(btnInfoFacture);
+		
+		btnCheckUp = new JButton("CheckUp");
+		btnCheckUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkUpJPanel.setVisible(true);
+				infoJPanel.setVisible(false);
+				factureJPanel.setVisible(false);
+				locationJPanel.setVisible(false);
+				voitureJPanel.setVisible(false);
+				infoFactureJPanel.setVisible(false);
+				getContentPane().add(checkUpJPanel);
+			}
+		});
+		menuBar.add(btnCheckUp);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -228,74 +229,10 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textPaneInfo.fill = GridBagConstraints.BOTH;
 		gbc_textPaneInfo.gridx = 1;
 		gbc_textPaneInfo.gridy = 1;
+		
+		textPaneInfo.setText("information du technicien");
+		
 		infoJPanel.add(textPaneInfo, gbc_textPaneInfo);
-		
-		/*lblListeVoiture = new JLabel("Liste voitures :");
-		lblListeVoiture.setHorizontalAlignment(SwingConstants.TRAILING);
-		GridBagConstraints gbc_lblListeVoiture = new GridBagConstraints();
-		gbc_lblListeVoiture.anchor = GridBagConstraints.EAST;
-		gbc_lblListeVoiture.insets = new Insets(0, 0, 5, 5);
-		gbc_lblListeVoiture.gridx = 0;
-		gbc_lblListeVoiture.gridy = 2;
-		infoJPanel.add(lblListeVoiture, gbc_lblListeVoiture);
-		
-		textPaneListeVoit = new JTextPane();
-		GridBagConstraints gbc_textPaneListeVoit = new GridBagConstraints();
-		gbc_textPaneListeVoit.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneListeVoit.fill = GridBagConstraints.BOTH;
-		gbc_textPaneListeVoit.gridx = 1;
-		gbc_textPaneListeVoit.gridy = 2;
-		infoJPanel.add(textPaneListeVoit, gbc_textPaneListeVoit);
-		
-		lblInfoListeClient = new JLabel("Liste clients :");
-		lblInfoListeClient.setHorizontalAlignment(SwingConstants.TRAILING);
-		GridBagConstraints gbc_lblInfoListeClient = new GridBagConstraints();
-		gbc_lblInfoListeClient.anchor = GridBagConstraints.EAST;
-		gbc_lblInfoListeClient.insets = new Insets(0, 0, 5, 5);
-		gbc_lblInfoListeClient.gridx = 0;
-		gbc_lblInfoListeClient.gridy = 4;
-		infoJPanel.add(lblInfoListeClient, gbc_lblInfoListeClient);
-		
-		textPaneListeClient = new JTextPane();
-		GridBagConstraints gbc_textPaneListeClient = new GridBagConstraints();
-		gbc_textPaneListeClient.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneListeClient.fill = GridBagConstraints.BOTH;
-		gbc_textPaneListeClient.gridx = 1;
-		gbc_textPaneListeClient.gridy = 4;
-		infoJPanel.add(textPaneListeClient, gbc_textPaneListeClient);
-		
-		lblInfoListeLoca = new JLabel("Liste locations :");
-		lblInfoListeClient.setHorizontalAlignment(SwingConstants.TRAILING);
-		GridBagConstraints gbc_lblInfoListeLoca = new GridBagConstraints();
-		gbc_lblInfoListeLoca.anchor = GridBagConstraints.EAST;
-		gbc_lblInfoListeLoca.insets = new Insets(0, 0, 5, 5);
-		gbc_lblInfoListeLoca.gridx = 0;
-		gbc_lblInfoListeLoca.gridy = 6;
-		infoJPanel.add(lblInfoListeLoca, gbc_lblInfoListeLoca);
-		
-		textPaneListeLoca = new JTextPane();
-		GridBagConstraints gbc_textPaneListeLoca = new GridBagConstraints();
-		gbc_textPaneListeLoca.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneListeLoca.fill = GridBagConstraints.BOTH;
-		gbc_textPaneListeLoca.gridx = 1;
-		gbc_textPaneListeLoca.gridy = 6;
-		infoJPanel.add(textPaneListeLoca, gbc_textPaneListeLoca);
-		
-		lblInfoListeFact = new JLabel("Liste factures :");
-		lblInfoListeFact.setHorizontalAlignment(SwingConstants.TRAILING);
-		GridBagConstraints gbc_lblInfoListeFact = new GridBagConstraints();
-		gbc_lblInfoListeFact.anchor = GridBagConstraints.EAST;
-		gbc_lblInfoListeFact.insets = new Insets(0, 0, 0, 5);
-		gbc_lblInfoListeFact.gridx = 0;
-		gbc_lblInfoListeFact.gridy = 8;
-		infoJPanel.add(lblInfoListeFact, gbc_lblInfoListeFact);
-		
-		textPaneListeFact = new JTextPane();
-		GridBagConstraints gbc_textPaneListeFact = new GridBagConstraints();
-		gbc_textPaneListeFact.fill = GridBagConstraints.BOTH;
-		gbc_textPaneListeFact.gridx = 1;
-		gbc_textPaneListeFact.gridy = 8;
-		infoJPanel.add(textPaneListeFact, gbc_textPaneListeFact);*/
 
 		infoJPanel.setVisible(true);
 		
@@ -334,7 +271,7 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblEtatDePayement.gridy = 2;
 		factureJPanel.add(lblEtatDePayement, gbc_lblEtatDePayement);
 		
-		textFieldFactEtatDePayement = new JTextField();
+		textFieldFactEtatDePayement = new JTextField("false");
 		GridBagConstraints gbc_textFieldFactEtatDePayement = new GridBagConstraints();
 		gbc_textFieldFactEtatDePayement.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldFactEtatDePayement.fill = GridBagConstraints.HORIZONTAL;
@@ -360,12 +297,35 @@ public class TechnicienVueGui extends JFrame {
 		factureJPanel.add(textFieldFactNote, gbc_textFieldFactNote);
 		textFieldFactNote.setColumns(10);
 		
+		lblKmSupp = new JLabel("Kilomètre supplémentaire :");
+		GridBagConstraints gbc_lblKmSupp = new GridBagConstraints();
+		gbc_lblKmSupp.anchor = GridBagConstraints.EAST;
+		gbc_lblKmSupp.insets = new Insets(0, 0, 5, 5);
+		gbc_lblKmSupp.gridx = 0;
+		gbc_lblKmSupp.gridy = 5;
+		factureJPanel.add(lblKmSupp, gbc_lblKmSupp);
+		
+		textFieldFactKmSupp = new JTextField();
+		GridBagConstraints gbc_textFieldFactKmSupp = new GridBagConstraints();
+		gbc_textFieldFactKmSupp.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldFactKmSupp.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactKmSupp.gridx = 1;
+		gbc_textFieldFactKmSupp.gridy = 5;
+		factureJPanel.add(textFieldFactKmSupp, gbc_textFieldFactKmSupp);
+		textFieldFactNote.setColumns(10);
+		
 		btnValider = new JButton("Valider");
 		GridBagConstraints gbc_btnValider = new GridBagConstraints();
 		gbc_btnValider.anchor = GridBagConstraints.EAST;
 		gbc_btnValider.gridx = 1;
-		gbc_btnValider.gridy = 7;
+		gbc_btnValider.gridy = 8;
 		factureJPanel.add(btnValider, gbc_btnValider);
+		
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.createFacture(Integer.parseInt(textFieldFactureNumLoca.getText()),false, textFieldFactNote.getText(), Double.parseDouble(textFieldFactKmSupp.getText()));
+			}
+		});
 		
 		factureJPanel.setVisible(false);
 		
@@ -403,6 +363,13 @@ public class TechnicienVueGui extends JFrame {
 		gbc_btnRechercher.gridy = 1;
 		locationJPanel.add(btnRechercher, gbc_btnRechercher);
 		
+		btnRechercher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textPaneLocation.setText(model.getLocation(Integer.parseInt(textFieldLocaNumLoca.getText())).toString());
+				
+			}
+		});
+		
 		lblNDeClient = new JLabel("N\u00B0 de client :");
 		GridBagConstraints gbc_lblNDeClient = new GridBagConstraints();
 		gbc_lblNDeClient.anchor = GridBagConstraints.EAST;
@@ -419,14 +386,25 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textFieldLocaNumClient.gridy = 2;
 		locationJPanel.add(textFieldLocaNumClient, gbc_textFieldLocaNumClient);
 		textFieldLocaNumClient.setColumns(10);
-
+		
 		btnRechercherNumClient = new JButton("Rechercher location àpd du n° de client");
 		GridBagConstraints gbc_btnRechercherNumClient = new GridBagConstraints();
 		gbc_btnRechercherNumClient.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercherNumClient.gridx = 1;
 		gbc_btnRechercherNumClient.gridy = 3;
 		locationJPanel.add(btnRechercherNumClient, gbc_btnRechercherNumClient);
-
+		
+		btnRechercherNumClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempString="";
+				Location[] tempLocas = model.getLocationsClient(Integer.parseInt(textFieldLocaNumClient.getText()));
+				for (Location location : tempLocas) {
+					tempString+= location.toString()+"\n";
+				}
+				textPaneLocation.setText(tempString);
+			}
+		});
+		
 		textPaneLocation = new JTextPane();
 		GridBagConstraints gbc_textPaneLocation = new GridBagConstraints();
 		gbc_textPaneLocation.insets = new Insets(0, 0, 5, 0);
@@ -448,7 +426,7 @@ public class TechnicienVueGui extends JFrame {
 		gbl_voitureJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		voitureJPanel.setLayout(gbl_voitureJPanel);
 		
-		lblNDeVoiture = new JLabel("N� de Voiture :");
+		lblNDeVoiture = new JLabel("N° de Voiture :");
 		GridBagConstraints gbc_lblNDeVoiture = new GridBagConstraints();
 		gbc_lblNDeVoiture.anchor = GridBagConstraints.EAST;
 		gbc_lblNDeVoiture.insets = new Insets(0, 0, 5, 5);
@@ -456,14 +434,14 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblNDeVoiture.gridy = 3;
 		voitureJPanel.add(lblNDeVoiture, gbc_lblNDeVoiture);
 		
-		textFieldLocaNumVoit = new JTextField();
-		GridBagConstraints gbc_textFieldLocaNumVoit = new GridBagConstraints();
-		gbc_textFieldLocaNumVoit.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldLocaNumVoit.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldLocaNumVoit.gridx = 1;
-		gbc_textFieldLocaNumVoit.gridy = 3;
-		voitureJPanel.add(textFieldLocaNumVoit, gbc_textFieldLocaNumVoit);
-		textFieldLocaNumVoit.setColumns(10);
+		textFieldVoitNumVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitNumVoit = new GridBagConstraints();
+		gbc_textFieldVoitNumVoit.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldVoitNumVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitNumVoit.gridx = 1;
+		gbc_textFieldVoitNumVoit.gridy = 3;
+		voitureJPanel.add(textFieldVoitNumVoit, gbc_textFieldVoitNumVoit);
+		textFieldVoitNumVoit.setColumns(10);
 		
 		
 		btnRechercherVoit = new JButton("Rechercher");
@@ -472,6 +450,13 @@ public class TechnicienVueGui extends JFrame {
 		gbc_btnRechercherVoit.gridx = 1;
 		gbc_btnRechercherVoit.gridy = 4;
 		voitureJPanel.add(btnRechercherVoit, gbc_btnRechercherVoit);
+		
+		btnRechercherVoit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textPaneVoit.setText(model.getVoiture(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
+				
+			}
+		});
 		
 		textPaneVoit = new JTextPane();
 		GridBagConstraints gbc_textPaneVoit = new GridBagConstraints();
@@ -482,6 +467,92 @@ public class TechnicienVueGui extends JFrame {
 		voitureJPanel.add(textPaneVoit, gbc_textPaneVoit);
 		
 		voitureJPanel.setVisible(false);
+		
+		//info Facture 
+		
+		infoFactureJPanel = new JPanel();
+		infoFactureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_infoFactureJPanel = new GridBagLayout();
+		gbl_infoFactureJPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_infoFactureJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_infoFactureJPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_infoFactureJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		infoFactureJPanel.setLayout(gbl_infoFactureJPanel);
+		
+		lblNDeFacture = new JLabel("N\u00B0 de facture :");
+		GridBagConstraints gbc_lblNDeFacture = new GridBagConstraints();
+		gbc_lblNDeFacture.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNDeFacture.anchor = GridBagConstraints.EAST;
+		gbc_lblNDeFacture.gridx = 0;
+		gbc_lblNDeFacture.gridy = 0;
+		infoFactureJPanel.add(lblNDeFacture, gbc_lblNDeFacture);
+		
+		textFieldFactNumFact= new JTextField();
+		GridBagConstraints gbc_textFieldFactNumFact= new GridBagConstraints();
+		gbc_textFieldFactNumFact.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldFactNumFact.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactNumFact.gridx = 1;
+		gbc_textFieldFactNumFact.gridy = 0;
+		infoFactureJPanel.add(textFieldFactNumFact, gbc_textFieldFactNumFact);
+		textFieldFactNumFact.setColumns(10);
+		
+		btnRechercherFacture = new JButton("Rechercher facture");
+		GridBagConstraints gbc_btnRechercherFacture = new GridBagConstraints();
+		gbc_btnRechercherFacture.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRechercherFacture.gridx = 1;
+		gbc_btnRechercherFacture.gridy = 1;
+		infoFactureJPanel.add(btnRechercherFacture, gbc_btnRechercherFacture);
+		
+		btnRechercherFacture.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textPaneInfoFact.setText(model.getFacture(Integer.parseInt(textFieldFactNumFact.getText())).toString());
+				
+			}
+		});
+		
+		lblNDeClient = new JLabel("N\u00B0 de client :");
+		GridBagConstraints gbc_lblNDeFactClient = new GridBagConstraints();
+		gbc_lblNDeFactClient.anchor = GridBagConstraints.EAST;
+		gbc_lblNDeFactClient.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNDeFactClient.gridx = 0;
+		gbc_lblNDeFactClient.gridy = 2;
+		infoFactureJPanel.add(lblNDeClient, gbc_lblNDeFactClient);
+		
+		textFieldFactNumClient = new JTextField();
+		GridBagConstraints gbc_textFieldFactNumClient = new GridBagConstraints();
+		gbc_textFieldFactNumClient.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldFactNumClient.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactNumClient.gridx = 1;
+		gbc_textFieldFactNumClient.gridy = 2;
+		infoFactureJPanel.add(textFieldFactNumClient, gbc_textFieldFactNumClient);
+		textFieldFactNumClient.setColumns(10);
+		
+		btnRechercherFacturepd = new JButton("Rechercher facture \u00E0pd du n\u00B0 de client");
+		GridBagConstraints gbc_btnRechercherFacturepd = new GridBagConstraints();
+		gbc_btnRechercherFacturepd.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRechercherFacturepd.gridx = 1;
+		gbc_btnRechercherFacturepd.gridy = 3;
+		infoFactureJPanel.add(btnRechercherFacturepd, gbc_btnRechercherFacturepd);
+		
+		btnRechercherFacturepd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempString="";
+				Facture[] tempFacts = model.getFacturesClient(Integer.parseInt(textFieldFactNumClient.getText()));
+				for (Facture facture : tempFacts) {
+					tempString+= facture.toString()+"\n";
+				}
+				textPaneInfoFact.setText(tempString);
+				
+			}
+		});
+		
+		textPaneInfoFact = new JTextPane();
+		GridBagConstraints gbc_textPaneInfoFact = new GridBagConstraints();
+		gbc_textPaneInfoFact.fill = GridBagConstraints.BOTH;
+		gbc_textPaneInfoFact.gridx = 1;
+		gbc_textPaneInfoFact.gridy = 5;
+		infoFactureJPanel.add(textPaneInfoFact, gbc_textPaneInfoFact);
+		infoFactureJPanel.setVisible(false);
 		
 		//check up
 		checkUpJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -509,12 +580,27 @@ public class TechnicienVueGui extends JFrame {
 		checkUpJPanel.add(textFieldCheckNumVoit, gbc_textFieldCheckNumVoit);
 		textFieldCheckNumVoit.setColumns(10);
 		
-		btnValider = new JButton("Valider");
+		btnValider2 = new JButton("Valider");
 		GridBagConstraints gbc_btnValider1 = new GridBagConstraints();
 		gbc_btnValider1.insets = new Insets(0, 0, 5, 0);
 		gbc_btnValider1.gridx = 1;
 		gbc_btnValider1.gridy = 1;
-		checkUpJPanel.add(btnValider, gbc_btnValider1);
+		checkUpJPanel.add(btnValider2, gbc_btnValider1);
+		
+		btnValider2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//à faire
+				lblAncienKilometrage.setVisible(true);
+				textPaneAncienKm.setVisible(true);
+				lblKilometrageActuel.setVisible(true);
+				textFieldCheckKmActu.setVisible(true);
+				btnSoumettreKilometrage.setVisible(true);
+				textPaneAncienKm.setText((model.getVoiture(Integer.parseInt(textFieldCheckNumVoit.getText()))).getKilometrage()+"");
+				
+				
+				
+			}
+		});
 		
 		lblAncienKilometrage = new JLabel("Ancien kilometrage :");
 		GridBagConstraints gbc_lblAncienKilometrage = new GridBagConstraints();
@@ -556,114 +642,26 @@ public class TechnicienVueGui extends JFrame {
 		gbc_btnSoumettreKilometrage.gridy = 5;
 		checkUpJPanel.add(btnSoumettreKilometrage, gbc_btnSoumettreKilometrage);
 		
-		lblAncienneNote = new JLabel("Ancienne note :");
-		GridBagConstraints gbc_lblAncienneNote = new GridBagConstraints();
-		gbc_lblAncienneNote.anchor = GridBagConstraints.WEST;
-		gbc_lblAncienneNote.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAncienneNote.gridx = 0;
-		gbc_lblAncienneNote.gridy = 6;
-		checkUpJPanel.add(lblAncienneNote, gbc_lblAncienneNote);
-		
-		textPaneNote = new JTextPane();
-		GridBagConstraints gbc_textPaneNote = new GridBagConstraints();
-		gbc_textPaneNote.insets = new Insets(0, 0, 5, 0);
-		gbc_textPaneNote.fill = GridBagConstraints.BOTH;
-		gbc_textPaneNote.gridx = 1;
-		gbc_textPaneNote.gridy = 6;
-		checkUpJPanel.add(textPaneNote, gbc_textPaneNote);
-		
-		lblNouvelleNote = new JLabel("Nouvelle note :");
-		GridBagConstraints gbc_lblNouvelleNote = new GridBagConstraints();
-		gbc_lblNouvelleNote.anchor = GridBagConstraints.WEST;
-		gbc_lblNouvelleNote.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNouvelleNote.gridx = 0;
-		gbc_lblNouvelleNote.gridy = 7;
-		checkUpJPanel.add(lblNouvelleNote, gbc_lblNouvelleNote);
-		
-		textFieldCheckNouvNote = new JTextField();
-		GridBagConstraints gbc_textFieldCheckNouvNote = new GridBagConstraints();
-		gbc_textFieldCheckNouvNote.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldCheckNouvNote.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldCheckNouvNote.gridx = 1;
-		gbc_textFieldCheckNouvNote.gridy = 7;
-		checkUpJPanel.add(textFieldCheckNouvNote, gbc_textFieldCheckNouvNote);
-		textFieldCheckNouvNote.setColumns(10);
-		
-		btnSoumettreNote = new JButton("Soumettre note");
-		GridBagConstraints gbc_btnSoumettreNote = new GridBagConstraints();
-		gbc_btnSoumettreNote.gridx = 1;
-		gbc_btnSoumettreNote.gridy = 8;
-		checkUpJPanel.add(btnSoumettreNote, gbc_btnSoumettreNote);
+		btnSoumettreKilometrage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//à faire
+				model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
+			}
+		});
 		
 		checkUpJPanel.setVisible(false);
+		lblAncienKilometrage.setVisible(false);
+		textPaneAncienKm.setVisible(false);
+		lblKilometrageActuel.setVisible(false);
+		textFieldCheckKmActu.setVisible(false);
+		btnSoumettreKilometrage.setVisible(false);
+
 		
-		//info Facture
-		
-		infoFactureJPanel = new JPanel();
-		infoFactureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		GridBagLayout gbl_infoFactureJPanel = new GridBagLayout();
-		gbl_infoFactureJPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_infoFactureJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_infoFactureJPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_infoFactureJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		infoFactureJPanel.setLayout(gbl_infoFactureJPanel);
-		
-		JLabel lblNDeFacture = new JLabel("N\u00B0 de facture :");
-		GridBagConstraints gbc_lblNDeFacture = new GridBagConstraints();
-		gbc_lblNDeFacture.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNDeFacture.anchor = GridBagConstraints.EAST;
-		gbc_lblNDeFacture.gridx = 0;
-		gbc_lblNDeFacture.gridy = 0;
-		infoFactureJPanel.add(lblNDeFacture, gbc_lblNDeFacture);
-		
-		textFieldFactNumFact= new JTextField();
-		GridBagConstraints gbc_textFieldFactNumFact= new GridBagConstraints();
-		gbc_textFieldFactNumFact.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldFactNumFact.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldFactNumFact.gridx = 1;
-		gbc_textFieldFactNumFact.gridy = 0;
-		infoFactureJPanel.add(textFieldFactNumFact, gbc_textFieldFactNumFact);
-		textFieldFactNumFact.setColumns(10);
-		
-		JButton btnRechercherFacture = new JButton("Rechercher facture");
-		GridBagConstraints gbc_btnRechercherFacture = new GridBagConstraints();
-		gbc_btnRechercherFacture.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRechercherFacture.gridx = 1;
-		gbc_btnRechercherFacture.gridy = 1;
-		infoFactureJPanel.add(btnRechercherFacture, gbc_btnRechercherFacture);
-		
-		JLabel lblNDeClient = new JLabel("N\u00B0 de client :");
-		GridBagConstraints gbc_lblNDeFactClient = new GridBagConstraints();
-		gbc_lblNDeFactClient.anchor = GridBagConstraints.EAST;
-		gbc_lblNDeFactClient.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNDeFactClient.gridx = 0;
-		gbc_lblNDeFactClient.gridy = 2;
-		infoFactureJPanel.add(lblNDeClient, gbc_lblNDeFactClient);
-		
-		textFieldFactNumClient = new JTextField();
-		GridBagConstraints gbc_textFieldFactNumClient = new GridBagConstraints();
-		gbc_textFieldFactNumClient.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldFactNumClient.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldFactNumClient.gridx = 1;
-		gbc_textFieldFactNumClient.gridy = 2;
-		infoFactureJPanel.add(textFieldFactNumClient, gbc_textFieldFactNumClient);
-		textFieldFactNumClient.setColumns(10);
-		
-		JButton btnRechercherFacturepd = new JButton("Rechercher facture \u00E0pd du n\u00B0 de client");
-		GridBagConstraints gbc_btnRechercherFacturepd = new GridBagConstraints();
-		gbc_btnRechercherFacturepd.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRechercherFacturepd.gridx = 1;
-		gbc_btnRechercherFacturepd.gridy = 3;
-		infoFactureJPanel.add(btnRechercherFacturepd, gbc_btnRechercherFacturepd);
-		
-		JTextPane textPaneInfoFact = new JTextPane();
-		GridBagConstraints gbc_textPaneInfoFact = new GridBagConstraints();
-		gbc_textPaneInfoFact.fill = GridBagConstraints.BOTH;
-		gbc_textPaneInfoFact.gridx = 1;
-		gbc_textPaneInfoFact.gridy = 5;
-		infoFactureJPanel.add(textPaneInfoFact, gbc_textPaneInfoFact);
-		infoFactureJPanel.setVisible(false);
-		
+		//rendre non éditable tout les JTextPane
+		textPaneLocation.setEditable(false);
+		textPaneVoit.setEditable(false);
+		textPaneInfo.setEditable(false);
+		textPaneAncienKm.setEditable(false);
 
 	}
 }
