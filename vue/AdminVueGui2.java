@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -23,6 +24,7 @@ import model.Admin;
 import model.Client;
 import model.Facture;
 import model.Location;
+import model.Voiture;
 
 public class AdminVueGui2 extends AdminVue {
 
@@ -106,6 +108,9 @@ public class AdminVueGui2 extends AdminVue {
 	private JTextField textFieldFactMessage;
 	
 	
+	//Onglet voitures
+	private JTextArea textArea;
+	
 	/**
 	 * 
 	 */
@@ -129,10 +134,10 @@ public class AdminVueGui2 extends AdminVue {
 		
 		//Instanciation des buttons de la menuBar
 		btnPersonneJPanel = new JButton("Gestion des personnes");
-		btnAlterClientJPanel = new JButton("Gestion des infos clients");
+		btnAlterClientJPanel = new JButton("Modification des infos clients");
 		btnFactureJPanel = new JButton("Gestion des factures");
 		btnLocationJPanel = new JButton("Gestion des locations");
-		btnMesInfosJPanel = new JButton("Modification des clients");
+		btnMesInfosJPanel = new JButton("Mes Infos");
 		btnVoitureJPanel = new JButton("Gestion des voitures");
 		btnAlterVoitureJPanel = new JButton("Modification des voitures");
 		
@@ -290,6 +295,7 @@ public class AdminVueGui2 extends AdminVue {
 		GridBagConstraints gbc_textFieldID = new GridBagConstraints();
 		gbc_textFieldID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldID.gridwidth = 1;
+		gbc_textFieldID.gridheight =1;
 		gbc_textFieldID.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldID.gridx = 1;
 		gbc_textFieldID.gridy = 3;
@@ -481,11 +487,14 @@ public class AdminVueGui2 extends AdminVue {
 		btnValiderLoca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!isInteger(textFieldLocation.getText())) {
-<<<<<<< HEAD
-					textFieldLocaMessage.setText("Entrez un numéro de location correcte");
-=======
-					textFieldLocation.setText("Entrez un numÃ©ro de client correcte");
->>>>>>> b7ef674c9b4538dd616c00b2aa7916d2125ac8d7
+					textFieldLocaMessage.setText("Entrez un numero de location correcte");
+					textFieldLocaEstPaye.setText("");
+					textFieldLocaClientID.setText("");
+					textFieldLocaAssurID.setText("");
+					textFieldLocaVoitureID.setText("");
+					textFieldLocaAccompte.setText("");
+					textFieldLocaKmInitial.setText("");
+					textFieldLocaEstEnCours.setText("");
 				}
 				else {
 					Location tempLocation = model.getLocation(Integer.parseInt(textFieldLocation.getText()));
@@ -799,6 +808,11 @@ public class AdminVueGui2 extends AdminVue {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!isInteger(textFieldVeuillezIndiquerLidFact.getText())) {
 					textFieldFactMessage.setText("Entrez un numéro de facture correcte");
+					textFieldFactLocaID.setText("");
+					textFieldFactMontant.setText("");
+					textFieldFactTechID.setText("");
+					textFieldFactNote.setText("");
+					textFieldFactEstPaye.setText("");
 				}
 				else {
 					Facture tempFacture = model.getFacture(Integer.parseInt(textFieldVeuillezIndiquerLidFact.getText()));
@@ -844,361 +858,73 @@ public class AdminVueGui2 extends AdminVue {
 		textFieldFactMessage.setColumns(10);
 		
 		AdminJFrame.setVisible(true);
-		
-		// Liste Voitures
-		
-		/**
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 827, 467);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
-		
-		JLabel lblVoitid = new JLabel("VoitID");
-		contentPane.add(lblVoitid, "2, 2");
-		
-		JLabel lblPrix = new JLabel("Prix");
-		contentPane.add(lblPrix, "4, 2");
-		
-		JLabel lblMarque = new JLabel("Marque");
-		contentPane.add(lblMarque, "6, 2");
-		
-		JLabel lblModele = new JLabel("Modele");
-		contentPane.add(lblModele, "8, 2");
-		
-		JLabel lblAnnee = new JLabel("Annee");
-		contentPane.add(lblAnnee, "10, 2");
-		
-		JLabel lblCarburant = new JLabel("Carburant");
-		contentPane.add(lblCarburant, "12, 2");
-		
-		JLabel lblCouleur = new JLabel("Couleur");
-		contentPane.add(lblCouleur, "14, 2");
-		
-		JLabel lblMOuA = new JLabel("M ou A");
-		contentPane.add(lblMOuA, "16, 2");
-		
-		JLabel lblVolCoffre = new JLabel("Vol Coffre");
-		contentPane.add(lblVolCoffre, "18, 2");
-		
-		JLabel lblNbRMotrice = new JLabel("Nb R Motrice");
-		contentPane.add(lblNbRMotrice, "20, 2");
-		
-		JLabel lblKm = new JLabel("Km");
-		contentPane.add(lblKm, "22, 2");
-		
-		JLabel lblHaut = new JLabel("Haut");
-		contentPane.add(lblHaut, "24, 2");
-		
-		JLabel lblPoids = new JLabel("Poids");
-		contentPane.add(lblPoids, "26, 2");
-		
-		textField_2 = new JTextField();
-		contentPane.add(textField_2, "2, 4, fill, default");
-		textField_2.setColumns(10);
-		
-		textFieldVoitID = new JTextField();
-		contentPane.add(textFieldVoitID, "4, 4, fill, default");
-		textFieldVoitID.setColumns(10);
-		
-		textFieldPrix = new JTextField();
-		contentPane.add(textFieldPrix, "6, 4, fill, default");
-		textFieldPrix.setColumns(10);
-		
-		textFieldMarque = new JTextField();
-		contentPane.add(textFieldMarque, "8, 4, fill, default");
-		textFieldMarque.setColumns(10);
-		
-		textFieldModele = new JTextField();
-		contentPane.add(textFieldModele, "10, 4, fill, default");
-		textFieldModele.setColumns(10);
-		
-		textFieldAnnee = new JTextField();
-		contentPane.add(textFieldAnnee, "12, 4, fill, default");
-		textFieldAnnee.setColumns(10);
-		
-		textFieldCarburant = new JTextField();
-		contentPane.add(textFieldCarburant, "14, 4, fill, default");
-		textFieldCarburant.setColumns(10);
-		
-		textFieldCouleur = new JTextField();
-		contentPane.add(textFieldCouleur, "16, 4, fill, default");
-		textFieldCouleur.setColumns(10);
-		
-		textFieldMA = new JTextField();
-		contentPane.add(textFieldMA, "18, 4, fill, default");
-		textFieldMA.setColumns(10);
-		
-		textFieldVolC = new JTextField();
-		contentPane.add(textFieldVolC, "20, 4, fill, default");
-		textFieldVolC.setColumns(10);
-		
-		textFieldNbRM = new JTextField();
-		contentPane.add(textFieldNbRM, "22, 4, fill, default");
-		textFieldNbRM.setColumns(10);
-		
-		textFieldKm = new JTextField();
-		contentPane.add(textFieldKm, "24, 4, fill, default");
-		textFieldKm.setColumns(10);
-		
-		textFieldHaut = new JTextField();
-		contentPane.add(textFieldHaut, "26, 4, fill, default");
-		textFieldHaut.setColumns(10);
-		
-		textFieldPoids = new JTextField();
-		contentPane.add(textFieldPoids, "26, 4, fill, default");
-		textFieldPoids.setColumns(10);
-		
-		textField_3 = new JTextField();
-		contentPane.add(textField_3, "2, 6, fill, default");
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		contentPane.add(textField_4, "4, 6, fill, default");
-		textField_4.setColumns(10);
-		
-		textField_5 = new JTextField();
-		contentPane.add(textField_5, "6, 6, fill, default");
-		textField_5.setColumns(10);
-		
-		textField_6 = new JTextField();
-		contentPane.add(textField_6, "8, 6, fill, default");
-		textField_6.setColumns(10);
-		
-		textField_7 = new JTextField();
-		contentPane.add(textField_7, "10, 6, fill, default");
-		textField_7.setColumns(10);
-		
-		textField_8 = new JTextField();
-		contentPane.add(textField_8, "12, 6, fill, default");
-		textField_8.setColumns(10);
-		
-		textField_9 = new JTextField();
-		contentPane.add(textField_9, "14, 6, fill, default");
-		textField_9.setColumns(10);
-		
-		textField_10 = new JTextField();
-		contentPane.add(textField_10, "16, 6, fill, default");
-		textField_10.setColumns(10);
-		
-		textField_11 = new JTextField();
-		contentPane.add(textField_11, "18, 6, fill, default");
-		textField_11.setColumns(10);
-		
-		textField_12 = new JTextField();
-		contentPane.add(textField_12, "20, 6, fill, default");
-		textField_12.setColumns(10);
-		
-		textField_13 = new JTextField();
-		contentPane.add(textField_13, "22, 6, fill, default");
-		textField_13.setColumns(10);
-		
-		textField_14 = new JTextField();
-		contentPane.add(textField_14, "24, 6, fill, default");
-		textField_14.setColumns(10);
-		
-		textField_15 = new JTextField();
-		contentPane.add(textField_15, "26, 6, fill, default");
-		textField_15.setColumns(10);
-		
-		textField_16 = new JTextField();
-		contentPane.add(textField_16, "2, 8, fill, default");
-		textField_16.setColumns(10);
-		
-		textField_17 = new JTextField();
-		contentPane.add(textField_17, "4, 8, fill, default");
-		textField_17.setColumns(10);
-		
-		textField_18 = new JTextField();
-		contentPane.add(textField_18, "6, 8, fill, default");
-		textField_18.setColumns(10);
-		
-		textField_19 = new JTextField();
-		contentPane.add(textField_19, "8, 8, fill, default");
-		textField_19.setColumns(10);
-		
-		textField_20 = new JTextField();
-		contentPane.add(textField_20, "10, 8, fill, default");
-		textField_20.setColumns(10);
-		
-		textField_21 = new JTextField();
-		contentPane.add(textField_21, "12, 8, fill, default");
-		textField_21.setColumns(10);
-		
-		textField_22 = new JTextField();
-		contentPane.add(textField_22, "14, 8, fill, default");
-		textField_22.setColumns(10);
-		
-		textField_23 = new JTextField();
-		contentPane.add(textField_23, "16, 8, fill, default");
-		textField_23.setColumns(10);
-		
-		textField_24 = new JTextField();
-		contentPane.add(textField_24, "18, 8, fill, default");
-		textField_24.setColumns(10);
-		
-		textField_25 = new JTextField();
-		contentPane.add(textField_25, "20, 8, fill, default");
-		textField_25.setColumns(10);
-		
-		textField_26 = new JTextField();
-		contentPane.add(textField_26, "22, 8, fill, default");
-		textField_26.setColumns(10);
-		
-		textField_27 = new JTextField();
-		contentPane.add(textField_27, "24, 8, fill, default");
-		textField_27.setColumns(10);
-		
-		textField_28 = new JTextField();
-		contentPane.add(textField_28, "26, 8, fill, default");
-		textField_28.setColumns(10);
-		
-		textField_29 = new JTextField();
-		contentPane.add(textField_29, "2, 10, fill, default");
-		textField_29.setColumns(10);
-		
-		textField_30 = new JTextField();
-		contentPane.add(textField_30, "4, 10, fill, default");
-		textField_30.setColumns(10);
-		
-		textField_31 = new JTextField();
-		contentPane.add(textField_31, "6, 10, fill, default");
-		textField_31.setColumns(10);
-		
-		textField_32 = new JTextField();
-		contentPane.add(textField_32, "8, 10, fill, default");
-		textField_32.setColumns(10);
-		
-		textField_33 = new JTextField();
-		contentPane.add(textField_33, "10, 10, fill, default");
-		textField_33.setColumns(10);
-		
-		textField_34 = new JTextField();
-		contentPane.add(textField_34, "12, 10, fill, default");
-		textField_34.setColumns(10);
-		
-		textField_35 = new JTextField();
-		contentPane.add(textField_35, "14, 10, fill, default");
-		textField_35.setColumns(10);
-		
-		textField_36 = new JTextField();
-		contentPane.add(textField_36, "16, 10, fill, default");
-		textField_36.setColumns(10);
-		
-		textField_37 = new JTextField();
-		contentPane.add(textField_37, "18, 10, fill, default");
-		textField_37.setColumns(10);
-		
-		textField_38 = new JTextField();
-		contentPane.add(textField_38, "20, 10, fill, default");
-		textField_38.setColumns(10);
-		
-		textField_39 = new JTextField();
-		contentPane.add(textField_39, "22, 10, fill, default");
-		textField_39.setColumns(10);
-		
-		textField_40 = new JTextField();
-		contentPane.add(textField_40, "24, 10, fill, default");
-		textField_40.setColumns(10);
-		
-		textField_41 = new JTextField();
-		contentPane.add(textField_41, "26, 10, fill, default");
-		textField_41.setColumns(10);
-		
-		textField_42 = new JTextField();
-		contentPane.add(textField_42, "2, 12, fill, default");
-		textField_42.setColumns(10);
-		
-		textField_43 = new JTextField();
-		contentPane.add(textField_43, "4, 12, fill, default");
-		textField_43.setColumns(10);
-		
-		textField_44 = new JTextField();
-		contentPane.add(textField_44, "6, 12, fill, default");
-		textField_44.setColumns(10);
-		
-		textField_45 = new JTextField();
-		contentPane.add(textField_45, "8, 12, fill, default");
-		textField_45.setColumns(10);
-		
-		textField_46 = new JTextField();
-		contentPane.add(textField_46, "10, 12, fill, default");
-		textField_46.setColumns(10);
-		
-		textField_47 = new JTextField();
-		contentPane.add(textField_47, "12, 12, fill, default");
-		textField_47.setColumns(10);
-		
-		textField_48 = new JTextField();
-		contentPane.add(textField_48, "14, 12, fill, default");
-		textField_48.setColumns(10);
-		
-		textField_49 = new JTextField();
-		contentPane.add(textField_49, "16, 12, fill, default");
-		textField_49.setColumns(10);
-		
-		textField_50 = new JTextField();
-		contentPane.add(textField_50, "18, 12, fill, default");
-		textField_50.setColumns(10);
-		
-		textField_51 = new JTextField();
-		contentPane.add(textField_51, "20, 12, fill, default");
-		textField_51.setColumns(10);
-		
-		textField_52 = new JTextField();
-		contentPane.add(textField_52, "22, 12, fill, default");
-		textField_52.setColumns(10);
-		
-		textField_53 = new JTextField();
-		contentPane.add(textField_53, "24, 12, fill, default");
-		textField_53.setColumns(10);
-		
-		textField_54 = new JTextField();
-		contentPane.add(textField_54, "26, 12, fill, default");
-		textField_54.setColumns(10);
-		
-		**/
-		
+		AdminJFrame.setContentPane(personneJPanel);
+		
+		// Liste Voitures 
+		
+		voitureJPanel = new JPanel();
+		voitureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		voitureJPanel.setLayout(gbl_contentPane);
+		
+		JButton btnToutesLesVoitures = new JButton("Toutes les voitures");
+		btnToutesLesVoitures.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempString ="";
+				Voiture [] tempVoits = model.getListVoit();
+				if (tempVoits != null) {
+					for (Voiture voiture : tempVoits) {
+						tempString += voiture.toString();
+						tempString += "\n";
+					}
+					textArea.setText(tempString);
+					
+				}
+				else textArea.setText("Erreur lors de la récupération des voitures");
+			}
+		});
+		GridBagConstraints gbc_btnToutesLesVoitures = new GridBagConstraints();
+		gbc_btnToutesLesVoitures.anchor = GridBagConstraints.WEST;
+		gbc_btnToutesLesVoitures.insets = new Insets(0, 0, 5, 5);
+		gbc_btnToutesLesVoitures.gridx = 0;
+		gbc_btnToutesLesVoitures.gridy = 0;
+		voitureJPanel.add(btnToutesLesVoitures, gbc_btnToutesLesVoitures);
+		
+		JButton btnVoituresLoues = new JButton("Voitures lou\u00E9es");
+		btnVoituresLoues.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempString = "";
+				Voiture [] tempVoits = model.getListVoitLouees();
+				if (tempVoits != null) {
+					for (Voiture voiture : tempVoits) {
+						tempString += voiture.toString();
+						tempString += "\n";
+					}
+					textArea.setText(tempString);
+				}
+				else textArea.setText("Erreur lors de la récupération des voitures");
+			}
+		});
+		GridBagConstraints gbc_btnVoituresLoues = new GridBagConstraints();
+		gbc_btnVoituresLoues.insets = new Insets(0, 0, 5, 5);
+		gbc_btnVoituresLoues.gridx = 1;
+		gbc_btnVoituresLoues.gridy = 0;
+		voitureJPanel.add(btnVoituresLoues, gbc_btnVoituresLoues);
+		
+		textArea = new JTextArea();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 6;
+		gbc_textField.gridheight = 15;
+		gbc_textField.insets = new Insets(0, 0, 0, 5);
+		gbc_textField.fill = GridBagConstraints.BOTH;
+		gbc_textField.gridx = 0;
+		gbc_textField.gridy = 1;
+		voitureJPanel.add(textArea, gbc_textField);
+		textArea.setColumns(10);
 	}
 	
 	/**
