@@ -1,24 +1,28 @@
 package vue;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import controller.ClientController;
 import model.Client;
+
 
 
 public class ClientVueGui extends JFrame {
@@ -27,6 +31,8 @@ public class ClientVueGui extends JFrame {
 	private JPanel listeVoitureJPanel;
 	private JPanel contactJPanel;
 	private JPanel locationJPanel;
+	private JPanel locationEnCoursJPanel;
+	private JPanel votreCommandeJPanel;
 	
 	
 	private JTextField textFieldPrenomC;
@@ -36,7 +42,6 @@ public class ClientVueGui extends JFrame {
 	private JTextField textFieldMailC;
 	private JTextField textFieldPseudo;
 	private JTextField textFieldAdresseC;
-	private JTextField textFieldAssurance;
 	private JTextField textFieldNumAss;
 	private JTextField textFieldNumVoit;
 	private JTextField textFieldMailA;
@@ -53,6 +58,9 @@ public class ClientVueGui extends JFrame {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	
+	private JTextArea textAreaL;
+	private JTextArea textAreaC;
+	
 
 	
 	
@@ -64,9 +72,8 @@ public class ClientVueGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Client model = new Client("pseudo", "mdp");
-					ClientController controlleur = new ClientController(model);
-					ClientVueGui frame = new ClientVueGui(model, controlleur);
+					Client model = new Client("pseudo","mdp");
+					ClientVueGui frame = new ClientVueGui(model);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,11 +85,13 @@ public class ClientVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientVueGui(Client model, ClientController controlleur) {
+	public ClientVueGui(Client model) {
 		infoJPanel = new JPanel();
 		listeVoitureJPanel = new JPanel();
 		contactJPanel = new JPanel();
 		locationJPanel = new JPanel();
+		locationEnCoursJPanel = new JPanel();
+		votreCommandeJPanel = new JPanel();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 500);
@@ -97,6 +106,8 @@ public class ClientVueGui extends JFrame {
 				listeVoitureJPanel.setVisible(false);
 				contactJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
+				locationEnCoursJPanel.setVisible(false);
+				votreCommandeJPanel.setVisible(false);
 				getContentPane().add(infoJPanel);
 				
 			}
@@ -110,6 +121,8 @@ public class ClientVueGui extends JFrame {
 				listeVoitureJPanel.setVisible(true);
 				contactJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
+				locationEnCoursJPanel.setVisible(false);
+				votreCommandeJPanel.setVisible(false);
 				getContentPane().add(listeVoitureJPanel);
 			}
 		});
@@ -123,6 +136,8 @@ public class ClientVueGui extends JFrame {
 				listeVoitureJPanel.setVisible(false);
 				contactJPanel.setVisible(true);
 				locationJPanel.setVisible(false);
+				locationEnCoursJPanel.setVisible(false);
+				votreCommandeJPanel.setVisible(false);
 				getContentPane().add(contactJPanel);
 			}
 		});
@@ -135,11 +150,40 @@ public class ClientVueGui extends JFrame {
 				listeVoitureJPanel.setVisible(false);
 				contactJPanel.setVisible(false);
 				locationJPanel.setVisible(true);
+				locationEnCoursJPanel.setVisible(false);
+				votreCommandeJPanel.setVisible(false);
 				getContentPane().add(locationJPanel);
 			}
 		});
 		menuBar.add(btnLocation);
 		
+		JButton btnLocationEnCours = new JButton("Location en cours");
+		btnLocationEnCours.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				infoJPanel.setVisible(false);
+				listeVoitureJPanel.setVisible(false);
+				contactJPanel.setVisible(false);
+				locationJPanel.setVisible(false);
+				locationEnCoursJPanel.setVisible(true);
+				votreCommandeJPanel.setVisible(false);
+				getContentPane().add(locationEnCoursJPanel);
+			}
+		});
+		menuBar.add(btnLocationEnCours);
+		
+		JButton btnVotreCommande = new JButton("Votre commande");
+		btnVotreCommande.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				infoJPanel.setVisible(false);
+				listeVoitureJPanel.setVisible(false);
+				contactJPanel.setVisible(false);
+				locationJPanel.setVisible(false);
+				locationEnCoursJPanel.setVisible(false);
+				votreCommandeJPanel.setVisible(true);
+				getContentPane().add(votreCommandeJPanel);
+			}
+		});
+		menuBar.add(btnVotreCommande);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -279,23 +323,6 @@ public class ClientVueGui extends JFrame {
 		gbc_textFieldAdresseC.gridy = 8;
 		infoJPanel.add(textFieldAdresseC, gbc_textFieldAdresseC);
 		textFieldAdresseC.setColumns(10);
-		
-		JLabel lblAssurance = new JLabel("Assurance :");
-		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
-		gbc_lblAssurance.anchor = GridBagConstraints.EAST;
-		gbc_lblAssurance.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAssurance.gridx = 0;
-		gbc_lblAssurance.gridy = 9;
-		infoJPanel.add(lblAssurance, gbc_lblAssurance);
-		
-		textFieldAssurance = new JTextField();
-		GridBagConstraints gbc_textFieldAssurance = new GridBagConstraints();
-		gbc_textFieldAssurance.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldAssurance.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldAssurance.gridx = 1;
-		gbc_textFieldAssurance.gridy = 9;
-		infoJPanel.add(textFieldAssurance, gbc_textFieldAssurance);
-		textFieldAssurance.setColumns(10);
 		
 		// Contact
 		
@@ -548,7 +575,58 @@ public class ClientVueGui extends JFrame {
 		gbc_textPane_1.gridx = 1;
 		gbc_textPane_1.gridy = 3;
 		listeVoitureJPanel.add(textPane_1, gbc_textPane_1);
+		
+		//Location en cours
+
+		locationEnCoursJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_locationEnCoursJPanel = new GridBagLayout();
+		gbl_locationEnCoursJPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_locationEnCoursJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_locationEnCoursJPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_locationEnCoursJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		locationEnCoursJPanel.setLayout(gbl_locationEnCoursJPanel);
+		
+		JLabel lblVoiciLaListe = new JLabel("Voici la liste de vos location et vos factures");
+		GridBagConstraints gbc_lblVoiciLaListe = new GridBagConstraints();
+		gbc_lblVoiciLaListe.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoiciLaListe.gridx = 0;
+		gbc_lblVoiciLaListe.gridy = 0;
+		locationEnCoursJPanel.add(lblVoiciLaListe, gbc_lblVoiciLaListe);
+		
+		JTextArea textAreaL = new JTextArea();
+		GridBagConstraints gbc_textAreaL = new GridBagConstraints();
+		gbc_textAreaL.gridheight = 3;
+		gbc_textAreaL.gridwidth = 3;
+		gbc_textAreaL.fill = GridBagConstraints.BOTH;
+		gbc_textAreaL.gridx = 0;
+		gbc_textAreaL.gridy = 2;
+		locationEnCoursJPanel.add(textAreaL, gbc_textAreaL);
+		
+		// Votre commande
+		
+		votreCommandeJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_votreCommandeJPanel = new GridBagLayout();
+		gbl_votreCommandeJPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_votreCommandeJPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_votreCommandeJPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_votreCommandeJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		votreCommandeJPanel.setLayout(gbl_votreCommandeJPanel);
+		
+		JLabel lblVoiciVotreVoiture = new JLabel("Voici votre voiture lou\u00E9e");
+		GridBagConstraints gbc_lblVoiciVotreVoiture = new GridBagConstraints();
+		gbc_lblVoiciVotreVoiture.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoiciVotreVoiture.gridx = 0;
+		gbc_lblVoiciVotreVoiture.gridy = 0;
+		votreCommandeJPanel.add(lblVoiciVotreVoiture, gbc_lblVoiciVotreVoiture);
+		
+		JTextArea textAreaC = new JTextArea();
+		GridBagConstraints gbc_textAreaC = new GridBagConstraints();
+		gbc_textAreaC.gridheight = 2;
+		gbc_textAreaC.gridwidth = 2;
+		gbc_textAreaC.fill = GridBagConstraints.BOTH;
+		gbc_textAreaC.gridx = 0;
+		gbc_textAreaC.gridy = 2;
+		votreCommandeJPanel.add(textAreaC, gbc_textAreaC);
 	}
+
 }
-
-
