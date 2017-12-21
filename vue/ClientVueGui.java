@@ -42,7 +42,6 @@ public class ClientVueGui extends JFrame {
 	private JTextField textFieldMailC;
 	private JTextField textFieldPseudo;
 	private JTextField textFieldAdresseC;
-	private JTextField textFieldAssurance;
 	private JTextField textFieldNumAss;
 	private JTextField textFieldNumVoit;
 	private JTextField textFieldMailA;
@@ -324,23 +323,6 @@ public class ClientVueGui extends JFrame {
 		gbc_textFieldAdresseC.gridy = 8;
 		infoJPanel.add(textFieldAdresseC, gbc_textFieldAdresseC);
 		textFieldAdresseC.setColumns(10);
-		
-		JLabel lblAssurance = new JLabel("Assurance :");
-		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
-		gbc_lblAssurance.anchor = GridBagConstraints.EAST;
-		gbc_lblAssurance.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAssurance.gridx = 0;
-		gbc_lblAssurance.gridy = 9;
-		infoJPanel.add(lblAssurance, gbc_lblAssurance);
-		
-		textFieldAssurance = new JTextField();
-		GridBagConstraints gbc_textFieldAssurance = new GridBagConstraints();
-		gbc_textFieldAssurance.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldAssurance.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldAssurance.gridx = 1;
-		gbc_textFieldAssurance.gridy = 9;
-		infoJPanel.add(textFieldAssurance, gbc_textFieldAssurance);
-		textFieldAssurance.setColumns(10);
 		
 		// Contact
 		
