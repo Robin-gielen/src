@@ -646,6 +646,7 @@ public class Technicien extends Personne{
 		} catch (SQLException ex) {
             // handle the error
         }
+		
         return null;
 	}
 }
