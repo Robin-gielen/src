@@ -31,6 +31,7 @@ public class TechnicienVueGui extends JFrame {
 	private JPanel locationJPanel;
 	private JPanel voitureJPanel;
 	private JPanel infoClientJPanel;
+	private JPanel checkAccJPanel;
 	private JPanel checkUpJPanel;
 	private JPanel infoFactureJPanel;
 	
@@ -93,6 +94,7 @@ public class TechnicienVueGui extends JFrame {
 	private JButton btnInfoLocation;
 	private JButton btnInfoVoiture;
 	private JButton btnInfoClient;
+	private JButton btnCheckAcc;
 	private JButton btnCheckUp;
 	private JButton btnValider;
 	private JButton btnRechercher;
@@ -137,6 +139,18 @@ public class TechnicienVueGui extends JFrame {
 	private JLabel blNDeLocation1;
 	private JLabel blNDeFact1;
 	private JLabel blNDeClient1;
+	private JButton validerClientId;
+	private JLabel lblNDeLocationCheckUp;
+	private JTextField textFieldCheckNumLoca;
+	private JButton btnValiderAcc;
+	private JLabel lblNDeLocationCheckAcc;
+	private JTextField textFieldStatutAcc;
+	private JLabel lblStatutAcc;
+	private JLabel lblStatutAccActuel;
+	private JTextField textFieldStatutAccActuel;
+	private JButton btnSoumettreAccStatut;
+	private AbstractButton btnAccStatut;
+	private JTextField textFieldErreurStatut;
 	
 	
 	
@@ -168,6 +182,7 @@ public class TechnicienVueGui extends JFrame {
 		factureJPanel = new JPanel();
 		locationJPanel = new JPanel();
 		voitureJPanel = new JPanel();
+		checkAccJPanel = new JPanel();
 		checkUpJPanel = new JPanel();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -183,6 +198,7 @@ public class TechnicienVueGui extends JFrame {
 				factureJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
+				checkAccJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
@@ -199,6 +215,7 @@ public class TechnicienVueGui extends JFrame {
 				infoJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
+				checkAccJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
@@ -215,6 +232,7 @@ public class TechnicienVueGui extends JFrame {
 				factureJPanel.setVisible(false);
 				infoJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
+				checkAccJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
@@ -232,6 +250,7 @@ public class TechnicienVueGui extends JFrame {
 				factureJPanel.setVisible(false);
 				infoJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
+				checkAccJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
 				setContentPane(voitureJPanel);
@@ -245,6 +264,7 @@ public class TechnicienVueGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				infoFactureJPanel.setVisible(true);
 				checkUpJPanel.setVisible(false);
+				checkAccJPanel.setVisible(false);
 				infoJPanel.setVisible(false);
 				factureJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
@@ -260,6 +280,7 @@ public class TechnicienVueGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				infoClientJPanel.setVisible(true);
 				infoFactureJPanel.setVisible(false);
+				checkAccJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
 				infoJPanel.setVisible(false);
 				factureJPanel.setVisible(false);
@@ -270,10 +291,27 @@ public class TechnicienVueGui extends JFrame {
 		});
 		menuBar.add(btnInfoClient);
 		
+		btnCheckAcc = new JButton("Check Accompte");
+		btnCheckAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkAccJPanel.setVisible(true);
+				infoClientJPanel.setVisible(false);
+				infoFactureJPanel.setVisible(false);
+				checkUpJPanel.setVisible(false);
+				infoJPanel.setVisible(false);
+				factureJPanel.setVisible(false);
+				locationJPanel.setVisible(false);
+				voitureJPanel.setVisible(false);
+				setContentPane(checkAccJPanel);
+			}
+		});
+		menuBar.add(btnCheckAcc);
+		
 		btnCheckUp = new JButton("CheckUp");
 		btnCheckUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkUpJPanel.setVisible(true);
+				checkAccJPanel.setVisible(false);
 				infoJPanel.setVisible(false);
 				factureJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
@@ -811,7 +849,7 @@ public class TechnicienVueGui extends JFrame {
 		//voiture
 		
 		voitureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		GridBagLayout gbl_voitureJPanel = new GridBagLayout(); 
+		GridBagLayout gbl_voitureJPanel = new GridBagLayout();
 		gbl_voitureJPanel.columnWidths = new int[]{0, 500, 380, 0};
 		gbl_voitureJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_voitureJPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
@@ -845,7 +883,7 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnRechercherVoit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textFieldVoit.setText(model.getVoiture(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
+				textFieldVoit.setText(model.getLocation(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
 				
 			}
 		});
@@ -932,18 +970,6 @@ public class TechnicienVueGui extends JFrame {
 				textFieldFactEstPaye.setVisible(false);
 				lblFactNote.setVisible(false);
 				textFieldFactNote2.setVisible(false);
-				String tempString="";
-				if(isInteger(textFieldVeuillezIndiquerLidClient.getText())) {
-					Facture[] tempFacts = model.getFacturesClient(Integer.parseInt(textFieldVeuillezIndiquerLidClient.getText()));
-					if(tempFacts != null) {
-						for (Facture facture : tempFacts) {
-							tempString+= facture.toString()+"\n";
-						}
-						textAreaInfoFact.setText(tempString);
-					}
-					else textAreaInfoFact.setText("Ce client n'existe pas ou n'a pas de facture");
-				}
-				else textAreaInfoFact.setText("Entrez un numero de client correcte");
 			}
 		});
 		GridBagConstraints gbc_btnValiderFact2 = new GridBagConstraints();
@@ -1181,7 +1207,7 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblInfosDeLa.anchor = GridBagConstraints.EAST;
 		gbc_lblInfosDeLa.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInfosDeLa.gridx = 0;
-		gbc_lblInfosDeLa.gridy = 2;
+		gbc_lblInfosDeLa.gridy = 3;
 		infoClientJPanel.add(lblInfosDeLa, gbc_lblInfosDeLa);
 		
 		textFieldPrenomC = new JTextField();
@@ -1189,7 +1215,7 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textFieldPrenomC.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldPrenomC.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldPrenomC.gridx = 1;
-		gbc_textFieldPrenomC.gridy = 2;
+		gbc_textFieldPrenomC.gridy = 3;
 		infoClientJPanel.add(textFieldPrenomC, gbc_textFieldPrenomC);
 		textFieldPrenomC.setColumns(10);
 		
@@ -1198,7 +1224,7 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblInfosSurLe.anchor = GridBagConstraints.EAST;
 		gbc_lblInfosSurLe.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInfosSurLe.gridx = 0;
-		gbc_lblInfosSurLe.gridy = 3;
+		gbc_lblInfosSurLe.gridy = 4;
 		infoClientJPanel.add(lblInfosSurLe, gbc_lblInfosSurLe);
 		
 		textFieldNomC = new JTextField();
@@ -1206,7 +1232,7 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textFieldNomC.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldNomC.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNomC.gridx = 1;
-		gbc_textFieldNomC.gridy = 3;
+		gbc_textFieldNomC.gridy = 4;
 		infoClientJPanel.add(textFieldNomC, gbc_textFieldNomC);
 		textFieldNomC.setColumns(10);
 		
@@ -1215,17 +1241,31 @@ public class TechnicienVueGui extends JFrame {
 		gbc_lblInfosSurLa.anchor = GridBagConstraints.EAST;
 		gbc_lblInfosSurLa.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInfosSurLa.gridx = 0;
-		gbc_lblInfosSurLa.gridy = 4;
+		gbc_lblInfosSurLa.gridy = 2;
 		infoClientJPanel.add(lblInfosSurLa, gbc_lblInfosSurLa);
 		
 		textFieldID = new JTextField();
 		GridBagConstraints gbc_textFieldID = new GridBagConstraints();
+		gbc_textFieldID.anchor = GridBagConstraints.WEST;
 		gbc_textFieldID.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldID.gridx = 1;
-		gbc_textFieldID.gridy = 4;
+		gbc_textFieldID.gridy = 2;
 		infoClientJPanel.add(textFieldID, gbc_textFieldID);
 		textFieldID.setColumns(10);
+		
+		validerClientId = new JButton("Rechercher");
+		GridBagConstraints gbc_validerClientId = new GridBagConstraints();
+		gbc_validerClientId.anchor = GridBagConstraints.CENTER;
+		gbc_validerClientId.insets = new Insets(0, 0, 5, 0);
+		gbc_validerClientId.gridx = 1;
+		gbc_validerClientId.gridy = 2;
+		infoClientJPanel.add(validerClientId, gbc_validerClientId);
+		
+		btnRechercherNumClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//A FAIRE action listener
+			}
+		});
 		
 		JLabel lblDateDeNaissance = new JLabel("Date naissance : ");
 		GridBagConstraints gbc_lblDateDeNaissance = new GridBagConstraints();
@@ -1300,11 +1340,141 @@ public class TechnicienVueGui extends JFrame {
 		
 		textFieldPrenomC.setEditable(false);
 		textFieldNomC.setEditable(false);
-		textFieldID.setEditable(false);
 		textFieldNaissance.setEditable(false);
 		textFieldMailC.setEditable(false);
 		textFieldPseudo.setEditable(false);
 		textFieldAdresseC.setEditable(false);
+		
+		// check acc
+		checkAccJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_checkAccJPanel = new GridBagLayout();
+		gbl_checkAccJPanel.columnWidths = new int[]{0, 500, 380, 0};
+		gbl_checkAccJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_checkAccJPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_checkAccJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		checkAccJPanel.setLayout(gbl_checkAccJPanel);
+		
+		lblNDeLocationCheckAcc = new JLabel("N\u00B0 de location :");
+		GridBagConstraints gbc_lblNDeLocationCheckAcc = new GridBagConstraints();
+		gbc_lblNDeLocationCheckAcc.anchor = GridBagConstraints.WEST;
+		gbc_lblNDeLocationCheckAcc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNDeLocationCheckAcc.gridx = 0;
+		gbc_lblNDeLocationCheckAcc.gridy = 0;
+		checkAccJPanel.add(lblNDeLocationCheckAcc, gbc_lblNDeLocationCheckAcc);
+		
+		textFieldCheckNumLoca = new JTextField();
+		GridBagConstraints gbc_textFieldCheckNumLoca = new GridBagConstraints();
+		gbc_textFieldCheckNumLoca.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCheckNumLoca.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldCheckNumLoca.gridx = 1;
+		gbc_textFieldCheckNumLoca.gridy = 0;
+		checkAccJPanel.add(textFieldCheckNumLoca, gbc_textFieldCheckNumLoca);
+		textFieldCheckNumLoca.setColumns(10);
+		
+		btnValiderAcc = new JButton("Valider");
+		GridBagConstraints gbc_btnValider1 = new GridBagConstraints();
+		gbc_btnValider1.insets = new Insets(0, 0, 5, 0);
+		gbc_btnValider1.gridx = 1;
+		gbc_btnValider1.gridy = 1;
+		checkAccJPanel.add(btnValiderAcc, gbc_btnValider1);
+		
+		btnValiderAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//à faire
+				lblStatutAcc.setVisible(true);
+				textFieldStatutAcc.setVisible(true);
+				lblStatutAccActuel.setVisible(true);
+				textFieldStatutAccActuel.setVisible(true);
+				btnSoumettreAccStatut.setVisible(true);
+				if(isInteger(textFieldCheckNumLoca.getText())) {
+					Location tempLocation= model.getLocation(Integer.parseInt(textFieldCheckNumLoca.getText()));
+					if(tempLocation!= null) {
+						textFieldStatutAcc.setText(tempLocation.isAccomptePaye()+"");
+					}
+					else {
+						textFieldErreurStatut.setText("Vous avez introduit un id n'existant pas");
+					}
+				}
+				else {
+					textFieldErreurStatut.setText("Vous avez introduit un mauvais format d'id ");
+				}
+				
+			}
+		});
+		
+		lblStatutAcc = new JLabel("Ancien statut de l'accompte :");
+		GridBagConstraints gbc_lblStatutAcc = new GridBagConstraints();
+		gbc_lblStatutAcc.anchor = GridBagConstraints.NORTH;
+		gbc_lblStatutAcc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStatutAcc.gridx = 0;
+		gbc_lblStatutAcc.gridy = 2;
+		checkAccJPanel.add(lblStatutAcc, gbc_lblStatutAcc);
+		
+		textFieldStatutAcc = new JTextField();
+		textFieldStatutAcc.setEditable(false);
+		GridBagConstraints gbc_textFieldStatutAcc = new GridBagConstraints();
+		gbc_textFieldStatutAcc.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldStatutAcc.fill = GridBagConstraints.BOTH;
+		gbc_textFieldStatutAcc.gridx = 1;
+		gbc_textFieldStatutAcc.gridy = 2;
+		checkAccJPanel.add(textFieldStatutAcc, gbc_textFieldStatutAcc);
+		
+		lblStatutAccActuel = new JLabel("Est payé :");
+		GridBagConstraints gbc_lblStatutAccActuel = new GridBagConstraints();
+		gbc_lblStatutAccActuel.anchor = GridBagConstraints.EAST;
+		gbc_lblStatutAccActuel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStatutAccActuel.gridx = 0;
+		gbc_lblStatutAccActuel.gridy = 3;
+		checkAccJPanel.add(lblStatutAccActuel, gbc_lblStatutAccActuel);
+		
+		textFieldStatutAccActuel = new JTextField();
+		GridBagConstraints gbc_textFieldStatutAccActuel = new GridBagConstraints();
+		gbc_textFieldStatutAccActuel.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldStatutAccActuel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldStatutAccActuel.gridx = 1;
+		gbc_textFieldStatutAccActuel.gridy = 3;
+		checkAccJPanel.add(textFieldStatutAccActuel, gbc_textFieldStatutAccActuel);
+		textFieldStatutAccActuel.setColumns(10);
+		
+		btnSoumettreAccStatut = new JButton("Soumettre statut accompte");
+		GridBagConstraints gbc_btnAccStatut = new GridBagConstraints();
+		gbc_btnAccStatut.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAccStatut.gridx = 1;
+		gbc_btnAccStatut.gridy = 5;
+		checkAccJPanel.add(btnSoumettreAccStatut, gbc_btnAccStatut);
+		
+		textFieldErreurStatut = new JTextField();
+		textFieldErreurStatut.setEditable(false);
+		GridBagConstraints gbc_textFieldErreurStatut = new GridBagConstraints();
+		gbc_textFieldErreurStatut.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldErreurStatut.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldErreurStatut.gridx = 1;
+		gbc_textFieldErreurStatut.gridy = 6;
+		checkAccJPanel.add(textFieldErreurStatut, gbc_textFieldErreurStatut);
+		textFieldErreurStatut.setColumns(10);
+		
+		lblStatutAcc.setVisible(false);
+		textFieldStatutAcc.setVisible(false);
+		lblStatutAccActuel.setVisible(false);
+		textFieldStatutAccActuel.setVisible(false);
+		btnSoumettreAccStatut.setVisible(false);
+		
+		btnSoumettreAccStatut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempStatut=textFieldStatutAccActuel.getText().toString();
+				System.out.println(tempStatut);
+				if(tempStatut.equals("oui")) {
+				model.setAccompteStatut(Integer.parseInt(textFieldCheckNumLoca.getText()), true);
+				
+				}
+				else if(tempStatut.equals("non")) {
+					model.setAccompteStatut(Integer.parseInt(textFieldCheckNumLoca.getText()), false);
+				}
+				else {
+					textFieldErreurStatut.setText("réponse uniquement par oui ou non");
+				}
+			}
+		});
 		
 		//check up
 		
@@ -1334,14 +1504,15 @@ public class TechnicienVueGui extends JFrame {
 		textFieldCheckNumVoit.setColumns(10);
 		
 		btnValider2 = new JButton("Valider");
-		GridBagConstraints gbc_btnValider1 = new GridBagConstraints();
-		gbc_btnValider1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnValider1.gridx = 1;
-		gbc_btnValider1.gridy = 1;
-		checkUpJPanel.add(btnValider2, gbc_btnValider1);
+		GridBagConstraints gbc_btnValider11 = new GridBagConstraints();
+		gbc_btnValider11.insets = new Insets(0, 0, 5, 0);
+		gbc_btnValider11.gridx = 1;
+		gbc_btnValider11.gridy = 1;
+		checkUpJPanel.add(btnValider2, gbc_btnValider11);
 		
 		btnValider2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//à faire
 				lblAncienKilometrage.setVisible(true);
 				textFieldAncienKm.setVisible(true);
 				lblKilometrageActuel.setVisible(true);
@@ -1355,7 +1526,6 @@ public class TechnicienVueGui extends JFrame {
 					else {
 						textFieldAncienKm.setText("Vous avez introduit un id n'existant pas");
 					}
-				
 				}
 				else {
 					textFieldAncienKm.setText("Vous avez introduit un mauvais format d'id ");
@@ -1406,20 +1576,8 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnSoumettreKilometrage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(isInteger(textFieldCheckNumVoit.getText())) {
-					if(isDouble(textFieldCheckNumVoit.getText())){
-						if (Integer.parseInt(textFieldAncienKm.getText()) > 700000) {
-							textFieldAncienKm.setText("Le kilometrage est trop eleve");
-						}
-						else {
-							model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
-						}
-					}
-					else textFieldAncienKm.setText("Vous avez introduit un mauvais kilometrage");
-				}
-				else {
-					textFieldAncienKm.setText("Vous avez introduit un mauvais format d'id ");
-				}
+				//à faire
+				model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
 			}
 		});
 		
@@ -1458,14 +1616,6 @@ public class TechnicienVueGui extends JFrame {
 	public boolean isInteger(String string) {
 	    try {
 	        Integer.valueOf(string);
-	        return true;
-	    } catch (NumberFormatException e) {
-	        return false;
-	    }
-	}
-	public boolean isDouble(String string) {
-	    try {
-	        Double.valueOf(string);
 	        return true;
 	    } catch (NumberFormatException e) {
 	        return false;
