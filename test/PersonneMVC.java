@@ -31,10 +31,10 @@ import vue.TechnicienVue;
 import vue.TechnicienVueConsole;
 import vue.TechnicienVueGui;
 
-public class PersonneMVC3 implements Observer{
+public class PersonneMVC implements Observer{
 	protected Scanner sc;
 
-	public PersonneMVC3() {
+	public PersonneMVC() {
 		update(null, null);
 		sc = new Scanner(System.in);
 		new Thread (new ReadInput()).start();	
@@ -43,7 +43,7 @@ public class PersonneMVC3 implements Observer{
 	public static void main(String args[]) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new PersonneMVC3();
+				new PersonneMVC();
 			}
 		});
 		
