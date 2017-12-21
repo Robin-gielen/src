@@ -543,8 +543,6 @@ public class ClientVueGui extends ClientVue {
 		listeVoitureJPanel.add(textAreaAssurDisp, gbc_textAreaAssurDisp);
 		
 		
-		
-		
 		//Location en cours
 
 		locationEnCoursJPanel = new JPanel();
@@ -578,7 +576,7 @@ public class ClientVueGui extends ClientVue {
 					}
 					textAreaL.setText(tempString);
 				}
-				else textAreaL.setText("Erreur lors de la récupération des factures");
+				else textAreaL.setText("Erreur lors de la rÃ©cupÃ©ration des factures");
 			}
 		});
 		
@@ -601,7 +599,7 @@ public class ClientVueGui extends ClientVue {
 					}
 					textAreaL.setText(tempString);
 				}
-				else textAreaL.setText("Erreur lors de la récupération des locations");
+				else textAreaL.setText("Erreur lors de la rÃ©cupÃ©ration des locations");
 			}
 		});
 		GridBagConstraints gbc_btnVosLocations = new GridBagConstraints();
@@ -701,7 +699,7 @@ public class ClientVueGui extends ClientVue {
 		});
 		menuBar.add(btnContact);
 		
-		JButton btnLocation = new JButton("Créer une location");
+		JButton btnLocation = new JButton("CrÃ©er une location");
 		btnLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				infoJPanel.setVisible(false);
