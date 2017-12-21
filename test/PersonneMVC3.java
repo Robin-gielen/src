@@ -23,7 +23,7 @@ import model.Personne;
 import model.Technicien;
 import vue.AdminVue;
 import vue.AdminVueConsole;
-import vue.AdminVueGui2;
+import vue.AdminVueGui;
 import vue.ClientVue;
 import vue.ClientVueConsole;
 import vue.TechnicienVue;
@@ -69,7 +69,7 @@ public class PersonneMVC3 implements Observer{
 							
 							//Création des vues.
 							AdminVue vueConsole = new AdminVueConsole((Admin)model, ctrlConsole);
-							AdminVue vueGui = new AdminVueGui2((Admin)model, ctrlGui);
+							AdminVue vueGui = new AdminVueGui((Admin)model, ctrlGui);
 							
 							//On donne la référence à la vue pour chaque contrôleur
 							ctrlConsole.addView(vueConsole);

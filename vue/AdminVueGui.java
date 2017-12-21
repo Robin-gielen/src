@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
@@ -24,9 +25,10 @@ import model.Admin;
 import model.Client;
 import model.Facture;
 import model.Location;
+import model.Technicien;
 import model.Voiture;
 
-public class AdminVueGui2 extends AdminVue {
+public class AdminVueGui extends AdminVue {
 
 	
 	/**
@@ -53,7 +55,7 @@ public class AdminVueGui2 extends AdminVue {
 	private JButton btnPersonneJPanelTechs;
 	private JButton btnPersonneJPanelAdmins;
 	
-	private JTextPane jtextPanePersonne;
+	private JTextArea textAreaPersonne;
 	
 	//infos client
 	private JButton btnRechercherLeClient;
@@ -109,12 +111,19 @@ public class AdminVueGui2 extends AdminVue {
 	
 	
 	//Onglet voitures
-	private JTextArea textArea;
+	private JTextArea textAreaVoiture;
+	private JTextField textFieldMesInfosPrenom;
+	private JTextField textFieldMesInfosNom;
+	private JTextField textFieldMesInfosPseudo;
+	private JTextField textFieldMesInfosID;
+	private JTextField textFieldMesInfosMDP;
+	
+	// Onglet mes infos 
 	
 	/**
 	 * 
 	 */
-	public AdminVueGui2(Admin model, AdminController controlleur) {
+	public AdminVueGui(Admin model, AdminController controlleur) {
 		super(model, controlleur);
 		JFrame AdminJFrame = new JFrame();
 		AdminJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,8 +132,8 @@ public class AdminVueGui2 extends AdminVue {
 		JMenuBar menuBar = new JMenuBar();
 		AdminJFrame.setJMenuBar(menuBar);
 		
-		personneJPanel = new JPanel();
 
+		personneJPanel = new JPanel();
 		alterClientJPanel = new JPanel();
 		factureJPanel = new JPanel();
 		locationJPanel = new JPanel();
@@ -236,32 +245,92 @@ public class AdminVueGui2 extends AdminVue {
 		menuBar.add(btnMesInfosJPanel);
 		menuBar.add(btnAlterVoitureJPanel);
 		
-		jtextPanePersonne = new JTextPane();
-		personneJPanel.add(jtextPanePersonne);
+		personneJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_personneJPanel = new GridBagLayout();
+		gbl_personneJPanel.columnWidths = new int[]{0, 500, 380, 0};
+		gbl_personneJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_personneJPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_personneJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		personneJPanel.setLayout(gbl_personneJPanel);
 		
 		btnPersonneJPanelClients = new JButton("Affiche la liste des clients");
-		btnPersonneJPanelTechs = new JButton("Affiche la liste des techniciens");
-		btnPersonneJPanelAdmins = new JButton("Affiche la liste des admins");
-		
 		btnPersonneJPanelClients.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String tempString ="";
+				Client [] tempClient = model.getClients();
+				if (tempClient != null) {
+					for (Client client : tempClient) {
+						tempString += client.toString();
+						tempString += "\n";
+					}
+					textAreaPersonne.setText(tempString);
+					
+				}
+				else textAreaPersonne.setText("Erreur lors de la récupération des clients");
 			}
 		});
+		GridBagConstraints gbc_btnPersonneJPanelClients = new GridBagConstraints();
+		gbc_btnPersonneJPanelClients.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPersonneJPanelClients.gridx = 1;
+		gbc_btnPersonneJPanelClients.gridy = 0;
+		personneJPanel.add(btnPersonneJPanelClients, gbc_btnPersonneJPanelClients);
+		
+		btnPersonneJPanelTechs = new JButton("Affiche la liste des techniciens");
 		btnPersonneJPanelTechs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String tempString ="";
+				Technicien [] tempTechs = model.getTechs();
+				if (tempTechs != null) {
+					for (Technicien technicien : tempTechs) {
+						tempString += technicien.toString();
+						tempString += "\n";
+					}
+					textAreaPersonne.setText(tempString);
+					
+				}
+				else textAreaPersonne.setText("Erreur lors de la récupération des techniciens");
 			}
 		});
+		GridBagConstraints gbc_btnPersonneJPanelTechs = new GridBagConstraints();
+		gbc_btnPersonneJPanelTechs.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPersonneJPanelTechs.gridx = 2;
+		gbc_btnPersonneJPanelTechs.gridy = 0;
+		personneJPanel.add(btnPersonneJPanelTechs, gbc_btnPersonneJPanelTechs);
+		
+		btnPersonneJPanelAdmins = new JButton("Affiche la liste des admins");
 		btnPersonneJPanelAdmins.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String tempString ="";
+				Admin [] tempAdmins = model.getAdmins();
+				if (tempAdmins != null) {
+					for (Admin admin : tempAdmins) {
+						tempString += admin.toString();
+						tempString += "\n";
+					}
+					textAreaPersonne.setText(tempString);
+					
+				}
+				else textAreaPersonne.setText("Erreur lors de la récupération des admins");
 			}
 		});
+		GridBagConstraints gbc_btnPersonneJPanelAdmins = new GridBagConstraints();
+		gbc_btnPersonneJPanelAdmins.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPersonneJPanelAdmins.gridx = 3;
+		gbc_btnPersonneJPanelAdmins.gridy = 0;
+		personneJPanel.add(btnPersonneJPanelAdmins, gbc_btnPersonneJPanelAdmins);
 		
-		personneJPanel.add(btnPersonneJPanelClients, FlowLayout.CENTER);
-		personneJPanel.add(btnPersonneJPanelTechs, FlowLayout.CENTER);
-		personneJPanel.add(btnPersonneJPanelAdmins, FlowLayout.CENTER);
+		textAreaPersonne = new JTextArea();
+		GridBagConstraints gbc_textAreaPersonne = new GridBagConstraints();
+		gbc_textAreaPersonne.gridwidth = 6;
+		gbc_textAreaPersonne.gridheight = 15;
+		gbc_textAreaPersonne.insets = new Insets(0, 0, 0, 5);
+		gbc_textAreaPersonne.fill = GridBagConstraints.BOTH;
+		gbc_textAreaPersonne.gridx = 0;
+		gbc_textAreaPersonne.gridy = 1;
+		personneJPanel.add(textAreaPersonne, gbc_textAreaPersonne);
+		textAreaPersonne.setColumns(10);
+		
+		
 		
 		
 		
@@ -857,8 +926,7 @@ public class AdminVueGui2 extends AdminVue {
 		factureJPanel.add(textFieldFactMessage, gbc_textFieldFactMessage);
 		textFieldFactMessage.setColumns(10);
 		
-		AdminJFrame.setVisible(true);
-		AdminJFrame.setContentPane(personneJPanel);
+
 		
 		// Liste Voitures 
 		
@@ -881,10 +949,10 @@ public class AdminVueGui2 extends AdminVue {
 						tempString += voiture.toString();
 						tempString += "\n";
 					}
-					textArea.setText(tempString);
+					textAreaVoiture.setText(tempString);
 					
 				}
-				else textArea.setText("Erreur lors de la récupération des voitures");
+				else textAreaVoiture.setText("Erreur lors de la récupération des voitures");
 			}
 		});
 		GridBagConstraints gbc_btnToutesLesVoitures = new GridBagConstraints();
@@ -904,9 +972,9 @@ public class AdminVueGui2 extends AdminVue {
 						tempString += voiture.toString();
 						tempString += "\n";
 					}
-					textArea.setText(tempString);
+					textAreaVoiture.setText(tempString);
 				}
-				else textArea.setText("Erreur lors de la récupération des voitures");
+				else textAreaVoiture.setText("Erreur lors de la récupération des voitures");
 			}
 		});
 		GridBagConstraints gbc_btnVoituresLoues = new GridBagConstraints();
@@ -915,16 +983,140 @@ public class AdminVueGui2 extends AdminVue {
 		gbc_btnVoituresLoues.gridy = 0;
 		voitureJPanel.add(btnVoituresLoues, gbc_btnVoituresLoues);
 		
-		textArea = new JTextArea();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 6;
-		gbc_textField.gridheight = 15;
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 1;
-		voitureJPanel.add(textArea, gbc_textField);
-		textArea.setColumns(10);
+		textAreaVoiture = new JTextArea();
+		GridBagConstraints gbc_textAreaVoiture = new GridBagConstraints();
+		gbc_textAreaVoiture.gridwidth = 6;
+		gbc_textAreaVoiture.gridheight = 15;
+		gbc_textAreaVoiture.insets = new Insets(0, 0, 0, 5);
+		gbc_textAreaVoiture.fill = GridBagConstraints.BOTH;
+		gbc_textAreaVoiture.gridx = 0;
+		gbc_textAreaVoiture.gridy = 1;
+		voitureJPanel.add(textAreaVoiture, gbc_textAreaVoiture);
+		textAreaVoiture.setColumns(10);
+		
+		
+		// Infos personnels de l'admin 
+		
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		mesInfosJPanel.setLayout(gridBagLayout);
+		
+		JLabel lblMesInfos = new JLabel("Mes infos :");
+		lblMesInfos.setHorizontalAlignment(SwingConstants.TRAILING);
+		GridBagConstraints gbc_lblMesInfos = new GridBagConstraints();
+		gbc_lblMesInfos.anchor = GridBagConstraints.EAST;
+		gbc_lblMesInfos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMesInfos.gridx = 0;
+		gbc_lblMesInfos.gridy = 0;
+		mesInfosJPanel.add(lblMesInfos, gbc_lblMesInfos);
+		
+		JLabel lblMesInfosPrenom = new JLabel("Prenom :");
+		GridBagConstraints gbc_lblMesInfosPrenom = new GridBagConstraints();
+		gbc_lblMesInfosPrenom.anchor = GridBagConstraints.EAST;
+		gbc_lblMesInfosPrenom.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMesInfosPrenom.gridx = 0;
+		gbc_lblMesInfosPrenom.gridy = 2;
+		mesInfosJPanel.add(lblMesInfosPrenom, gbc_lblMesInfosPrenom);
+		
+		textFieldMesInfosPrenom = new JTextField();
+		textFieldMesInfosPrenom.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMesInfosPrenom.setEditable(false);
+		GridBagConstraints gbc_textFieldMesInfosPrenom = new GridBagConstraints();
+		gbc_textFieldMesInfosPrenom.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldMesInfosPrenom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMesInfosPrenom.gridx = 1;
+		gbc_textFieldMesInfosPrenom.gridy = 2;
+		mesInfosJPanel.add(textFieldMesInfosPrenom, gbc_textFieldMesInfosPrenom);
+		textFieldMesInfosPrenom.setColumns(10);
+		
+		JLabel lblMesInfosNom = new JLabel("Nom :");
+		GridBagConstraints gbc_lblMesInfosNom = new GridBagConstraints();
+		gbc_lblMesInfosNom.anchor = GridBagConstraints.EAST;
+		gbc_lblMesInfosNom.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMesInfosNom.gridx = 0;
+		gbc_lblMesInfosNom.gridy = 3;
+		mesInfosJPanel.add(lblMesInfosNom, gbc_lblMesInfosNom);
+		
+		textFieldMesInfosNom = new JTextField();
+		textFieldMesInfosNom.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMesInfosNom.setEditable(false);
+		GridBagConstraints gbc_textFieldMesInfosNom = new GridBagConstraints();
+		gbc_textFieldMesInfosNom.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldMesInfosNom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMesInfosNom.gridx = 1;
+		gbc_textFieldMesInfosNom.gridy = 3;
+		mesInfosJPanel.add(textFieldMesInfosNom, gbc_textFieldMesInfosNom);
+		textFieldMesInfosNom.setColumns(10);
+		
+		JLabel lblMesInfosPseudo = new JLabel("Pseudo :");
+		GridBagConstraints gbc_lblMesInfosPseudo = new GridBagConstraints();
+		gbc_lblMesInfosPseudo.anchor = GridBagConstraints.EAST;
+		gbc_lblMesInfosPseudo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMesInfosPseudo.gridx = 0;
+		gbc_lblMesInfosPseudo.gridy = 4;
+		mesInfosJPanel.add(lblMesInfosPseudo, gbc_lblMesInfosPseudo);
+		
+		textFieldMesInfosPseudo = new JTextField();
+		textFieldMesInfosPseudo.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMesInfosPseudo.setEditable(false);
+		GridBagConstraints gbc_textFieldMesInfosPseudo = new GridBagConstraints();
+		gbc_textFieldMesInfosPseudo.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldMesInfosPseudo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMesInfosPseudo.gridx = 1;
+		gbc_textFieldMesInfosPseudo.gridy = 4;
+		mesInfosJPanel.add(textFieldMesInfosPseudo, gbc_textFieldMesInfosPseudo);
+		textFieldMesInfosPseudo.setColumns(10);
+		
+		JLabel lblMesInfosMDP = new JLabel("Mot de passe : ");
+		GridBagConstraints gbc_lblMesInfosMDP = new GridBagConstraints();
+		gbc_lblMesInfosMDP.anchor = GridBagConstraints.EAST;
+		gbc_lblMesInfosMDP.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMesInfosMDP.gridx = 0;
+		gbc_lblMesInfosMDP.gridy = 5;
+		mesInfosJPanel.add(lblMesInfosMDP, gbc_lblMesInfosMDP);
+		
+		textFieldMesInfosMDP = new JTextField();
+		textFieldMesInfosMDP.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMesInfosMDP.setEditable(false);
+		GridBagConstraints gbc_textFieldMesInfosMDP = new GridBagConstraints();
+		gbc_textFieldMesInfosMDP.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldMesInfosMDP.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMesInfosMDP.gridx = 1;
+		gbc_textFieldMesInfosMDP.gridy = 5;
+		mesInfosJPanel.add(textFieldMesInfosMDP, gbc_textFieldMesInfosMDP);
+		textFieldMesInfosMDP.setColumns(10);
+		
+		JLabel lblMesInfosID = new JLabel("ID : ");
+		GridBagConstraints gbc_lblMesInfosID = new GridBagConstraints();
+		gbc_lblMesInfosID.anchor = GridBagConstraints.EAST;
+		gbc_lblMesInfosID.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMesInfosID.gridx = 0;
+		gbc_lblMesInfosID.gridy = 6;
+		mesInfosJPanel.add(lblMesInfosID, gbc_lblMesInfosID);
+		
+		textFieldMesInfosID = new JTextField();
+		textFieldMesInfosID.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldMesInfosID.setEditable(false);
+		GridBagConstraints gbc_textFieldMesInfosID = new GridBagConstraints();
+		gbc_textFieldMesInfosID.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldMesInfosID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldMesInfosID.gridx = 1;
+		gbc_textFieldMesInfosID.gridy = 6;
+		mesInfosJPanel.add(textFieldMesInfosID, gbc_textFieldMesInfosID);
+		textFieldMesInfosID.setColumns(10);
+		
+		// Mettre les infos de l'admin dans les fieldText
+		textFieldMesInfosPrenom.setText(model.getPrenom());
+		textFieldMesInfosNom.setText(model.getNom());
+		textFieldMesInfosPseudo.setText(model.getPseudo());
+		textFieldMesInfosMDP.setText(model.getMotDePasse());
+		textFieldMesInfosID.setText(model.getAdminID()+"");
+		
+		AdminJFrame.setVisible(true);
+		AdminJFrame.setContentPane(personneJPanel);
 	}
 	
 	/**
@@ -936,7 +1128,7 @@ public class AdminVueGui2 extends AdminVue {
 	            Admin model = new Admin();
 	            AdminController controlleur = new AdminController(model);
 				@SuppressWarnings("unused")
-				AdminVueGui2 frame = new AdminVueGui2(model, controlleur);
+				AdminVueGui frame = new AdminVueGui(model, controlleur);
 	           
 	         }
 	      });
