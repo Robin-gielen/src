@@ -196,7 +196,7 @@ public class AdminVueGui extends AdminVue {
 	private JTextArea textAreaLocaNumClient;
 	private JButton btn_rmVoit;
 	
-	// Onglet mes infos 
+	
 	
 	/**
 	 * 

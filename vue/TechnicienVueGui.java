@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import model.Client;
 import model.Facture;
 import model.Location;
 import model.Technicien;
@@ -519,6 +520,7 @@ public class TechnicienVueGui extends JFrame {
 		factureJPanel.add(btnValider, gbc_btnValider);
 		
 		textFieldFactMessage = new JTextField();
+		textFieldFactMessage.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		GridBagConstraints gbc_textFieldFactMessage = new GridBagConstraints();
 		gbc_textFieldFactMessage.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldFactMessage.fill = GridBagConstraints.HORIZONTAL;
@@ -529,7 +531,18 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.createFacture(Integer.parseInt(textFieldFactureNumLoca.getText()),false, textFieldFactNote.getText(), Double.parseDouble(textFieldFactKmSupp.getText()));
+				if(isInteger(textFieldFactureNumLoca.getText())) {
+					if(!textFieldFactureNumLoca.getText().equals("") && !textFieldFactEtatDePayement.getText().equals("") 
+							&& !textFieldFactNote.getText().equals("")&& !textFieldFactKmSupp.getText().equals("")) {
+						if(model.createFacture(Integer.parseInt(textFieldFactureNumLoca.getText()),false, textFieldFactNote.getText(), Double.parseDouble(textFieldFactKmSupp.getText()))==1) {
+							textFieldFactMessage.setText("Facture creee correctement");
+						}
+						else textFieldFactMessage.setText("Problème lors de la creation de la facture");
+					}
+					else textFieldFactMessage.setText("Veuillez remplir tous les champs");
+				}
+				else textFieldFactMessage.setText("Cette location n'existe pas");
+				
 			}
 		});
 		
@@ -613,9 +626,30 @@ public class TechnicienVueGui extends JFrame {
 						else tempIsEstEnCours = "Non";
 						textFieldEtatLocation.setText(tempIsEstEnCours);
 					}
-					else textFieldNumLoca.setText("Cette location n'existe pas");
+					else {
+						textFieldNumLoca.setText("Cette location n'existe pas");
+						textFieldLocaNumClient2.setText("");
+						textFieldAssurance.setText("");
+						textFieldAssurance2.setText("");
+						textFieldNVoit.setText("");
+						textFieldMontantAcc.setText("");
+						textFieldEtatAcc.setText("");
+						textFieldKilometrage.setText("");
+						textFieldEtatLocation.setText("");
+					}
+					
 				}
-				else textFieldNumLoca.setText("Entrez un numéro de location correcte");
+				else {
+					textFieldNumLoca.setText("Entrez un numéro de location correcte");
+					textFieldLocaNumClient2.setText("");
+					textFieldAssurance.setText(""); 
+					textFieldAssurance2.setText("");
+					textFieldNVoit.setText("");
+					textFieldMontantAcc.setText("");
+					textFieldEtatAcc.setText("");
+					textFieldKilometrage.setText("");
+					textFieldEtatLocation.setText("");
+				}
 			}
 		});
 		
@@ -883,7 +917,7 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnRechercherVoit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textFieldVoit.setText(model.getLocation(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
+				textFieldVoit.setText(model.getVoiture(Integer.parseInt(textFieldVoitNumVoit.getText())).toString());
 				
 			}
 		});
@@ -967,9 +1001,21 @@ public class TechnicienVueGui extends JFrame {
 				lblFactClientID.setVisible(false);
 				textFieldFactClientID.setVisible(false);
 				lblFactEstPaye.setVisible(false);
-				textFieldFactEstPaye.setVisible(false);
+				textFieldFactEstPaye.setVisible(false); 
 				lblFactNote.setVisible(false);
-				textFieldFactNote2.setVisible(false);
+				textFieldFactNote.setVisible(false);
+				String tempString="";
+				if(isInteger(textFieldVeuillezIndiquerLidClient.getText())) {
+					Facture[] tempFacts = model.getFacturesClient(Integer.parseInt(textFieldVeuillezIndiquerLidClient.getText()));
+					if(tempFacts != null) {
+						for (Facture facture : tempFacts) {
+							tempString+= facture.toString()+"\n";
+						}
+						textAreaInfoFact.setText(tempString);
+					}
+					else textAreaInfoFact.setText("Ce client n'existe pas ou n'a pas de facture");
+				}
+				else textAreaInfoFact.setText("Entrez un numero de client correcte");
 			}
 		});
 		GridBagConstraints gbc_btnValiderFact2 = new GridBagConstraints();
@@ -1134,7 +1180,7 @@ public class TechnicienVueGui extends JFrame {
 				lblFactEstPaye.setVisible(true);
 				textFieldFactEstPaye.setVisible(true);
 				lblFactNote.setVisible(true);
-				textFieldFactNote2.setVisible(true);
+				textFieldFactNote.setVisible(true);
 				textAreaInfoFact.setVisible(false);
 				if (!isInteger(textFieldVeuillezIndiquerLidFact.getText())) {
 					textFieldFactMessage2.setText("Entrez un numéro de facture correcte");
@@ -1170,7 +1216,8 @@ public class TechnicienVueGui extends JFrame {
 						textFieldFactNote2.setText("");
 						textFieldIdFact.setText("");
 						textFieldFactClientID.setText("");
-					}
+						textFieldFactEstPaye.setText("");
+					} 
 				}
 			}
 		});
@@ -1194,6 +1241,7 @@ public class TechnicienVueGui extends JFrame {
 		textFieldFactMessage2.setColumns(10);
 		
 		// info client
+		 
 		infoClientJPanel =new JPanel();
 		GridBagLayout gbl_infoClient = new GridBagLayout();
 		gbl_infoClient.columnWidths = new int[]{0, 0, 0};
@@ -1254,6 +1302,37 @@ public class TechnicienVueGui extends JFrame {
 		textFieldID.setColumns(10);
 		
 		validerClientId = new JButton("Rechercher");
+		validerClientId.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				if(isInteger(textFieldID.getText())) {
+					Client tempClient = model.getClient(Integer.parseInt(textFieldID.getText()));
+					if(tempClient != null) {
+						textFieldPrenomC.setText(tempClient.getPrenom());
+						textFieldNomC.setText(tempClient.getNom());
+						textFieldNaissance.setText(tempClient.getDateNaissance());
+						textFieldMailC.setText(tempClient.getAdresseMail());
+						textFieldPseudo.setText(tempClient.getPseudo());
+						textFieldAdresseC.setText(tempClient.getAdresse()); 
+					}
+					else {
+						textFieldPrenomC.setText("Ce client n'existe pas");
+						textFieldNomC.setText("");
+						textFieldNaissance.setText("");
+						textFieldMailC.setText("");
+						textFieldPseudo.setText("");
+						textFieldAdresseC.setText(""); 
+					}
+				}
+				else {
+					textFieldPrenomC.setText("Entrez un numero de client correcte"); 
+					textFieldNomC.setText("");
+					textFieldNaissance.setText("");
+					textFieldMailC.setText("");
+					textFieldPseudo.setText(""); 
+					textFieldAdresseC.setText(""); 
+				}
+			}
+		}); 
 		GridBagConstraints gbc_validerClientId = new GridBagConstraints();
 		gbc_validerClientId.anchor = GridBagConstraints.CENTER;
 		gbc_validerClientId.insets = new Insets(0, 0, 5, 0);
@@ -1261,13 +1340,7 @@ public class TechnicienVueGui extends JFrame {
 		gbc_validerClientId.gridy = 2;
 		infoClientJPanel.add(validerClientId, gbc_validerClientId);
 		
-		btnRechercherNumClient.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//A FAIRE action listener
-			}
-		});
-		
-		JLabel lblDateDeNaissance = new JLabel("Date naissance : ");
+		JLabel lblDateDeNaissance = new JLabel("Date naissance : "); 
 		GridBagConstraints gbc_lblDateDeNaissance = new GridBagConstraints();
 		gbc_lblDateDeNaissance.anchor = GridBagConstraints.EAST;
 		gbc_lblDateDeNaissance.insets = new Insets(0, 0, 5, 5);
@@ -1576,8 +1649,20 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnSoumettreKilometrage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//à faire
-				model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
+				if(isInteger(textFieldCheckNumVoit.getText())) {
+					if(isDouble(textFieldCheckNumVoit.getText())){
+						if (Integer.parseInt(textFieldAncienKm.getText()) > 700000) {
+							textFieldAncienKm.setText("Le kilometrage est trop eleve");
+						}
+						else {
+							model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
+						}
+					}
+					else textFieldAncienKm.setText("Vous avez introduit un mauvais kilometrage");
+				}
+				else {
+					textFieldAncienKm.setText("Vous avez introduit un mauvais format d'id ");
+				}
 			}
 		});
 		
@@ -1616,6 +1701,14 @@ public class TechnicienVueGui extends JFrame {
 	public boolean isInteger(String string) {
 	    try {
 	        Integer.valueOf(string);
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
+	}
+	public boolean isDouble(String string) {
+	    try {
+	        Double.valueOf(string);
 	        return true;
 	    } catch (NumberFormatException e) {
 	        return false;
