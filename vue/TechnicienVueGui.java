@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -18,13 +19,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import controller.TechnicienController;
 import model.Client;
 import model.Facture;
 import model.Location;
 import model.Technicien;
 import model.Voiture;
 
-public class TechnicienVueGui extends JFrame {
+public class TechnicienVueGui extends TechnicienVue {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel infoJPanel;
@@ -166,8 +168,8 @@ public class TechnicienVueGui extends JFrame {
 			public void run() {
 				try {
 					Technicien model = new Technicien("Tanguybmx", "12345");
-					TechnicienVueGui frame = new TechnicienVueGui(model);
-					frame.setVisible(true);
+					TechnicienController controlleur = new TechnicienController(model);
+					TechnicienVueGui frame = new TechnicienVueGui(model, controlleur);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -178,7 +180,15 @@ public class TechnicienVueGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TechnicienVueGui(Technicien model) {
+	public TechnicienVueGui(Technicien model, TechnicienController controlleur) {
+		super(model, controlleur);
+		JFrame technicienJFrame = new JFrame();
+		technicienJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		technicienJFrame.setBounds(100, 100, 1200, 600);
+		
+		JMenuBar menuBar = new JMenuBar();
+		technicienJFrame.setJMenuBar(menuBar);
+		
 		infoJPanel = new JPanel();
 		factureJPanel = new JPanel();
 		locationJPanel = new JPanel();
@@ -186,11 +196,10 @@ public class TechnicienVueGui extends JFrame {
 		checkAccJPanel = new JPanel();
 		checkUpJPanel = new JPanel();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 500);
+		technicienJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		technicienJFrame.setBounds(100, 100, 1000, 500);
 		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		
 		
 		btnInfo = new JButton("INFO");
 		btnInfo.addActionListener(new ActionListener() {
@@ -203,7 +212,7 @@ public class TechnicienVueGui extends JFrame {
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
-				setContentPane(infoJPanel);
+				technicienJFrame.setContentPane(infoJPanel);
 				
 			}
 		});
@@ -220,7 +229,7 @@ public class TechnicienVueGui extends JFrame {
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
-				setContentPane(factureJPanel);
+				technicienJFrame.setContentPane(factureJPanel);
 				
 			}
 		});
@@ -237,7 +246,7 @@ public class TechnicienVueGui extends JFrame {
 				checkUpJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
-				setContentPane(locationJPanel);
+				technicienJFrame.setContentPane(locationJPanel);
 				
 			}
 		});
@@ -254,7 +263,7 @@ public class TechnicienVueGui extends JFrame {
 				checkAccJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
-				setContentPane(voitureJPanel);
+				technicienJFrame.setContentPane(voitureJPanel);
 				
 			}
 		});
@@ -271,7 +280,7 @@ public class TechnicienVueGui extends JFrame {
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
-				setContentPane(infoFactureJPanel);
+				technicienJFrame.setContentPane(infoFactureJPanel);
 			}
 		});
 		menuBar.add(btnInfoFacture);
@@ -287,7 +296,7 @@ public class TechnicienVueGui extends JFrame {
 				factureJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
-				setContentPane(infoClientJPanel);
+				technicienJFrame.setContentPane(infoClientJPanel);
 			}
 		});
 		menuBar.add(btnInfoClient);
@@ -303,7 +312,7 @@ public class TechnicienVueGui extends JFrame {
 				factureJPanel.setVisible(false);
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
-				setContentPane(checkAccJPanel);
+				technicienJFrame.setContentPane(checkAccJPanel);
 			}
 		});
 		menuBar.add(btnCheckAcc);
@@ -319,7 +328,7 @@ public class TechnicienVueGui extends JFrame {
 				voitureJPanel.setVisible(false);
 				infoFactureJPanel.setVisible(false);
 				infoClientJPanel.setVisible(false);
-				setContentPane(checkUpJPanel);
+				technicienJFrame.setContentPane(checkUpJPanel);
 			}
 		});
 		menuBar.add(btnCheckUp);
@@ -430,9 +439,11 @@ public class TechnicienVueGui extends JFrame {
 		gbc_textFieldMonPrenom.gridy = 5;
 		infoJPanel.add(textFieldMonPrenom, gbc_textFieldMonPrenom);
 
-		
-		infoJPanel.setVisible(true);
-		setContentPane(infoJPanel);
+		textFieldMonId.setText(model.getTechID()+"");
+		textFieldMonMdp.setText(model.getMotDePasse()+"");
+		textFieldMonNom.setText(model.getNom()+"");
+		textFieldMonPrenom.setText(model.getPrenom()+"");
+		textFieldMonPseudo.setText(model.getPseudo()+"");
 		
 		//facture
 		
@@ -1408,8 +1419,7 @@ public class TechnicienVueGui extends JFrame {
 		infoClientJPanel.add(textFieldAdresseC, gbc_textFieldAdresseC);
 		textFieldAdresseC.setColumns(10);
 
-		infoClientJPanel.setVisible(false);
-		getContentPane().add(infoClientJPanel);
+		
 		
 		textFieldPrenomC.setEditable(false);
 		textFieldNomC.setEditable(false);
@@ -1697,6 +1707,8 @@ public class TechnicienVueGui extends JFrame {
 		
 		textFieldAncienKm.setEditable(false);
 
+		technicienJFrame.setVisible(true);
+		technicienJFrame.setContentPane(infoJPanel);
 	}
 	public boolean isInteger(String string) {
 	    try {
@@ -1713,5 +1725,17 @@ public class TechnicienVueGui extends JFrame {
 	    } catch (NumberFormatException e) {
 	        return false;
 	    }
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void affiche(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 }

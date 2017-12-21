@@ -1,6 +1,6 @@
 package vue;
 
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,7 +15,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
@@ -68,27 +67,6 @@ public class AdminVueGui extends AdminVue {
 	private JTextField textFieldPrenom;
 	private JButton btnValiderClient;
 	
-	//location
-	private JTextField textFieldLocaMessage;
-	private JTextField textFieldLocation;
-	private JLabel lblVeuillezIndiquerLidLoca;
-	private JLabel lblLaccompteEstilPay;
-	private JLabel lblLocaClientID;
-	private JLabel lblLocaAssurID;
-	private JLabel lblLocaVoitureID;
-	private JLabel lblLocaAccompte;
-	private JLabel lblLocaKmInitial;
-	private JLabel lblLocaEstEnCours;
-	
-	private JButton btnValiderLoca;
-	
-	private JTextField textFieldLocaEstPaye;
-	private JTextField textFieldLocaClientID;
-	private JTextField textFieldLocaAssurID;
-	private JTextField textFieldLocaVoitureID;
-	private JTextField textFieldLocaAccompte;
-	private JTextField textFieldLocaKmInitial;
-	private JTextField textFieldLocaEstEnCours;
 	
 	//facture
 	private JLabel lblVeuillezIndiquerLidFact;
@@ -105,9 +83,6 @@ public class AdminVueGui extends AdminVue {
 	private JTextField textFieldFactLocaID;
 	private JTextField textFieldFactTechID;
 	private JTextField textFieldFactEstPaye;
-	private JTextField textFieldFactNote;
-	
-	private JTextField textFieldFactMessage;
 	
 	
 	//Onglet affichage listes voitures
@@ -134,7 +109,6 @@ public class AdminVueGui extends AdminVue {
 	private JLabel lblVoitCarburantVoit;
 	private JTextField textFieldVoitCarburantVoit;
 	private JLabel lblVoitCouleurVoit;
-	private JTextField textFieldVoitCouelurVoit;
 	private JLabel lblVoitEstManuelleVoit;
 	private JTextField textFieldVoitEstManuelleVoit;
 	private JLabel lblVoitRoueMotriceVoit;
@@ -154,7 +128,6 @@ public class AdminVueGui extends AdminVue {
 	private JLabel lblVoitAgenceIDVoit;
 	private JTextField textFieldVoitAgenceIDVoit;
 	private JLabel lblVoitIDVoit;
-	private JTextField textFieldoitIDVoit;
 	private JButton btn_afficheVoit;
 	private JTextField textFieldVoitIDVoit;
 	private JTextField textFieldVoitCouleurVoit;
@@ -203,12 +176,12 @@ public class AdminVueGui extends AdminVue {
 	 */
 	public AdminVueGui(Admin model, AdminController controlleur) {
 		super(model, controlleur);
-		JFrame AdminJFrame = new JFrame();
-		AdminJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AdminJFrame.setBounds(100, 100, 1200, 600);
+		JFrame adminJFrame = new JFrame();
+		adminJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		adminJFrame.setBounds(100, 100, 1200, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
-		AdminJFrame.setJMenuBar(menuBar);
+		adminJFrame.setJMenuBar(menuBar);
 		
 
 		personneJPanel = new JPanel();
@@ -238,7 +211,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(false);
 				mesInfosJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				AdminJFrame.setContentPane(personneJPanel);
+				adminJFrame.setContentPane(personneJPanel);
 			}
 		});
 		btnAlterClientJPanel.addActionListener(new ActionListener() {
@@ -250,7 +223,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(false);
 				mesInfosJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				AdminJFrame.setContentPane(alterClientJPanel);
+				adminJFrame.setContentPane(alterClientJPanel);
 			}
 		});
 		btnFactureJPanel.addActionListener(new ActionListener() {
@@ -262,7 +235,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(false);
 				mesInfosJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				AdminJFrame.setContentPane(factureJPanel);
+				adminJFrame.setContentPane(factureJPanel);
 			}
 		});
 		btnLocationJPanel.addActionListener(new ActionListener() {
@@ -274,7 +247,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(false);
 				mesInfosJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				AdminJFrame.setContentPane(locationJPanel);
+				adminJFrame.setContentPane(locationJPanel);
 			}
 		});
 		btnVoitureJPanel.addActionListener(new ActionListener() {
@@ -286,7 +259,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(true);
 				mesInfosJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(false);
-				AdminJFrame.setContentPane(voitureJPanel);
+				adminJFrame.setContentPane(voitureJPanel);
 			}
 		});
 		btnMesInfosJPanel.addActionListener(new ActionListener() {
@@ -298,7 +271,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(false);
 				mesInfosJPanel.setVisible(true);
 				alterVoitureJPanel.setVisible(false);
-				AdminJFrame.setContentPane(mesInfosJPanel);
+				adminJFrame.setContentPane(mesInfosJPanel);
 			}
 		});
 		btnAlterVoitureJPanel.addActionListener(new ActionListener() {
@@ -310,7 +283,7 @@ public class AdminVueGui extends AdminVue {
 				voitureJPanel.setVisible(false);
 				mesInfosJPanel.setVisible(false);
 				alterVoitureJPanel.setVisible(true);
-				AdminJFrame.setContentPane(alterVoitureJPanel);
+				adminJFrame.setContentPane(alterVoitureJPanel);
 			}
 		});
 		
@@ -1901,8 +1874,9 @@ public class AdminVueGui extends AdminVue {
 		gbc_btn_rmVoit.gridy = 3;
 		alterVoitureJPanel.add(btn_rmVoit, gbc_btn_rmVoit);
 		
-		AdminJFrame.setVisible(true);
-		AdminJFrame.setContentPane(personneJPanel);
+		adminJFrame.setVisible(true);
+		adminJFrame.setContentPane(personneJPanel);
+		
 	}
 	
 	/**
@@ -1913,7 +1887,6 @@ public class AdminVueGui extends AdminVue {
 	         public void run() {
 	            Admin model = new Admin();
 	            AdminController controlleur = new AdminController(model);
-				@SuppressWarnings("unused")
 				AdminVueGui frame = new AdminVueGui(model, controlleur);
 	           
 	         }

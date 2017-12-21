@@ -26,8 +26,10 @@ import vue.AdminVueConsole;
 import vue.AdminVueGui;
 import vue.ClientVue;
 import vue.ClientVueConsole;
+import vue.ClientVueGui;
 import vue.TechnicienVue;
 import vue.TechnicienVueConsole;
+import vue.TechnicienVueGui;
 
 public class PersonneMVC3 implements Observer{
 	protected Scanner sc;
@@ -62,54 +64,57 @@ public class PersonneMVC3 implements Observer{
 						affiche("Entrez votre mot de passe");
 						String tempMdp=sc.next();
 						Personne model = connect(tempLogin,tempMdp);
-						if (model.getPrivilege()==0) {  // instanceof v�rifie si model est bien une instance de admin (evite les erreurs de cast)
-							//Création des contrôleurs : Un pour chaque vue
-							AdminController ctrlConsole = new AdminController((Admin)model);
-							AdminController ctrlGui = new AdminController((Admin)model);
-							
-							//Création des vues.
-							AdminVue vueConsole = new AdminVueConsole((Admin)model, ctrlConsole);
-							AdminVue vueGui = new AdminVueGui((Admin)model, ctrlGui);
-							
-							//On donne la référence à la vue pour chaque contrôleur
-							ctrlConsole.addView(vueConsole);
-							ctrlGui.addView(vueGui);
-							connecte = true;
+						if (model!=null) {
+							if (model.getPrivilege()==0) {  // instanceof v�rifie si model est bien une instance de admin (evite les erreurs de cast)
+								//Création des contrôleurs : Un pour chaque vue
+								AdminController ctrlConsole = new AdminController((Admin)model);
+								AdminController ctrlGui = new AdminController((Admin)model);
+								
+								//Création des vues.
+								AdminVue vueConsole = new AdminVueConsole((Admin)model, ctrlConsole);
+								AdminVue vueGui = new AdminVueGui((Admin)model, ctrlGui);
+								
+								//On donne la référence à la vue pour chaque contrôleur
+								ctrlConsole.addView(vueConsole);
+								ctrlGui.addView(vueGui);
+								connecte = true;
+							}
+							else if (model.getPrivilege() == 1) { // instanceof v�rifie si model est bien une instance de technicien (evite les erreurs de cast)
+								affiche("TEST 1");
+								//Création des contrôleurs : Un pour chaque vue
+								TechnicienController ctrlConsole = new TechnicienController((Technicien)model);
+								TechnicienController ctrlGui = new TechnicienController((Technicien)model);
+								
+								//Création des vues.
+								TechnicienVue vueConsole = new TechnicienVueConsole((Technicien)model, ctrlConsole);
+								TechnicienVue vueGui = new TechnicienVueGui((Technicien)model, ctrlGui);
+								
+								//On donne la référence à la vue pour chaque contrôleur
+								ctrlConsole.addView(vueConsole);
+								ctrlGui.addView(vueGui);
+								connecte = true;
+							}
+							else if (model.getPrivilege() == 2) {
+								//Création des contrôleurs : Un pour chaque vue
+								ClientController ctrlConsole = new ClientController((Client)model);
+								ClientController ctrlGui = new ClientController((Client)model);
+								
+								//Création des vues.
+								ClientVue vueConsole = new ClientVueConsole((Client)model, ctrlConsole);
+								ClientVue vueGui = new ClientVueGui((Client)model, ctrlGui);
+								
+								//On donne la référence à la vue pour chaque contrôleur
+								ctrlConsole.addView(vueConsole);
+								ctrlGui.addView(vueGui);
+								
+								connecte = true;
+							}
+							else {
+								affiche ("Il y a un probleme avec votre compte, si vous etes surs de vous, contactez un admin.");
+							}
 						}
-						else if (model.getPrivilege() == 1) { // instanceof v�rifie si model est bien une instance de technicien (evite les erreurs de cast)
-							affiche("TEST 1");
-							//Création des contrôleurs : Un pour chaque vue
-							//PersonneController ctrlGUI = new PersonneController(model);
-							TechnicienController ctrlConsole = new TechnicienController((Technicien)model);
-							
-							//Création des vues.
-							//PersonneVue vueGUI = new PersonneVueGUI(model, ctrlGUI, 200, 200);
-							TechnicienVue vueConsole = new TechnicienVueConsole((Technicien)model, ctrlConsole);
-							
-							//On donne la référence à la vue pour chaque contrôleur
-							ctrlConsole.addView(vueConsole);
-							connecte = true;
-						}
-						else if (model.getPrivilege() == 2) {
-							//Création des contrôleurs : Un pour chaque vue
-							//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
-							
-							//PersonneController ctrlGUI = new PersonneController(model);
-							ClientController ctrlConsole = new ClientController((Client)model);
-							
-							//Création des vues.
-							//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
-							
-							//PersonneVue vueGUI = new PersonneVueGUI(model, ctrlGUI, 200, 200);
-							ClientVue vueConsole = new ClientVueConsole((Client)model, ctrlConsole);
-							
-							//On donne la référence à la vue pour chaque contrôleur
-							ctrlConsole.addView(vueConsole);
-							connecte = true;
-						}
-						else {
-							affiche ("Votre nom d'utilisateur et/ou votre mot de passe est incorrect, si vous etes surs de vous, contactez un admin.");
-						}
+						else affiche ("Votre nom d'utilisateur et/ou votre mot de passe est incorrect, si vous etes surs de vous, contactez un admin.");
+						
 							break;
 						case"non" :
 							affiche("Vous allez maintenant cr�er un compte.");
