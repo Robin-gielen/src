@@ -175,7 +175,6 @@ public class PersonneMVC implements Observer{
             if(!rs.next()) {
             	return null;
             }
-            System.out.println("personneID" + rs.getString("personneID") + "pseudo" + rs.getString("pseudo") + "mdp" + rs.getString("motDePasse"));
             if (rs.getString("pseudo").equals(pseudo) && rs.getString("motDePasse").equals(motDePasse)) {
             	if(Integer.parseInt(rs.getString("privilege"))==0) {
             		Admin admin = new Admin(pseudo, motDePasse, rs.getString("nom"), rs.getString("prenom"), Integer.parseInt(rs.getString("personneID")));

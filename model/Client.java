@@ -75,26 +75,12 @@ public class Client extends Personne {
 		return clientID;
 	}
 	/**
-	 * Mets en place un ID au client
-	 * @param clientID l'ID du client
-	 */
-	public void setClientID(int clientID) {
-		this.clientID = clientID;
-	}
-	/**
 	 * Obtiens la date d'inscription du client
 	 * @return dateInscription la date d'inscription Ã  donner au client
 	 */
 	
 	public String getDateInscription() {
 		return dateInscription;
-	}
-	/**
-	 * Mets en place la date d'inscription du client
-	 * @param La date d'inscription du client
-	 */
-	public void setDateInscription(String dateInscription) {
-		this.dateInscription = dateInscription;
 	}
 	/**
 	 * Obtiens la date de naissance du client
@@ -117,13 +103,7 @@ public class Client extends Personne {
 	public String getAdresse() {
 		return adresse;
 	}
-	/**
-	 * Mets en place l'adresse du client
-	 * @param adresse l'adresse du cleitn
-	 */
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
+	
 	/**
 	 * Obtiens l'adresse email du client
 	 * @return l'adresse email Ã  donner au client
@@ -131,13 +111,7 @@ public class Client extends Personne {
 	public String getAdresseMail() {
 		return adresseMail;
 	}
-	/**
-	 * Mets en place l'adresse email du client
-	 * @param adresseMail l'adresse mail du client
-	 */
-	public void setAdresseMail(String adresseMail) {
-		this.adresseMail = adresseMail;
-	}
+	
 	/**
 	 * Cette mÃ©thode donne une reprÃ©sentation textuelle du client
 	 */

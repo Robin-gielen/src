@@ -8,6 +8,8 @@ import java.util.Scanner;
 import controller.ClientController;
 import model.Assurance;
 import model.Client;
+import model.Facture;
+import model.Location;
 import model.Voiture;
 
 
@@ -44,6 +46,9 @@ public class ClientVueConsole extends ClientVue implements Observer {
 		affiche("Pour afficher la liste des assurances : E");
 		affiche("Pour louer une voiture : F");
 		affiche("Pour afficher toutes vos infos : G");
+		affiche("Pour afficher la liste de vos factures : H");
+		affiche("Pour afficher la liste de vos locations : I");
+		
 		
 	}
 	
@@ -65,7 +70,6 @@ public class ClientVueConsole extends ClientVue implements Observer {
 							printHelp();
 							break;
 						case"B" :
-							model.setClientID(1);
 							Voiture [] tempVoit2 = model.getListVoitureLouees();
 							if (tempVoit2 != null) {
 								for (Voiture voiture : tempVoit2) {
@@ -96,7 +100,6 @@ public class ClientVueConsole extends ClientVue implements Observer {
 							printHelp();
 							break;
 						case "F" : 
-							model.setClientID(1);
 							affiche("Entrez maintenant le numéro de la voiture choisie :");
 							int voitID2 = sc.nextInt();
 							affiche("Entrez maintenant le numéro de l'assurance choisie :");
@@ -118,6 +121,20 @@ public class ClientVueConsole extends ClientVue implements Observer {
 							break;
 						case "G" :
 							System.out.println(model.getMesInfos());
+							printHelp();
+							break;
+						case "H" :
+							Facture[] tempFacts = model.getFactures();
+							for (Facture facture : tempFacts) {
+								System.out.println(facture.toString());
+							}
+							printHelp();
+							break;
+						case "I" :
+							Location[] tempLocas = model.getLocations();
+							for (Location location : tempLocas) {
+								System.out.println(location.toString());
+							}
 							printHelp();
 							break;
 						default : 
