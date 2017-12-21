@@ -15,17 +15,7 @@ import java.sql.Statement;
  */
 public class Technicien extends Personne{
 	private int techID;
-	/**
-	 * Ce constructeur permet de crÃƒÂ©er un technicien sans spÃƒÂ©cifier son techID qui sera crÃƒÂ©er dans la DB et son privilÃƒÂ¨ge sera par dÃƒÂ©faut Ãƒ  1 (=technicien)
-	 * @param pseudo c'est son pseudo pour se connecter Ãƒ  l'application
-	 * @param motDePasse c'est son mot de passe pour ce connecter Ãƒ  l'application
-	 * @param nom c'est son nom
-	 * @param prenom c'est son prÃƒÂ©nom
-	 */
-	public Technicien(String pseudo, String motDePasse, String nom, String prenom) {
-		super(pseudo, motDePasse, nom, prenom, 1);
-	}
-	
+
 	/**
 	 * Ce constructeur permet de crÃƒÂ©er un technicien 
 	 * @param pseudo c'est son pseudo pour se connecter Ãƒ  l'application
@@ -39,11 +29,6 @@ public class Technicien extends Personne{
 		super(pseudo, motDePasse, nom, prenom, 1);
 		this.techID = techID;
 	}
-	
-	public Technicien(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse, 1);
-	}
-	
 	
 	/**
 	 * @return the techID
@@ -621,16 +606,7 @@ public class Technicien extends Personne{
         }
         return null;
 	}
-	public static void main(String[] args) {
-		Technicien dewulf = new Technicien("moi", "moi", "moi", "moi");
-		//System.out.println(dewulf.getVoiture(11));
-		//dewulf.setKilometrage(11, 22000);
-		//dewulf.setNote(1, "Test");
-		//dewulf.setAccompteStatut(1, false);
-		dewulf.createFacture(5, false, "Note test", 0);
-		dewulf.createFacture(5, false, "Note test", 100);
-		
-	}
+
 	
 	private Technicien[] resultSetToTechnicien(ResultSet rs) {
 		Technicien tempTech[];

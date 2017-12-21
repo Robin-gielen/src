@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import controller.AdminController;
@@ -1881,7 +1880,7 @@ public class AdminVueGui extends AdminVue {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 	      SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
 	            Admin model = new Admin();
@@ -1890,7 +1889,7 @@ public class AdminVueGui extends AdminVue {
 	           
 	         }
 	      });
-	   }
+	   }*/
 	
 	public boolean isInteger(String string) {
 	    try {

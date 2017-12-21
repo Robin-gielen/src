@@ -66,24 +66,6 @@ public class Client extends Personne {
         	}
         }
 	}
-	/**
-	 * Ce constructeur creer un client en ne specifiant pas sa date d'inscription, sa date de naissance, son adresse et son adresse mail.
-	 * @param pseudo du client
-	 * @param motDePasse du client
-	 * @param nom du client
-	 * @param prenom du client
-	 */
-	public Client(String pseudo, String motDePasse, String nom, String prenom) {
-		super(pseudo, motDePasse, nom, prenom, 2);
-	}
-	/**
-	 * Ce constructeur est utilise pour la connexion. Il ne specifie que le pseudo et le mot de passe du client.
-	 * @param pseudo
-	 * @param motDePasse
-	 */
-	public Client(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse, 2);
-	}
 	
 	/**
 	 * Obtiens l'ID du client
@@ -626,10 +608,7 @@ public class Client extends Personne {
     	return null;
 	}
 	
-	public static void main(String[] args) {
-		Client dewulf = new Client("dewulf", "dewulf", "dewulf", "dewulf");
-		dewulf.getListVoitureDisp();
-	}
+
 	/**
 	 * 
 	 * @param rs un ResultSet issu d'un SELECT * from voiture

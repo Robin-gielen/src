@@ -18,33 +18,18 @@ import java.sql.Statement;
 public class Admin extends Personne {
 	private int adminID;
 	Voiture [] voitures;
-	/**
-	 * Ce constructeur creer un technicien en ne specifiant que son pseudo et son mot de passe, avec comme privilege par defaut 0.
-	 */
-	
-	public Admin() {
-		super("pseudo", "motDePasse", 0);
-	}
+
 	/**
 	 * Ce constructeur creer un administrateur en specifiant son pseudo, son mot de passe, son prenom, son nom et 0 comme privilege (par defaut pour un admin)
 	 * @param pseudo
 	 * @param motDePasse
 	 * @param nom
 	 * @param prenom
+	 * @param adminID
 	 */
-	
-	public Admin(String pseudo, String motDePasse, String nom, String prenom) {
-		super(pseudo, motDePasse, nom, prenom, 0); 
-	}
-	
 	public Admin(String pseudo, String motDePasse, String nom, String prenom, int adminID) {
 		super(pseudo, motDePasse, nom, prenom, 0);
 		this.adminID = adminID;
-	}
-
-	
-	public Admin(String pseudo, String motDePasse) {
-		super(pseudo, motDePasse, 0);
 	}
 
 	/**
@@ -758,54 +743,6 @@ public class Admin extends Personne {
     	}
 		return null;
 	}
-	
-	/**
-	 * Cette methode permet de retrouver l'ID d'un client en specifiant l'ID de la voiture qu'il loue ou qu'il a loué
-	 * @param voitId
-	 * @return
-	 */
-	public int getClientIDFromVoitID(int voitId) {
-		return 0;
-	}
-	
-	public static void main(String[] args) {
-		Admin admin = new Admin("moi", "moi", "moi", "moi");
-		/*Voiture listVoit[] = admin.getListVoit();
-		for (Voiture voiture : listVoit) {
-			System.out.println(voiture);
-		}*/
-		/*Voiture listVoit2[] = admin.getListVoitLouees();
-		if(listVoit!=null) {
-			for (Voiture voiture : listVoit2) {
-				System.out.println(voiture);
-			}
-		}*/
-		// Les méthodes misent en commentaires fonctionnent
-		//System.out.println(admin.addVoiture(600.0, "opel", "corsa", 2015, "diesel", "rouge", "citadine", false, 4, 51213, 150.4, 194.5, 987.6, "Bonne voiture", 1));
-		//System.out.println(admin.rmVoiture(16));
-		//System.out.println(admin.getFacture(2));
-		//System.out.println(admin.getFacturesClient(1));
-		//System.out.println(admin.getClient(2));
-		//System.out.println(admin.rmClient(4));
-		//System.out.println(admin.alterClient(3, "michel", "goffin", "01-01-2000", "10-07-1998", "ruelle fay", "at@ephec.be"));
-		//System.out.println(admin.getLocation(2));
-		//System.out.println(admin.getLocationsClient(2));
-		//System.out.println(admin.getVoitInfos(25));
-		/*Client listClient[] = admin.getClients();
-		for (Client client : listClient) {
-			System.out.println(client);
-		}*/
-		/*Technicien[] listTechs = admin.getTechs();
-		for (Technicien tech : listTechs) {
-			System.out.println(tech);
-		}*/
-		/*Admin[] listAdmins = admin.getAdmins();
-		for (Admin admins : listAdmins) {
-			System.out.println(admins);
-		}*/
-		//System.out.println(admin.getMesInfos());
-	}
-	
 	
 	private Location[] resultSetToLocations(ResultSet rs) {
 		Location tempLoc[];

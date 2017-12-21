@@ -1,6 +1,5 @@
 package vue;
 
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -181,28 +180,6 @@ public class TechnicienVueGui extends TechnicienVue {
 	private JTextField textFieldVoitAgenceIDVoit;
 	private JTextField textFieldVoitMessage;
 	private JButton btn_afficheVoit;
-	
-	
-	
-	
-	
-	/**
-	 * Launch the application.
-	 */
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Technicien model = new Technicien("Tanguybmx", "12345");
-					TechnicienController controlleur = new TechnicienController(model);
-					TechnicienVueGui frame = new TechnicienVueGui(model, controlleur);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

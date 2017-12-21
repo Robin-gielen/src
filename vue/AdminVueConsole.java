@@ -57,8 +57,6 @@ public class AdminVueConsole extends AdminVue implements Observer {
 		affiche("Pour afficher la liste des voitures : J");
 		affiche("Pour afficher toutes les voitures louees : K");
 		
-		affiche("Pour afficher les infos du client qui loue la voiture : L");
-		
 		affiche("Pour modifier un client : M");
 		affiche("Pour supprimer un client de la BDD : N");
 		
@@ -164,16 +162,10 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							}
 							printHelp();
 							break;
-						case "L" :
-							int clientLoc2 = sc.nextInt();
-							System.out.println(model.getClientIDFromVoitID(clientLoc2));
-							printHelp();
-							break;
 						case "M" :
 							int tempClientID;
 							String tempNom;
 							String tempPrenom;
-							String tempDateInscription;
 							String tempDateNaissance; 
 							String tempAdresse; 
 							String tempAdresseMail;
