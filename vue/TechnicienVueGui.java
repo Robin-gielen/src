@@ -932,6 +932,18 @@ public class TechnicienVueGui extends JFrame {
 				textFieldFactEstPaye.setVisible(false);
 				lblFactNote.setVisible(false);
 				textFieldFactNote2.setVisible(false);
+				String tempString="";
+				if(isInteger(textFieldVeuillezIndiquerLidClient.getText())) {
+					Facture[] tempFacts = model.getFacturesClient(Integer.parseInt(textFieldVeuillezIndiquerLidClient.getText()));
+					if(tempFacts != null) {
+						for (Facture facture : tempFacts) {
+							tempString+= facture.toString()+"\n";
+						}
+						textAreaInfoFact.setText(tempString);
+					}
+					else textAreaInfoFact.setText("Ce client n'existe pas ou n'a pas de facture");
+				}
+				else textAreaInfoFact.setText("Entrez un numero de client correcte");
 			}
 		});
 		GridBagConstraints gbc_btnValiderFact2 = new GridBagConstraints();

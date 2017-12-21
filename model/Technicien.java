@@ -456,9 +456,7 @@ public class Technicien extends Personne{
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -476,7 +474,6 @@ public class Technicien extends Personne{
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
