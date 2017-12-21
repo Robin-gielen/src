@@ -159,6 +159,16 @@ public class AdminVueGui extends AdminVue {
 	private JTextField textFieldVoitIDVoit;
 	private JTextField textFieldVoitCouleurVoit;
 	private JButton btn_modifVoit;
+	private JLabel blNDeFact1;
+	private JLabel blNDeClient1;
+	private JTextField textFieldVeuillezIndiquerLidClient;
+	private JButton btnValiderFact2;
+	private JTextArea textAreaInfoFact;
+	private JTextField textFieldIdFact;
+	private JLabel lblFactClientID;
+	private JTextField textFieldFactClientID;
+	private JTextField textFieldFactNote2;
+	private JTextField textFieldFactMessage2;
 	
 	// Onglet mes infos 
 	
@@ -833,23 +843,113 @@ public class AdminVueGui extends AdminVue {
 		gbc_lblVeuillezIndiquerLidFact.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVeuillezIndiquerLidFact.anchor = GridBagConstraints.EAST;
 		gbc_lblVeuillezIndiquerLidFact.gridx = 0;
-		gbc_lblVeuillezIndiquerLidFact.gridy = 0;
+		gbc_lblVeuillezIndiquerLidFact.gridy = 4;
 		factureJPanel.add(lblVeuillezIndiquerLidFact, gbc_lblVeuillezIndiquerLidFact);
+		
+		blNDeFact1 = new JLabel("N\u00B0 de facture :");
+		GridBagConstraints gbc_lblNDeFact11 = new GridBagConstraints();
+		gbc_lblNDeFact11.anchor = GridBagConstraints.EAST;
+		gbc_lblNDeFact11.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNDeFact11.gridx = 0;
+		gbc_lblNDeFact11.gridy = 0;
+		factureJPanel.add(blNDeFact1, gbc_lblNDeFact11);
 		
 		textFieldVeuillezIndiquerLidFact = new JTextField();
 		GridBagConstraints gbc_textFieldVeuillezIndiquerLidFact = new GridBagConstraints();
 		gbc_textFieldVeuillezIndiquerLidFact.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVeuillezIndiquerLidFact.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldVeuillezIndiquerLidFact.gridx = 1;
 		gbc_textFieldVeuillezIndiquerLidFact.gridy = 0;
 		factureJPanel.add(textFieldVeuillezIndiquerLidFact, gbc_textFieldVeuillezIndiquerLidFact);
 		textFieldVeuillezIndiquerLidFact.setColumns(10);
+		
+		blNDeClient1 = new JLabel("N\u00B0 de client :");
+		GridBagConstraints gbc_lblNDeCleint11 = new GridBagConstraints();
+		gbc_lblNDeCleint11.anchor = GridBagConstraints.EAST;
+		gbc_lblNDeCleint11.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNDeCleint11.gridx = 0;
+		gbc_lblNDeCleint11.gridy = 2;
+		factureJPanel.add(blNDeClient1, gbc_lblNDeCleint11);
+		
+		textFieldVeuillezIndiquerLidClient = new JTextField();
+		GridBagConstraints gbc_textFieldVeuillezIndiquerLidClient = new GridBagConstraints();
+		gbc_textFieldVeuillezIndiquerLidClient.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVeuillezIndiquerLidClient.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVeuillezIndiquerLidClient.gridx = 1;
+		gbc_textFieldVeuillezIndiquerLidClient.gridy = 2;
+		factureJPanel.add(textFieldVeuillezIndiquerLidClient, gbc_textFieldVeuillezIndiquerLidClient);
+		textFieldVeuillezIndiquerLidClient.setColumns(10);
+		
+		btnValiderFact2 = new JButton("Rechercher la facture apd de l'id client");
+		btnValiderFact2.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				textAreaInfoFact.setVisible(true);
+				lblVeuillezIndiquerLidFact.setVisible(false);
+				textFieldIdFact.setVisible(false);
+				lblFactMontant.setVisible(false);
+				textFieldFactMontant.setVisible(false);
+				lblFactLocaID.setVisible(false);
+				textFieldFactLocaID.setVisible(false);
+				lblFactTechID.setVisible(false);
+				textFieldFactTechID.setVisible(false);
+				lblFactClientID.setVisible(false);
+				textFieldFactClientID.setVisible(false);
+				lblFactEstPaye.setVisible(false);
+				textFieldFactEstPaye.setVisible(false);
+				lblFactNote.setVisible(false);
+				textFieldFactNote2.setVisible(false);
+				String tempString="";
+				if(isInteger(textFieldVeuillezIndiquerLidClient.getText())) {
+					Facture[] tempFacts = model.getFacturesClient(Integer.parseInt(textFieldVeuillezIndiquerLidClient.getText()));
+					if(tempFacts != null) {
+						for (Facture facture : tempFacts) {
+							tempString+= facture.toString()+"\n";
+						}
+						textAreaInfoFact.setText(tempString);
+					}
+					else textAreaInfoFact.setText("Ce client n'existe pas ou n'a pas de facture");
+				}
+				else textAreaInfoFact.setText("Entrez un numero de client correcte");
+			}
+		});
+		GridBagConstraints gbc_btnValiderFact2 = new GridBagConstraints();
+		gbc_btnValiderFact2.insets = new Insets(0, 0, 5, 5);
+		gbc_btnValiderFact2.anchor = GridBagConstraints.CENTER;
+		gbc_btnValiderFact2.gridx = 1;
+		gbc_btnValiderFact2.gridy = 3;
+		factureJPanel.add(btnValiderFact2, gbc_btnValiderFact2);
+		
+		textAreaInfoFact = new JTextArea();
+		textAreaInfoFact.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textAreaInfoFact.setEditable(false);
+		GridBagConstraints gbc_textAreaInfoFact = new GridBagConstraints();
+		gbc_textAreaInfoFact.insets = new Insets(0, 0, 5, 5);
+		gbc_textAreaInfoFact.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textAreaInfoFact.gridx = 1;
+		gbc_textAreaInfoFact.gridy = 4;
+		factureJPanel.add(textAreaInfoFact, gbc_textAreaInfoFact);
+		textAreaInfoFact.setColumns(10);
+		textAreaInfoFact.setVisible(false);
+		
+		textFieldIdFact = new JTextField();
+		textFieldIdFact.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldIdFact.setEditable(false);
+		
+		GridBagConstraints gbc_textFieldIdFact = new GridBagConstraints();
+		gbc_textFieldIdFact.anchor = GridBagConstraints.WEST;
+		gbc_textFieldIdFact.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldIdFact.gridx = 1;
+		gbc_textFieldIdFact.gridy = 4;
+		factureJPanel.add(textFieldIdFact, gbc_textFieldIdFact);
+		textFieldIdFact.setColumns(10);
 		
 		lblFactMontant = new JLabel("Montant de la facture :");
 		GridBagConstraints gbc_lblFactMontant = new GridBagConstraints();
 		gbc_lblFactMontant.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFactMontant.anchor = GridBagConstraints.EAST;
 		gbc_lblFactMontant.gridx = 0;
-		gbc_lblFactMontant.gridy = 2;
+		gbc_lblFactMontant.gridy = 5;
 		factureJPanel.add(lblFactMontant, gbc_lblFactMontant);
 		
 		textFieldFactMontant = new JTextField();
@@ -859,7 +959,7 @@ public class AdminVueGui extends AdminVue {
 		gbc_textFieldFactMontant.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldFactMontant.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldFactMontant.gridx = 1;
-		gbc_textFieldFactMontant.gridy = 2;
+		gbc_textFieldFactMontant.gridy = 5;
 		factureJPanel.add(textFieldFactMontant, gbc_textFieldFactMontant);
 		textFieldFactMontant.setColumns(10);
 		
@@ -868,7 +968,7 @@ public class AdminVueGui extends AdminVue {
 		gbc_lblFactLocaID.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFactLocaID.anchor = GridBagConstraints.EAST;
 		gbc_lblFactLocaID.gridx = 0;
-		gbc_lblFactLocaID.gridy = 3;
+		gbc_lblFactLocaID.gridy = 6;
 		factureJPanel.add(lblFactLocaID, gbc_lblFactLocaID);
 		
 		textFieldFactLocaID = new JTextField();
@@ -878,7 +978,7 @@ public class AdminVueGui extends AdminVue {
 		gbc_textFieldFactLocaID.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldFactLocaID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldFactLocaID.gridx = 1;
-		gbc_textFieldFactLocaID.gridy = 3;
+		gbc_textFieldFactLocaID.gridy = 6;
 		factureJPanel.add(textFieldFactLocaID, gbc_textFieldFactLocaID);
 		textFieldFactLocaID.setColumns(10);
 		
@@ -887,7 +987,7 @@ public class AdminVueGui extends AdminVue {
 		gbc_lblFactTechID.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFactTechID.anchor = GridBagConstraints.EAST;
 		gbc_lblFactTechID.gridx = 0;
-		gbc_lblFactTechID.gridy = 4;
+		gbc_lblFactTechID.gridy = 7;
 		factureJPanel.add(lblFactTechID, gbc_lblFactTechID);
 		
 		textFieldFactTechID = new JTextField();
@@ -897,16 +997,35 @@ public class AdminVueGui extends AdminVue {
 		gbc_textFieldFactTechID.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldFactTechID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldFactTechID.gridx = 1;
-		gbc_textFieldFactTechID.gridy = 4;
+		gbc_textFieldFactTechID.gridy = 7;
 		factureJPanel.add(textFieldFactTechID, gbc_textFieldFactTechID);
 		textFieldFactTechID.setColumns(10);
+		
+		lblFactClientID = new JLabel("ID du Client :");
+		GridBagConstraints gbc_lblFactClientID = new GridBagConstraints();
+		gbc_lblFactClientID.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFactClientID.anchor = GridBagConstraints.EAST;
+		gbc_lblFactClientID.gridx = 0;
+		gbc_lblFactClientID.gridy = 8;
+		factureJPanel.add(lblFactClientID, gbc_lblFactClientID);
+		
+		textFieldFactClientID = new JTextField();
+		textFieldFactClientID.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldFactClientID.setEditable(false);
+		GridBagConstraints gbc_textFieldFactClientID = new GridBagConstraints();
+		gbc_textFieldFactClientID.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFactClientID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactClientID.gridx = 1;
+		gbc_textFieldFactClientID.gridy = 8;
+		factureJPanel.add(textFieldFactClientID, gbc_textFieldFactClientID);
+		textFieldFactClientID.setColumns(10);
 		
 		lblFactEstPaye = new JLabel("La facture est payee :");
 		GridBagConstraints gbc_lblFactEstPaye = new GridBagConstraints();
 		gbc_lblFactEstPaye.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFactEstPaye.anchor = GridBagConstraints.EAST;
 		gbc_lblFactEstPaye.gridx = 0;
-		gbc_lblFactEstPaye.gridy = 5;
+		gbc_lblFactEstPaye.gridy = 9;
 		factureJPanel.add(lblFactEstPaye, gbc_lblFactEstPaye);
 		
 		textFieldFactEstPaye = new JTextField();
@@ -916,7 +1035,7 @@ public class AdminVueGui extends AdminVue {
 		gbc_textFieldFactEstPaye.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldFactEstPaye.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldFactEstPaye.gridx = 1;
-		gbc_textFieldFactEstPaye.gridy = 5;
+		gbc_textFieldFactEstPaye.gridy = 9;
 		factureJPanel.add(textFieldFactEstPaye, gbc_textFieldFactEstPaye);
 		textFieldFactEstPaye.setColumns(10);
 		
@@ -925,29 +1044,47 @@ public class AdminVueGui extends AdminVue {
 		gbc_lblFactNote.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFactNote.anchor = GridBagConstraints.EAST;
 		gbc_lblFactNote.gridx = 0;
-		gbc_lblFactNote.gridy = 6;
+		gbc_lblFactNote.gridy = 10;
 		factureJPanel.add(lblFactNote, gbc_lblFactNote);
 		
-		textFieldFactNote = new JTextField();
-		textFieldFactNote.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		textFieldFactNote.setEditable(false);
-		GridBagConstraints gbc_textFieldFactNote = new GridBagConstraints();
-		gbc_textFieldFactNote.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldFactNote.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldFactNote.gridx = 1;
-		gbc_textFieldFactNote.gridy = 6;
-		factureJPanel.add(textFieldFactNote, gbc_textFieldFactNote);
-		textFieldFactNote.setColumns(10);
+		textFieldFactNote2 = new JTextField();
+		textFieldFactNote2.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldFactNote2.setEditable(false);
+		GridBagConstraints gbc_textFieldFactNote2 = new GridBagConstraints();
+		gbc_textFieldFactNote2.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFactNote2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactNote2.gridx = 1;
+		gbc_textFieldFactNote2.gridy = 10;
+		factureJPanel.add(textFieldFactNote2, gbc_textFieldFactNote2);
+		textFieldFactNote2.setColumns(10);
 	
-		btnValiderFact = new JButton("Afficher la facture");
+		btnValiderFact = new JButton("Rechercher la facture");
 		btnValiderFact.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
+				lblVeuillezIndiquerLidFact.setVisible(true);
+				textFieldIdFact.setVisible(true);
+				lblFactMontant.setVisible(true);
+				textFieldFactMontant.setVisible(true);
+				lblFactLocaID.setVisible(true);
+				textFieldFactLocaID.setVisible(true);
+				lblFactTechID.setVisible(true);
+				textFieldFactTechID.setVisible(true);
+				lblFactClientID.setVisible(true);
+				textFieldFactClientID.setVisible(true);
+				lblFactEstPaye.setVisible(true);
+				textFieldFactEstPaye.setVisible(true);
+				lblFactNote.setVisible(true);
+				textFieldFactNote2.setVisible(true);
+				textAreaInfoFact.setVisible(false);
 				if (!isInteger(textFieldVeuillezIndiquerLidFact.getText())) {
-					textFieldFactMessage.setText("Entrez un numéro de facture correcte");
+					textFieldFactMessage2.setText("Entrez un numéro de facture correcte");
+					textFieldIdFact.setText("");
 					textFieldFactLocaID.setText("");
 					textFieldFactMontant.setText("");
 					textFieldFactTechID.setText("");
-					textFieldFactNote.setText("");
+					textFieldFactClientID.setText("");
+					textFieldFactNote2.setText("");
 					textFieldFactEstPaye.setText("");
 				}
 				else {
@@ -962,38 +1099,42 @@ public class AdminVueGui extends AdminVue {
 						textFieldFactLocaID.setText(tempFacture.getLocationID()+"");
 						textFieldFactMontant.setText(tempFacture.getMontant()+"");
 						textFieldFactTechID.setText(tempFacture.getTechID()+"");
-						textFieldFactNote.setText(tempFacture.getNote());
+						textFieldFactClientID.setText(model.getLocation(tempFacture.getLocationID()).getClientID()+"");
+						textFieldFactNote2.setText(tempFacture.getNote());
+						textFieldIdFact.setText(tempFacture.getFactID()+"");
 					}
 					else {
-						textFieldFactMessage.setText("Cette facture n'existe pas");
+						textFieldFactMessage2.setText("Cette facture n'existe pas");
 						textFieldFactLocaID.setText("");
 						textFieldFactMontant.setText("");
 						textFieldFactTechID.setText("");
-						textFieldFactNote.setText("");
+						textFieldFactNote2.setText("");
+						textFieldIdFact.setText("");
+						textFieldFactEstPaye.setText("");
+						textFieldFactClientID.setText("");
 					}
 				}
 			}
 		});
 		GridBagConstraints gbc_btnValiderFact = new GridBagConstraints();
 		gbc_btnValiderFact.insets = new Insets(0, 0, 5, 5);
-		gbc_btnValiderFact.anchor = GridBagConstraints.EAST;
+		gbc_btnValiderFact.anchor = GridBagConstraints.CENTER;
 		gbc_btnValiderFact.gridx = 1;
-		gbc_btnValiderFact.gridy = 0;
+		gbc_btnValiderFact.gridy = 1;
 		factureJPanel.add(btnValiderFact, gbc_btnValiderFact);
 		
 
-		textFieldFactMessage = new JTextField();
-		textFieldFactMessage.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		textFieldFactMessage.setEditable(false);
-		GridBagConstraints gbc_textFieldFactMessage = new GridBagConstraints();
-		gbc_textFieldFactMessage.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldFactMessage.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldFactMessage.gridx = 1;
-		gbc_textFieldFactMessage.gridy = 10;
-		factureJPanel.add(textFieldFactMessage, gbc_textFieldFactMessage);
-		textFieldFactMessage.setColumns(10);
+		textFieldFactMessage2 = new JTextField();
+		textFieldFactMessage2.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldFactMessage2.setEditable(false);
+		GridBagConstraints gbc_textFieldFactMessage2 = new GridBagConstraints();
+		gbc_textFieldFactMessage2.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFactMessage2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFactMessage2.gridx = 1;
+		gbc_textFieldFactMessage2.gridy = 10;
+		factureJPanel.add(textFieldFactMessage2, gbc_textFieldFactMessage2);
+		textFieldFactMessage2.setColumns(10);
 		
-
 		
 		// Liste Voitures 
 		
