@@ -11,6 +11,10 @@ import java.sql.Statement;
  * Cette classe implemente un administrateur qui est une Personne et qui est identifié par un ID
  */
 
+/**
+ * @author gimki
+ *
+ */
 public class Admin extends Personne {
 	private int adminID;
 	Voiture [] voitures;

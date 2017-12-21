@@ -1,7 +1,7 @@
 package model;
 /**
  * Cette classe implemente une agence avec un ID, une ville et une adresse
- * @author fabia
+ * @author 
  *
  */
 public class Agence {
@@ -9,7 +9,7 @@ public class Agence {
 	private String ville;
 	private String adresse;
 	/**
-	 * Ce constructeur creer une agence en specifiant sa ville et son adresse
+	 * Ce constructeur cree une agence en specifiant sa ville et son adresse
 	 * @param ville de l'agence
 	 * @param adresse de l'agence
 	 */
