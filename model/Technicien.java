@@ -76,14 +76,13 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];
             
         } catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -114,7 +113,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             if(rs.next()) {
@@ -132,7 +131,6 @@ public class Technicien extends Personne{
             
     	} catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		 
@@ -156,7 +154,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
         	result = stmt.executeUpdate("update facture set note='"+note+"' where factID='"+factID+"'");
             if (result > 0) {
@@ -166,7 +164,6 @@ public class Technicien extends Personne{
                     
     	} catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		 
@@ -190,7 +187,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             if(estPaye== true) {
                 	result = stmt.executeUpdate("update location set accomptePaye='"+1+"' where locationID='"+locationID+"'");
@@ -214,7 +211,6 @@ public class Technicien extends Personne{
                     
     	} catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		 
@@ -241,13 +237,13 @@ public class Technicien extends Personne{
         ResultSet rs = null;
         double tempMontant = 0;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT voiture.prix+assurance.prix as montant, assurance.prixKmSupp as prixKmSupp FROM voiture JOIN location ON voiture.voitID=location.voitureID JOIN assurance ON location.assurID=assurance.assurID where location.locationID="+locationID);
             if (rs.next()) {
             	tempMontant=Double.parseDouble(rs.getString("montant"))+(Double.parseDouble(rs.getString("prixKmSupp"))*kmSupp);
             }
-            else System.out.println("data pas trouvê¥ dans BDD"); 
+            else ; 
             if(!estPaye && tempMontant!=0){
 				result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 0,\" "+note+"\" )");
 				if (result > 0) {
@@ -268,7 +264,6 @@ public class Technicien extends Personne{
                     
     	} catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		 
@@ -289,7 +284,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null; 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE locationID =" + locationID);
             if(rs.next()) {
@@ -301,9 +296,7 @@ public class Technicien extends Personne{
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -321,7 +314,6 @@ public class Technicien extends Personne{
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -330,7 +322,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
             if(rs.next()) {
@@ -339,9 +331,7 @@ public class Technicien extends Personne{
 			}
 			else throw new DataNotFoundException("Can't find this data in the database");
         } catch (SQLException ex) {
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -367,7 +357,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM facture WHERE factID="+factID);
             if(rs.next()) {
@@ -379,9 +369,7 @@ public class Technicien extends Personne{
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -425,9 +413,7 @@ public class Technicien extends Personne{
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -445,7 +431,6 @@ public class Technicien extends Personne{
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -500,7 +485,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
             if(rs.next()) {
@@ -512,9 +497,7 @@ public class Technicien extends Personne{
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -532,7 +515,6 @@ public class Technicien extends Personne{
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -574,7 +556,6 @@ public class Technicien extends Personne{
 			return tempVoit;
 		} catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
     }
@@ -607,7 +588,6 @@ public class Technicien extends Personne{
 			return tempLoc;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -641,7 +621,6 @@ public class Technicien extends Personne{
 			return tempFact;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -673,7 +652,6 @@ public class Technicien extends Personne{
 			return tempTech;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -694,7 +672,6 @@ public class Technicien extends Personne{
 			return tempClient;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}

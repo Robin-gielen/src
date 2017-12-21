@@ -98,7 +98,7 @@ public class Location {
 	 * @param accomptePaye si l'accompte et paye ou non
 	 */
 	public void setAccomptePaye(boolean accomptePaye) {
-		this.accomptePaye = accomptePaye;
+		this.accomptePaye = accomptePaye; 
 	}
 	/**
 	 * 

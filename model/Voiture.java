@@ -71,7 +71,7 @@ public class Voiture {
 	}
 	public void setVoitID(int voitID) {
 		this.voitID = voitID;
-	}
+	} 
 	public double getPrix() {
 		return prix;
 	}
@@ -172,7 +172,7 @@ public class Voiture {
 	public String toString() {
 		return "voitID=" + voitID + ", prix=" + prix + ", marque=" + marque + ", modele=" + modele + ", annee="
 				+ annee + ", type=" + type + ", carburant=" + carburant + ", couleur=" + couleur + ", estManuelle="
-				+ estManuelle + ", roueMotrice=" + roueMotrice + ", kilometrage=" + kilometrage + ", volumeCoffre="
+				+ estManuelle + ",\n	 roueMotrice=" + roueMotrice + ", kilometrage=" + kilometrage + ", volumeCoffre="
 				+ volumeCoffre + ", hauteur=" + hauteur + ", poids=" + poids + ", estLouee=" + estLouee + ", note="
 				+ note + ", agenceID=" + agenceID ;
 	}

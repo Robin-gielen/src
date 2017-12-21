@@ -189,7 +189,7 @@ public class AdminVueGui extends AdminVue {
 		btnFactureJPanel = new JButton("Gestion des factures");
 		btnLocationJPanel = new JButton("Gestion des locations");
 		btnMesInfosJPanel = new JButton("Mes Infos");
-		btnVoitureJPanel = new JButton("Gestion des voitures");
+		btnVoitureJPanel = new JButton("Listes des voitures");
 		btnAlterVoitureJPanel = new JButton("Modification des voitures");
 		
 		//Ajout des actionsListener aux bouttons de la menuBar
