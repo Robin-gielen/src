@@ -34,7 +34,7 @@ public class AdminVueConsole extends AdminVue implements Observer {
 	
 
 	private void printHelp(){
-		affiche("");
+		affiche(""); 
 		affiche("");
 		affiche("");
 		affiche("");
@@ -183,21 +183,19 @@ public class AdminVueConsole extends AdminVue implements Observer {
 							tempNom = sc.next();
 							affiche("Entrez maintenant le prenom (changé) du client :");
 							tempPrenom = sc.next();
-							affiche("Entrez maintenant la date d'inscription (changée) du client :");
-							tempDateInscription = sc.next();
 							affiche("Entrez maintenant la date de naissance (changée) du client :");
 							tempDateNaissance = sc.next();
 							affiche("Entrez maintenant l'adresse (changée) du client :");
 							tempAdresse = sc.next();
 							affiche("Entrez maintenant l'adresse mail (changée) du client :");
 							tempAdresseMail = sc.next();
-							if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateInscription, tempDateNaissance, tempAdresse, tempAdresseMail) == 1) {
+							if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateNaissance, tempAdresse, tempAdresseMail) == 1) {
 								System.out.println("Client modifié");
 							}
-							else if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateInscription, tempDateNaissance, tempAdresse, tempAdresseMail) == 0) {
+							else if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateNaissance, tempAdresse, tempAdresseMail) == 0) {
 								System.out.println("Client pas modifié");
 							}
-							else if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateInscription, tempDateNaissance, tempAdresse, tempAdresseMail) == -1) {
+							else if (model.alterClient(tempClientID, tempNom, tempPrenom, tempDateNaissance, tempAdresse, tempAdresseMail) == -1) {
 								System.out.println("Problème connexion à la BDD");
 							}
 							printHelp();

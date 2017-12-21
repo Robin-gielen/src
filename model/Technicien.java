@@ -287,7 +287,7 @@ public class Technicien extends Personne{
 	public Location getLocation(int locationID) {
 		Connection conn = null;
         Statement stmt = null;
-        ResultSet rs = null;
+        ResultSet rs = null; 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://XT3-ZC:3306/newschema?autoReconnect=true&useSSL=false", "tanguybmx", "1234");
             stmt = conn.createStatement();

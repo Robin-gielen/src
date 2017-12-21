@@ -456,14 +456,14 @@ public class Admin extends Personne {
 	 * @param adresseMail
 	 * @return les informations du client modifie
 	 */
-	public int alterClient(int clientID, String nom, String prenom, String dateInscription, String dateNaissance, String adresse, String adresseMail) {
+	public int alterClient(int clientID, String nom, String prenom, String dateNaissance, String adresse, String adresseMail) {
 		Connection conn = null;
         Statement stmt = null;
         int rs;
     	try {
             conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
             stmt = conn.createStatement();
-            String query = "UPDATE personne SET nom='" + nom + "', prenom='" + prenom + "', dateInscription='" + dateInscription + "', dateNaissance='" + dateNaissance + "', adresse='" + adresse + "', adresseMail='" + adresseMail +"' WHERE personneID =" + clientID;
+            String query = "UPDATE personne SET nom='" + nom + "', prenom='" + prenom + "', dateNaissance='" + dateNaissance + "', adresse='" + adresse + "', adresseMail='" + adresseMail +"' WHERE personneID =" + clientID;
             rs = stmt.executeUpdate(query);
             if (rs == 1) {
             	return 1;
@@ -841,7 +841,7 @@ public class Admin extends Personne {
 	
 	private Location[] resultSetToLocations(ResultSet rs) {
 		Location tempLoc[];
-		int count = 0;
+		int count = 0; 
 		try {
 			while(rs.next()){
 				count++; 

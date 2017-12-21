@@ -110,13 +110,55 @@ public class AdminVueGui extends AdminVue {
 	private JTextField textFieldFactMessage;
 	
 	
-	//Onglet voitures
+	//Onglet affichage listes voitures
 	private JTextArea textAreaVoiture;
 	private JTextField textFieldMesInfosPrenom;
 	private JTextField textFieldMesInfosNom;
 	private JTextField textFieldMesInfosPseudo;
 	private JTextField textFieldMesInfosID;
 	private JTextField textFieldMesInfosMDP;
+	
+	//Onglet modif Voitures
+	private JLabel lblVoitInfosVoit;
+	private JTextField textFieldVoitMessage;
+	private JLabel lblVoitPrixVoit;
+	private JTextField textFieldVoitPrixVoit;
+	private JLabel lblVoitMarqueVoit;
+	private JTextField textFieldVoitMarqueVoit;
+	private JLabel lblVoitModeleVoit;
+	private JTextField textFieldVoitModeleVoit;
+	private JLabel lblVoitAnneeVoit;
+	private JTextField textFieldVoitAnneeVoit;
+	private JLabel lblVoitTypeVoit;
+	private JTextField textFieldVoitTypeVoit;
+	private JLabel lblVoitCarburantVoit;
+	private JTextField textFieldVoitCarburantVoit;
+	private JLabel lblVoitCouleurVoit;
+	private JTextField textFieldVoitCouelurVoit;
+	private JLabel lblVoitEstManuelleVoit;
+	private JTextField textFieldVoitEstManuelleVoit;
+	private JLabel lblVoitRoueMotriceVoit;
+	private JTextField textFieldVoitRoueMotriceVoit;
+	private JLabel lblVoitKilometrageVoit;
+	private JTextField textFieldVoitKilometrageVoit;
+	private JLabel lblVoitVolumeCoffreVoit;
+	private JTextField textFieldVoitVolumeCoffreVoit;
+	private JLabel lblVoitHauteurVoit;
+	private JTextField textFieldVoitHauteurVoit;
+	private JLabel lblVoitPoidsVoit;
+	private JTextField textFieldVoitPoidsVoit;
+	private JLabel lblVoitEstLoueeVoit;
+	private JTextField textFieldVoitEstLoueeVoit;
+	private JLabel lblVoitNoteVoit;
+	private JTextField textFieldVoitNoteVoit;
+	private JLabel lblVoitAgenceIDVoit;
+	private JTextField textFieldVoitAgenceIDVoit;
+	private JLabel lblVoitIDVoit;
+	private JTextField textFieldoitIDVoit;
+	private JButton btn_afficheVoit;
+	private JTextField textFieldVoitIDVoit;
+	private JTextField textFieldVoitCouleurVoit;
+	private JButton btn_modifVoit;
 	
 	// Onglet mes infos 
 	
@@ -507,12 +549,37 @@ public class AdminVueGui extends AdminVue {
 		alterClientJPanel.add(textFieldPrenom, gbc_textFieldPrenom);
 		textFieldPrenom.setColumns(10);
 		
+		JTextField textFieldAlterClientMsg = new JTextField();
+		textFieldAlterClientMsg.setEditable(false);
+		textFieldAlterClientMsg.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		GridBagConstraints gbc_textFieldAlterClientMsg = new GridBagConstraints();
+		gbc_textFieldAlterClientMsg.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAlterClientMsg.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAlterClientMsg.gridwidth = 4;
+		gbc_textFieldAlterClientMsg.gridheight = 1;
+		gbc_textFieldAlterClientMsg.gridx = 1;
+		gbc_textFieldAlterClientMsg.gridy = 14;
+		alterClientJPanel.add(textFieldAlterClientMsg, gbc_textFieldAlterClientMsg);
+		textFieldAlterClientMsg.setColumns(10);
+		
 		btnValiderClient = new JButton("Modifier le client");
 		btnValiderClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (isInteger(textFieldID.getText())) {
+					if(model.alterClient(Integer.parseInt(textFieldID.getText()), textFieldNom.getText(), 
+							textFieldPrenom.getText(), textFieldDateN.getText(), textFieldAdresse.getText(), textFieldMail.getText()) == 1) {
+						textFieldAlterClientMsg.setText("Client mis a jour");
+					}
+					else {
+						textFieldAlterClientMsg.setText("Probleme lors de la mise a jour du client");
+					}
+				}
+				else {
+					textFieldAlterClientMsg.setText("Veuillez entrez un numéro de client correcte");
+				}
 			}
 		});
+		
 		GridBagConstraints gbc_btnValiderClient = new GridBagConstraints();
 		gbc_btnValiderClient.insets = new Insets(0, 0, 5, 5);
 		gbc_btnValiderClient.anchor = GridBagConstraints.EAST;
@@ -997,12 +1064,12 @@ public class AdminVueGui extends AdminVue {
 		
 		// Infos personnels de l'admin 
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		mesInfosJPanel.setLayout(gridBagLayout);
+		GridBagLayout gbl_MesInfos = new GridBagLayout();
+		gbl_MesInfos.columnWidths = new int[]{0, 0, 0};
+		gbl_MesInfos.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_MesInfos.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_MesInfos.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		mesInfosJPanel.setLayout(gbl_MesInfos);
 		
 		JLabel lblMesInfos = new JLabel("Mes infos :");
 		lblMesInfos.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -1114,6 +1181,431 @@ public class AdminVueGui extends AdminVue {
 		textFieldMesInfosPseudo.setText(model.getPseudo());
 		textFieldMesInfosMDP.setText(model.getMotDePasse());
 		textFieldMesInfosID.setText(model.getAdminID()+"");
+		
+		// Affichage d'une voiture 
+		
+		GridBagLayout gbl_alterVoiture = new GridBagLayout();
+		gbl_alterVoiture.columnWidths = new int[]{0, 0, 0};
+		gbl_alterVoiture.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		gbl_alterVoiture.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_alterVoiture.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0, Double.MIN_VALUE};
+		alterVoitureJPanel.setLayout(gbl_alterVoiture);
+		
+		lblVoitInfosVoit = new JLabel("Infos de la voiture");
+		GridBagConstraints gbc_lblVoitInfosVoit = new GridBagConstraints();
+		gbc_lblVoitInfosVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitInfosVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitInfosVoit.gridx = 0;
+		gbc_lblVoitInfosVoit.gridy = 0;
+		alterVoitureJPanel.add(lblVoitInfosVoit, gbc_lblVoitInfosVoit);
+		
+		lblVoitIDVoit = new JLabel("ID de la voiture :");
+		GridBagConstraints gbc_lblVoitIDVoit = new GridBagConstraints();
+		gbc_lblVoitIDVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitIDVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitIDVoit.gridx = 0;
+		gbc_lblVoitIDVoit.gridy = 1;
+		alterVoitureJPanel.add(lblVoitIDVoit, gbc_lblVoitIDVoit);
+		
+		textFieldVoitIDVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitIDVoit = new GridBagConstraints();
+		gbc_textFieldVoitIDVoit.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldVoitIDVoit.gridx = 1;
+		gbc_textFieldVoitIDVoit.gridy = 1;
+		alterVoitureJPanel.add(textFieldVoitIDVoit, gbc_textFieldVoitIDVoit);
+		textFieldVoitIDVoit.setColumns(10);
+		
+		lblVoitPrixVoit = new JLabel("Prix de la voiture :");
+		GridBagConstraints gbc_lblVoitPrixVoit = new GridBagConstraints();
+		gbc_lblVoitPrixVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitPrixVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitPrixVoit.gridx = 0;
+		gbc_lblVoitPrixVoit.gridy = 2;
+		alterVoitureJPanel.add(lblVoitPrixVoit, gbc_lblVoitPrixVoit);
+		
+		textFieldVoitPrixVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitPrixVoit = new GridBagConstraints();
+		gbc_textFieldVoitPrixVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitPrixVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitPrixVoit.gridx = 1;
+		gbc_textFieldVoitPrixVoit.gridy = 2;
+		alterVoitureJPanel.add(textFieldVoitPrixVoit, gbc_textFieldVoitPrixVoit);
+		textFieldVoitPrixVoit.setColumns(10);
+		
+		lblVoitMarqueVoit = new JLabel("Marque de la voiture :");
+		GridBagConstraints gbc_lblVoitMarqueVoit = new GridBagConstraints();
+		gbc_lblVoitMarqueVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitMarqueVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitMarqueVoit.gridx = 0;
+		gbc_lblVoitMarqueVoit.gridy = 3;
+		alterVoitureJPanel.add(lblVoitMarqueVoit, gbc_lblVoitMarqueVoit);
+		
+		textFieldVoitMarqueVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitMarqueVoit = new GridBagConstraints();
+		gbc_textFieldVoitMarqueVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitMarqueVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitMarqueVoit.gridx = 1;
+		gbc_textFieldVoitMarqueVoit.gridy = 3;
+		alterVoitureJPanel.add(textFieldVoitMarqueVoit, gbc_textFieldVoitMarqueVoit);
+		textFieldVoitMarqueVoit.setColumns(10);
+		
+		lblVoitModeleVoit = new JLabel("Modele de la voiture :");
+		GridBagConstraints gbc_lblVoitModeleVoit = new GridBagConstraints();
+		gbc_lblVoitModeleVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitModeleVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitModeleVoit.gridx = 0;
+		gbc_lblVoitModeleVoit.gridy = 4;
+		alterVoitureJPanel.add(lblVoitModeleVoit, gbc_lblVoitModeleVoit);
+		
+		textFieldVoitModeleVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitModeleVoit = new GridBagConstraints();
+		gbc_textFieldVoitModeleVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitModeleVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitModeleVoit.gridx = 1;
+		gbc_textFieldVoitModeleVoit.gridy =4;
+		alterVoitureJPanel.add(textFieldVoitModeleVoit, gbc_textFieldVoitModeleVoit);
+		textFieldVoitModeleVoit.setColumns(10);
+		
+		lblVoitAnneeVoit = new JLabel("Annee de mise en circulation de la voiture :");
+		GridBagConstraints gbc_lblVoitAnneeVoit = new GridBagConstraints();
+		gbc_lblVoitAnneeVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitAnneeVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitAnneeVoit.gridx = 0;
+		gbc_lblVoitAnneeVoit.gridy = 5;
+		alterVoitureJPanel.add(lblVoitAnneeVoit, gbc_lblVoitAnneeVoit);
+		
+		textFieldVoitAnneeVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitAnneeVoit = new GridBagConstraints();
+		gbc_textFieldVoitAnneeVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitAnneeVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitAnneeVoit.gridx = 1;
+		gbc_textFieldVoitAnneeVoit.gridy = 5;
+		alterVoitureJPanel.add(textFieldVoitAnneeVoit, gbc_textFieldVoitAnneeVoit);
+		textFieldVoitAnneeVoit.setColumns(10);
+		
+		lblVoitTypeVoit = new JLabel("Type de voiture :");
+		GridBagConstraints gbc_lblVoitTypeVoit = new GridBagConstraints();
+		gbc_lblVoitTypeVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitTypeVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitTypeVoit.gridx = 0;
+		gbc_lblVoitTypeVoit.gridy = 6;
+		alterVoitureJPanel.add(lblVoitTypeVoit, gbc_lblVoitTypeVoit);
+		
+		textFieldVoitTypeVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitTypeVoit = new GridBagConstraints();
+		gbc_textFieldVoitTypeVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitTypeVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitTypeVoit.gridx = 1;
+		gbc_textFieldVoitTypeVoit.gridy = 6;
+		alterVoitureJPanel.add(textFieldVoitTypeVoit, gbc_textFieldVoitTypeVoit);
+		textFieldVoitTypeVoit.setColumns(10);
+		
+		lblVoitCarburantVoit = new JLabel("Carburant de la voiture :");
+		GridBagConstraints gbc_lblVoitCarburantVoit = new GridBagConstraints();
+		gbc_lblVoitCarburantVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitCarburantVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitCarburantVoit.gridx = 0;
+		gbc_lblVoitCarburantVoit.gridy = 7;
+		alterVoitureJPanel.add(lblVoitCarburantVoit, gbc_lblVoitCarburantVoit);
+		
+		textFieldVoitCarburantVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitCarburantVoit = new GridBagConstraints();
+		gbc_textFieldVoitCarburantVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitCarburantVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitCarburantVoit.gridx = 1;
+		gbc_textFieldVoitCarburantVoit.gridy = 7;
+		alterVoitureJPanel.add(textFieldVoitCarburantVoit, gbc_textFieldVoitCarburantVoit);
+		textFieldVoitCarburantVoit.setColumns(10);
+		
+		lblVoitCouleurVoit = new JLabel("Couleur de la voiture :");
+		GridBagConstraints gbc_lblVoitCouleurVoit = new GridBagConstraints();
+		gbc_lblVoitCouleurVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitCouleurVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitCouleurVoit.gridx = 0;
+		gbc_lblVoitCouleurVoit.gridy = 8;
+		alterVoitureJPanel.add(lblVoitCouleurVoit, gbc_lblVoitCouleurVoit);
+		
+		textFieldVoitCouleurVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitCouleurVoit = new GridBagConstraints();
+		gbc_textFieldVoitCouleurVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitCouleurVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitCouleurVoit.gridx = 1;
+		gbc_textFieldVoitCouleurVoit.gridy = 8;
+		alterVoitureJPanel.add(textFieldVoitCouleurVoit, gbc_textFieldVoitCouleurVoit);
+		textFieldVoitCouleurVoit.setColumns(10);
+		
+		lblVoitEstManuelleVoit = new JLabel("La voiture est manuelle :");
+		GridBagConstraints gbc_lblVoitEstManuelleVoit = new GridBagConstraints();
+		gbc_lblVoitEstManuelleVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitEstManuelleVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitEstManuelleVoit.gridx = 0;
+		gbc_lblVoitEstManuelleVoit.gridy = 9;
+		alterVoitureJPanel.add(lblVoitEstManuelleVoit, gbc_lblVoitEstManuelleVoit);
+		
+		textFieldVoitEstManuelleVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitEstManuelleVoit = new GridBagConstraints();
+		gbc_textFieldVoitEstManuelleVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitEstManuelleVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitEstManuelleVoit.gridx = 1;
+		gbc_textFieldVoitEstManuelleVoit.gridy = 9;
+		alterVoitureJPanel.add(textFieldVoitEstManuelleVoit, gbc_textFieldVoitEstManuelleVoit);
+		textFieldVoitEstManuelleVoit.setColumns(10);
+		
+		lblVoitRoueMotriceVoit = new JLabel("Nombre de roues motrices de la voiture :");
+		GridBagConstraints gbc_lblVoitRoueMotriceVoit = new GridBagConstraints();
+		gbc_lblVoitRoueMotriceVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitRoueMotriceVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitRoueMotriceVoit.gridx = 0;
+		gbc_lblVoitRoueMotriceVoit.gridy = 10;
+		alterVoitureJPanel.add(lblVoitRoueMotriceVoit, gbc_lblVoitRoueMotriceVoit);
+		
+		textFieldVoitRoueMotriceVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitRoueMotriceVoit = new GridBagConstraints();
+		gbc_textFieldVoitRoueMotriceVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitRoueMotriceVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitRoueMotriceVoit.gridx = 1;
+		gbc_textFieldVoitRoueMotriceVoit.gridy = 10;
+		alterVoitureJPanel.add(textFieldVoitRoueMotriceVoit, gbc_textFieldVoitRoueMotriceVoit);
+		textFieldVoitRoueMotriceVoit.setColumns(10);
+		
+		lblVoitKilometrageVoit = new JLabel("Kilometrage de la voiture :");
+		GridBagConstraints gbc_lblVoitKilometrageVoit = new GridBagConstraints();
+		gbc_lblVoitKilometrageVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitKilometrageVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitKilometrageVoit.gridx = 0;
+		gbc_lblVoitKilometrageVoit.gridy = 11;
+		alterVoitureJPanel.add(lblVoitKilometrageVoit, gbc_lblVoitKilometrageVoit);
+		
+		textFieldVoitKilometrageVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitKilometrageVoit = new GridBagConstraints();
+		gbc_textFieldVoitKilometrageVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitKilometrageVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitKilometrageVoit.gridx = 1;
+		gbc_textFieldVoitKilometrageVoit.gridy = 11;
+		alterVoitureJPanel.add(textFieldVoitKilometrageVoit, gbc_textFieldVoitKilometrageVoit);
+		textFieldVoitKilometrageVoit.setColumns(10);
+		
+		lblVoitVolumeCoffreVoit = new JLabel("Volume du coffre de la voiture :");
+		GridBagConstraints gbc_lblVoitVolumeCoffreVoit = new GridBagConstraints();
+		gbc_lblVoitVolumeCoffreVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitVolumeCoffreVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitVolumeCoffreVoit.gridx = 0;
+		gbc_lblVoitVolumeCoffreVoit.gridy = 12;
+		alterVoitureJPanel.add(lblVoitVolumeCoffreVoit, gbc_lblVoitVolumeCoffreVoit);
+		
+		textFieldVoitVolumeCoffreVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitVolumeCoffreVoit = new GridBagConstraints();
+		gbc_textFieldVoitVolumeCoffreVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitVolumeCoffreVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitVolumeCoffreVoit.gridx = 1;
+		gbc_textFieldVoitVolumeCoffreVoit.gridy = 12;
+		alterVoitureJPanel.add(textFieldVoitVolumeCoffreVoit, gbc_textFieldVoitVolumeCoffreVoit);
+		textFieldVoitVolumeCoffreVoit.setColumns(10);
+		
+		lblVoitHauteurVoit = new JLabel("Hauteur de la voiture :");
+		GridBagConstraints gbc_lblVoitHauteurVoit = new GridBagConstraints();
+		gbc_lblVoitHauteurVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitHauteurVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitHauteurVoit.gridx = 0;
+		gbc_lblVoitHauteurVoit.gridy = 13;
+		alterVoitureJPanel.add(lblVoitHauteurVoit, gbc_lblVoitHauteurVoit);
+		
+		textFieldVoitHauteurVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitHauteurVoit = new GridBagConstraints();
+		gbc_textFieldVoitHauteurVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitHauteurVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitHauteurVoit.gridx = 1;
+		gbc_textFieldVoitHauteurVoit.gridy = 13;
+		alterVoitureJPanel.add(textFieldVoitHauteurVoit, gbc_textFieldVoitHauteurVoit);
+		textFieldVoitHauteurVoit.setColumns(10);
+		
+		lblVoitPoidsVoit = new JLabel("Poids de la voiture :");
+		GridBagConstraints gbc_lblVoitPoidsVoit = new GridBagConstraints();
+		gbc_lblVoitPoidsVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitPoidsVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitPoidsVoit.gridx = 0;
+		gbc_lblVoitPoidsVoit.gridy = 14;
+		alterVoitureJPanel.add(lblVoitPoidsVoit, gbc_lblVoitPoidsVoit);
+		
+		textFieldVoitPoidsVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitPoidsVoit = new GridBagConstraints();
+		gbc_textFieldVoitPoidsVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitPoidsVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitPoidsVoit.gridx = 1;
+		gbc_textFieldVoitPoidsVoit.gridy = 14;
+		alterVoitureJPanel.add(textFieldVoitPoidsVoit, gbc_textFieldVoitPoidsVoit);
+		textFieldVoitPoidsVoit.setColumns(10);
+		
+		lblVoitEstLoueeVoit = new JLabel("La voiture est louee :");
+		GridBagConstraints gbc_lblVoitEstLoueeVoit = new GridBagConstraints();
+		gbc_lblVoitEstLoueeVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitEstLoueeVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitEstLoueeVoit.gridx = 0;
+		gbc_lblVoitEstLoueeVoit.gridy = 15;
+		alterVoitureJPanel.add(lblVoitEstLoueeVoit, gbc_lblVoitEstLoueeVoit);
+		
+		textFieldVoitEstLoueeVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitEstLoueeVoit = new GridBagConstraints();
+		gbc_textFieldVoitEstLoueeVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitEstLoueeVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitEstLoueeVoit.gridx = 1;
+		gbc_textFieldVoitEstLoueeVoit.gridy = 15;
+		alterVoitureJPanel.add(textFieldVoitEstLoueeVoit, gbc_textFieldVoitEstLoueeVoit);
+		textFieldVoitEstLoueeVoit.setColumns(10);
+		
+		lblVoitNoteVoit = new JLabel("Note de la voiture :");
+		GridBagConstraints gbc_lblVoitNoteVoit = new GridBagConstraints();
+		gbc_lblVoitNoteVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitNoteVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitNoteVoit.gridx = 0;
+		gbc_lblVoitNoteVoit.gridy = 16;
+		alterVoitureJPanel.add(lblVoitNoteVoit, gbc_lblVoitNoteVoit);
+		
+		textFieldVoitNoteVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitNoteVoit = new GridBagConstraints();
+		gbc_textFieldVoitNoteVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitNoteVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitNoteVoit.gridx = 1;
+		gbc_textFieldVoitNoteVoit.gridy = 16;
+		alterVoitureJPanel.add(textFieldVoitNoteVoit, gbc_textFieldVoitNoteVoit);
+		textFieldVoitNoteVoit.setColumns(10);
+		
+		lblVoitAgenceIDVoit = new JLabel("ID de l'agence de la voiture :");
+		GridBagConstraints gbc_lblVoitAgenceIDVoit = new GridBagConstraints();
+		gbc_lblVoitAgenceIDVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVoitAgenceIDVoit.anchor = GridBagConstraints.EAST;
+		gbc_lblVoitAgenceIDVoit.gridx = 0;
+		gbc_lblVoitAgenceIDVoit.gridy = 17;
+		alterVoitureJPanel.add(lblVoitAgenceIDVoit, gbc_lblVoitAgenceIDVoit);
+		
+		textFieldVoitAgenceIDVoit = new JTextField();
+		GridBagConstraints gbc_textFieldVoitAgenceIDVoit = new GridBagConstraints();
+		gbc_textFieldVoitAgenceIDVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitAgenceIDVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitAgenceIDVoit.gridx = 1;
+		gbc_textFieldVoitAgenceIDVoit.gridy = 17;
+		alterVoitureJPanel.add(textFieldVoitAgenceIDVoit, gbc_textFieldVoitAgenceIDVoit);
+		textFieldVoitAgenceIDVoit.setColumns(10);
+		
+		textFieldVoitMessage = new JTextField();
+		textFieldVoitMessage.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldVoitMessage.setEditable(false);
+		GridBagConstraints gbc_textFieldVoitMessage = new GridBagConstraints();
+		gbc_textFieldVoitMessage.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVoitMessage.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVoitMessage.gridx = 1;
+		gbc_textFieldVoitMessage.gridy = 18;
+		alterVoitureJPanel.add(textFieldVoitMessage, gbc_textFieldVoitMessage);
+		textFieldVoitMessage.setColumns(10);
+		
+		btn_afficheVoit = new JButton("Afficher la voiture");
+		btn_afficheVoit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(isInteger(textFieldVoitIDVoit.getText())) {
+					Voiture tempVoit = model.getVoiture(Integer.parseInt(textFieldVoitIDVoit.getText()));
+					if(tempVoit != null) {
+						textFieldVoitPrixVoit.setText(tempVoit.getPrix()+"");
+						textFieldVoitMarqueVoit.setText(tempVoit.getMarque());
+						textFieldVoitModeleVoit.setText(tempVoit.getModele());
+						textFieldVoitAnneeVoit.setText(tempVoit.getAnnee()+"");
+						textFieldVoitTypeVoit.setText(tempVoit.getType());
+						textFieldVoitCarburantVoit.setText(tempVoit.getCarburant());
+						textFieldVoitCouleurVoit.setText(tempVoit.getCouleur());
+						String tempEstManuelle;
+						if(tempVoit.isEstManuelle()) {
+							tempEstManuelle = "Oui";
+						}
+						else tempEstManuelle = "Non";
+						textFieldVoitEstManuelleVoit.setText(tempEstManuelle);
+						textFieldVoitRoueMotriceVoit.setText(tempVoit.getRoueMotrice()+"");
+						textFieldVoitKilometrageVoit.setText(tempVoit.getKilometrage()+"");
+						textFieldVoitVolumeCoffreVoit.setText(tempVoit.getVolumeCoffre()+"");
+						textFieldVoitHauteurVoit.setText(tempVoit.getHauteur()+"");
+						textFieldVoitPoidsVoit.setText(tempVoit.getPoids()+"");
+						String tempEstLouee;
+						if(tempVoit.isEstLouee()) {
+							tempEstLouee = "Oui";
+						}
+						else tempEstLouee = "Non";
+						textFieldVoitEstLoueeVoit.setText(tempEstLouee);
+						textFieldVoitNoteVoit.setText(tempVoit.getNote());
+						textFieldVoitAgenceIDVoit.setText(tempVoit.getAgenceID()+"");
+					}
+					else {
+						textFieldVoitMessage.setText("Cette voiture n'existe pas");
+						textFieldVoitPrixVoit.setText("");
+						textFieldVoitMarqueVoit.setText("");
+						textFieldVoitModeleVoit.setText("");
+						textFieldVoitAnneeVoit.setText("");
+						textFieldVoitTypeVoit.setText("");
+						textFieldVoitCarburantVoit.setText("");
+						textFieldVoitCouleurVoit.setText("");
+						textFieldVoitEstManuelleVoit.setText("");
+						textFieldVoitRoueMotriceVoit.setText("");
+						textFieldVoitKilometrageVoit.setText("");
+						textFieldVoitVolumeCoffreVoit.setText("");
+						textFieldVoitHauteurVoit.setText("");
+						textFieldVoitPoidsVoit.setText("");
+						textFieldVoitEstLoueeVoit.setText("");
+						textFieldVoitNoteVoit.setText("");
+						textFieldVoitAgenceIDVoit.setText("");
+					}
+				}
+				else {
+					textFieldVoitMessage.setText("Veuillez entrer un numéro de voiture correcte");
+					textFieldVoitPrixVoit.setText("");
+					textFieldVoitMarqueVoit.setText("");
+					textFieldVoitModeleVoit.setText("");
+					textFieldVoitAnneeVoit.setText("");
+					textFieldVoitTypeVoit.setText("");
+					textFieldVoitCarburantVoit.setText("");
+					textFieldVoitCouleurVoit.setText("");
+					textFieldVoitEstManuelleVoit.setText("");
+					textFieldVoitRoueMotriceVoit.setText("");
+					textFieldVoitKilometrageVoit.setText("");
+					textFieldVoitVolumeCoffreVoit.setText("");
+					textFieldVoitHauteurVoit.setText("");
+					textFieldVoitPoidsVoit.setText("");
+					textFieldVoitEstLoueeVoit.setText("");
+					textFieldVoitNoteVoit.setText("");
+					textFieldVoitAgenceIDVoit.setText("");
+				}
+			}
+		});
+		GridBagConstraints gbc_btn_afficheVoit = new GridBagConstraints();
+		gbc_btn_afficheVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_afficheVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btn_afficheVoit.gridx = 2;
+		gbc_btn_afficheVoit.gridy = 1;
+		alterVoitureJPanel.add(btn_afficheVoit, gbc_btn_afficheVoit);
+		
+		btn_modifVoit = new JButton("Ajouter la voiture");
+		btn_modifVoit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(isInteger(textFieldVoitIDVoit.getText())) {
+					boolean tempEstManuelle;
+					if(textFieldVoitEstManuelleVoit.getText().equals("true") || textFieldVoitEstManuelleVoit.getText().equals("TRUE") || textFieldVoitEstManuelleVoit.getText().equals("True")
+							|| textFieldVoitEstManuelleVoit.getText().equals("oui") || textFieldVoitEstManuelleVoit.getText().equals("OUI") || textFieldVoitEstManuelleVoit.getText().equals("Oui")) {
+						tempEstManuelle = true;
+					}
+					else tempEstManuelle = false; 
+					if(model.addVoiture(Double.parseDouble(textFieldVoitPrixVoit.getText()), textFieldVoitMarqueVoit.getText(), textFieldVoitModeleVoit.getText(), Integer.parseInt(textFieldVoitAnneeVoit.getText()), 
+							textFieldVoitCarburantVoit.getText(), textFieldVoitCouleurVoit.getText(), textFieldVoitTypeVoit.getText(), tempEstManuelle, Integer.parseInt(textFieldVoitRoueMotriceVoit.getText()), 
+							Integer.parseInt(textFieldVoitKilometrageVoit.getText()), Double.parseDouble(textFieldVoitVolumeCoffreVoit.getText()), Double.parseDouble(textFieldVoitHauteurVoit.getText()), 
+							Double.parseDouble(textFieldVoitPoidsVoit.getText()), textFieldVoitNoteVoit.getText(), Integer.parseInt(textFieldVoitAgenceIDVoit.getText())) == 0) {
+						textFieldVoitMessage.setText("La voiture a ete ajoutee avec succes");
+					}
+				}
+				else textFieldVoitMessage.setText("Entrez un numéro de voiture correcte");
+				
+			}
+		});
+		GridBagConstraints gbc_btn_modifVoit = new GridBagConstraints();
+		gbc_btn_modifVoit.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_modifVoit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btn_modifVoit.gridx = 2;
+		gbc_btn_modifVoit.gridy = 2;
+		alterVoitureJPanel.add(btn_modifVoit, gbc_btn_modifVoit);
 		
 		AdminJFrame.setVisible(true);
 		AdminJFrame.setContentPane(personneJPanel);

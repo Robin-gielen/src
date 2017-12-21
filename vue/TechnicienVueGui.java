@@ -115,7 +115,7 @@ public class TechnicienVueGui extends JFrame {
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				infoJPanel.setVisible(true);
-				factureJPanel.setVisible(false);
+				factureJPanel.setVisible(false); 
 				locationJPanel.setVisible(false);
 				voitureJPanel.setVisible(false);
 				checkUpJPanel.setVisible(false);
