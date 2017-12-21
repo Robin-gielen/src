@@ -30,7 +30,7 @@ public class Admin extends Personne {
 	 */
 	
 	public Admin(String pseudo, String motDePasse, String nom, String prenom) {
-		super(pseudo, motDePasse, nom, prenom, 0);
+		super(pseudo, motDePasse, nom, prenom, 0); 
 	}
 	
 	public Admin(String pseudo, String motDePasse, String nom, String prenom, int adminID) {
@@ -78,9 +78,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -122,9 +120,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -166,9 +162,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -229,7 +223,6 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		    if (stmt != null) {
@@ -263,7 +256,6 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		    if (stmt != null) {
@@ -299,9 +291,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -344,9 +334,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -364,7 +352,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	/**
@@ -389,9 +376,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -409,7 +394,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	/**
@@ -432,7 +416,6 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		    if (stmt != null) {
@@ -472,7 +455,6 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		    if (stmt != null) {
@@ -507,9 +489,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -527,7 +507,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	/**
@@ -549,9 +528,7 @@ public class Admin extends Personne {
 			}
 			else throw new DataNotFoundException("Can't find this data in the database");
         } catch (SQLException ex) {
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -593,9 +570,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -613,7 +588,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -638,9 +612,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -658,7 +630,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -683,9 +654,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -703,7 +672,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -729,9 +697,7 @@ public class Admin extends Personne {
             
         } catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         } catch (DataNotFoundException ex) {
-        	System.out.println(ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -749,7 +715,6 @@ public class Admin extends Personne {
 		        stmt = null;
 		    }
     	}
-        System.out.println("Probleme co BDD");
     	return null;
 	}
 	
@@ -769,7 +734,6 @@ public class Admin extends Personne {
             return resultSetToVoitures(rs)[0];
         } catch (Exception ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
     	finally {
     		 if (rs != null) {
@@ -867,7 +831,6 @@ public class Admin extends Personne {
 			return tempLoc;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -901,7 +864,6 @@ public class Admin extends Personne {
 			return tempFact;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -923,7 +885,6 @@ public class Admin extends Personne {
 			return tempClient;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -945,7 +906,6 @@ public class Admin extends Personne {
 			return tempTech;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -967,7 +927,6 @@ public class Admin extends Personne {
 			return tempAdmin;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
 	}
@@ -1008,7 +967,6 @@ public class Admin extends Personne {
 			return tempVoit;
 		} catch (SQLException ex) {
             // handle the error
-        	System.out.println("SQLException: " + ex.getMessage());
         }
         return null;
     }

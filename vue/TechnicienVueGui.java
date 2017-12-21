@@ -811,7 +811,7 @@ public class TechnicienVueGui extends JFrame {
 		//voiture
 		
 		voitureJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		GridBagLayout gbl_voitureJPanel = new GridBagLayout();
+		GridBagLayout gbl_voitureJPanel = new GridBagLayout(); 
 		gbl_voitureJPanel.columnWidths = new int[]{0, 500, 380, 0};
 		gbl_voitureJPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_voitureJPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
@@ -1342,7 +1342,6 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnValider2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//à faire
 				lblAncienKilometrage.setVisible(true);
 				textFieldAncienKm.setVisible(true);
 				lblKilometrageActuel.setVisible(true);
@@ -1356,6 +1355,7 @@ public class TechnicienVueGui extends JFrame {
 					else {
 						textFieldAncienKm.setText("Vous avez introduit un id n'existant pas");
 					}
+				
 				}
 				else {
 					textFieldAncienKm.setText("Vous avez introduit un mauvais format d'id ");
@@ -1406,8 +1406,20 @@ public class TechnicienVueGui extends JFrame {
 		
 		btnSoumettreKilometrage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//à faire
-				model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
+				if(isInteger(textFieldCheckNumVoit.getText())) {
+					if(isDouble(textFieldCheckNumVoit.getText())){
+						if (Integer.parseInt(textFieldAncienKm.getText()) > 700000) {
+							textFieldAncienKm.setText("Le kilometrage est trop eleve");
+						}
+						else {
+							model.setKilometrage(Integer.parseInt(textFieldCheckNumVoit.getText()), Long.parseLong(textFieldCheckKmActu.getText()));
+						}
+					}
+					else textFieldAncienKm.setText("Vous avez introduit un mauvais kilometrage");
+				}
+				else {
+					textFieldAncienKm.setText("Vous avez introduit un mauvais format d'id ");
+				}
 			}
 		});
 		
@@ -1446,6 +1458,14 @@ public class TechnicienVueGui extends JFrame {
 	public boolean isInteger(String string) {
 	    try {
 	        Integer.valueOf(string);
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
+	}
+	public boolean isDouble(String string) {
+	    try {
+	        Double.valueOf(string);
 	        return true;
 	    } catch (NumberFormatException e) {
 	        return false;

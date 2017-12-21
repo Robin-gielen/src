@@ -33,7 +33,7 @@ public class Client extends Personne {
 	public Client(String pseudo1, String motDePasse, String nom, String prenom,
 			String dateInscription, String dateNaissance, String adresse, String adresseMail, boolean insertInto, int clientID) {
 		super(pseudo1, motDePasse, nom, prenom, 2);
-		this.dateInscription = dateInscription;
+		this.dateInscription = dateInscription; 
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
 		this.adresseMail = adresseMail;
