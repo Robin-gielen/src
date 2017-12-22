@@ -188,7 +188,7 @@ public class TechnicienVueGui extends TechnicienVue {
 		super(model, controlleur);
 		JFrame technicienJFrame = new JFrame();
 		technicienJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		technicienJFrame.setBounds(100, 100, 1200, 600);
+		technicienJFrame.setBounds(100, 100, 900, 500);
 		
 		JMenuBar menuBar = new JMenuBar();
 		technicienJFrame.setJMenuBar(menuBar);
@@ -200,8 +200,6 @@ public class TechnicienVueGui extends TechnicienVue {
 		checkAccJPanel = new JPanel();
 		checkUpJPanel = new JPanel();
 		
-		technicienJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		technicienJFrame.setBounds(100, 100, 1000, 500);
 		
 		
 		
@@ -1932,6 +1930,7 @@ public class TechnicienVueGui extends TechnicienVue {
 		checkAccJPanel.add(btnSoumettreAccStatut, gbc_btnAccStatut);
 		
 		textFieldErreurStatut = new JTextField();
+		textFieldErreurStatut.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		textFieldErreurStatut.setEditable(false);
 		GridBagConstraints gbc_textFieldErreurStatut = new GridBagConstraints();
 		gbc_textFieldErreurStatut.insets = new Insets(0, 0, 5, 0);

@@ -18,6 +18,7 @@ import java.sql.Statement;
 public class Admin extends Personne {
 	private int adminID;
 	Voiture [] voitures;
+	private String connectionString = "jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false";
 
 	/**
 	 * Ce constructeur creer un administrateur en specifiant son pseudo, son mot de passe, son prenom, son nom et 0 comme privilege (par defaut pour un admin)
@@ -55,7 +56,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture");
             if(rs.next()) {
@@ -97,7 +98,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee='1'");
             if(rs.next()) {
@@ -139,7 +140,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE voitID = " + voitID + "");
             if(rs.next()) {
@@ -202,7 +203,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         int rs;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("INSERT INTO voiture (prix, marque, modele, annee, carburant, couleur, type, estManuelle, roueMotrice, kilometrage, volumeCoffre, hauteur, poids, note, agenceID) VALUES (" + prix + ", '" + marque + "', '" + modele + "', " + annee + ", '" + carburant + "', '" + couleur + "', '" + type + "', " + tempEstManuelle + ", " + roueMotrice + ", " + kilometrage + ", " + volumeCoffre + ", " + hauteur + ", " + poids + ", '" + note + "', " + agenceID+")");
             if (rs == 1) {
@@ -235,7 +236,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         int rs;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("DELETE FROM voiture WHERE voitID =" + voitID);
             if (rs == 1) {
@@ -268,7 +269,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM facture WHERE factID="+factID);
             if(rs.next()) {
@@ -311,7 +312,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
             if(rs.next()) {
@@ -353,7 +354,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE personneID =" + clientID);
             if(rs.next()) {
@@ -395,7 +396,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         int rs;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("DELETE FROM personne WHERE personneID =" + clientID + " AND NOT privilege = 0");
             if (rs == 1) {
@@ -433,7 +434,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         int rs;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             String query = "UPDATE personne SET nom='" + nom + "', prenom='" + prenom + "', dateNaissance='" + dateNaissance + "', adresse='" + adresse + "', adresseMail='" + adresseMail +"' WHERE personneID =" + clientID;
             rs = stmt.executeUpdate(query);
@@ -466,7 +467,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE locationID =" + locationID);
             if(rs.next()) {
@@ -508,7 +509,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
             if(rs.next()) {
@@ -547,7 +548,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE privilege = 2");
             if(rs.next()) {
@@ -589,7 +590,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE privilege = 1");
             if(rs.next()) {
@@ -631,7 +632,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE privilege = 0");
             if(rs.next()) {
@@ -673,7 +674,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             String temp = "SELECT * FROM personne WHERE personneID = " + this.getAdminID() + "";
             rs = stmt.executeQuery(temp);
@@ -717,7 +718,7 @@ public class Admin extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];

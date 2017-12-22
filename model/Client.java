@@ -18,6 +18,7 @@ public class Client extends Personne {
 	private String dateNaissance;
 	private String adresse;
 	private String adresseMail;
+	private String connectionString = "jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false";
 	
 	/**
 	 * C'est le constructeur utilis√© pour cr√©er le client
@@ -39,18 +40,41 @@ public class Client extends Personne {
 		this.adresseMail = adresseMail;
 		this.clientID = clientID;
 		Connection conn = null;
+		Statement stmtCheck = null;
+        ResultSet rsCheck;
         Statement stmt = null;
         int rs;
+        Statement stmt2 = null;
+        int rs2;
+        Statement stmt3 = null;
+        int rs3;
         if(insertInto) {
         	try {
-        		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+        		conn = DriverManager.getConnection(connectionString, "admin", "admin");
+        		stmtCheck = conn.createStatement();
+        		String tempCheck = "SELECT * FROM personne WHERE pseudo='"+pseudo1+"'";
+        		rsCheck = stmtCheck.executeQuery(tempCheck);
+        		if(rsCheck.next()) {
+        			throw new SQLException("Un client existe dÈj‡ avec ce pseudo"); 
+        		}
                 stmt = conn.createStatement();
                 String temp = "INSERT INTO personne (pseudo, motDePasse, nom, prenom, privilege, dateInscription, dateNaissance, adresse, adresseMail) VALUES ('" + pseudo1 + "', '" + motDePasse + "', '" + nom + "', '" + prenom + "', 2, '" + dateInscription + "', '" + dateNaissance + "', '" + adresse + "', '" + adresseMail + "')";
                 rs = stmt.executeUpdate(temp);
                 if (rs!=1) {
-                	System.out.println("Erreur lors de l'insertion dans la BDD");
+                	throw new SQLException("Erreur lors de l'insertion dans la BDD");
                 }
-                
+                stmt2 = conn.createStatement();
+                String temp2 = "CREATE USER '"+pseudo1+"'@'localhost' IDENTIFIED BY '"+motDePasse+"'";
+                rs2 = stmt2.executeUpdate(temp2);
+                if (rs2!=0) {
+                	throw new SQLException("Erreur lors de l'insertion dans la BDD");
+                }
+                String temp3 = "GRANT SELECT, UPDATE, CREATE ON db_test TO '"+pseudo1+"'";
+                stmt3 = conn.createStatement();
+        		rs3 = stmt3.executeUpdate(temp3);
+        		if (rs3!=0) {
+                	throw new SQLException("Erreur lors de l'insertion dans la BDD");
+                }
             } catch (SQLException ex) {
                 // handle the error
             	System.out.println("SQLException: " + ex.getMessage());
@@ -130,7 +154,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
     		stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture WHERE estLouee=0");
             if(rs.next()) {
@@ -171,7 +195,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture INNER JOIN location ON voiture.voitID=location.voitureID where location.personneID="+this.getClientID());
             if(rs.next()) {
@@ -213,7 +237,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT locationID FROM location WHERE voitureID="+voitID);
             
@@ -261,7 +285,7 @@ public class Client extends Personne {
         double prixVoiture;
         double prixAssurance;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT prix FROM voiture WHERE voitID="+voitID);
 
@@ -311,7 +335,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM assurance");
             if(rs.next()) {
@@ -356,7 +380,7 @@ public class Client extends Personne {
         ResultSet rs = null;
         long kilometrage;
     	try {
-    		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
         	rs= stmt.executeQuery("SELECT kilometrage, estLouee from voiture where voitID="+voitID);
         	if(rs.next()) {
@@ -399,9 +423,9 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM location WHERE personneID = " +this.clientID);
+            rs = stmt.executeQuery("SELECT * FROM location WHERE personneID = " +this.clientID +" AND estEnCours = '1'");
             if(rs.next()) {
             	
 				rs.previous();
@@ -440,7 +464,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM facture INNER JOIN location ON facture.locationID=location.locationID WHERE location.personneID= " + this.clientID);
             if(rs.next()) {
@@ -546,7 +570,7 @@ public class Client extends Personne {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-        	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             String temp = "SELECT * FROM personne WHERE personneID = " + this.getClientID() + "";
             rs = stmt.executeQuery(temp);

@@ -699,7 +699,7 @@ public class ClientVueGui extends ClientVue {
 		});
 		menuBar.add(btnContact);
 		
-		JButton btnLocation = new JButton("Créer une location");
+		JButton btnLocation = new JButton("Creer une location");
 		btnLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				infoJPanel.setVisible(false);

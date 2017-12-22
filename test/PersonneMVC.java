@@ -33,6 +33,8 @@ import vue.TechnicienVueGui;
 
 public class PersonneMVC implements Observer{
 	protected Scanner sc;
+	private String connectionString = "jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false";
+
 
 	public PersonneMVC() {
 		update(null, null);
@@ -80,7 +82,6 @@ public class PersonneMVC implements Observer{
 								connecte = true;
 							}
 							else if (model.getPrivilege() == 1) { // instanceof vérifie si model est bien une instance de technicien (evite les erreurs de cast)
-								affiche("TEST 1");
 								//CrÃ©ation des contrÃ´leurs : Un pour chaque vue
 								TechnicienController ctrlConsole = new TechnicienController((Technicien)model);
 								TechnicienController ctrlGui = new TechnicienController((Technicien)model);
@@ -120,8 +121,7 @@ public class PersonneMVC implements Observer{
 							affiche("Vous allez maintenant créer un compte.");
 							affiche("Choisissez votre pseudo :");
 							String pseudo = sc.next();
-							while ((pseudo.length() < 0) || (pseudo.length() > 45)) {
-								affiche("Format de pseudo incorrect (doit etre > 0 et < 45 en un seul mot), ré-entrez");
+							while(pseudo.length()<0 || pseudo.length() > 45) {
 								pseudo = sc.next();
 							}
 							affiche("Choisissez votre mot de passe :");
@@ -133,12 +133,11 @@ public class PersonneMVC implements Observer{
 							String nom = sc.next();
 							affiche("Entrez votre prénom :");
 							String prenom = sc.next();
-							affiche("Entrez votre adresse :");
+							affiche("Entrez votre adresse (en un mot, mettez des '-' entre les composants) :");
 							String adresse = sc.next();
 							affiche("Entrez votre adresse mail :");
 							String adresseMail = sc.next();
 							Client nouveauClient = new Client(pseudo, motDePasse, nom, prenom, dateInscription, dateNaissance, adresse, adresseMail, true, 0);
-							System.out.println(nouveauClient);
 							break;
 						default : 
 							affiche("OpÃ©ration incorrecte");
@@ -169,7 +168,7 @@ public class PersonneMVC implements Observer{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+    		conn = DriverManager.getConnection(connectionString, pseudo, motDePasse);
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE pseudo='" +pseudo+"'" + "AND motDePasse='"+motDePasse+"'");
             if(!rs.next()) {

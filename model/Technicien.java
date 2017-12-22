@@ -15,6 +15,7 @@ import java.sql.Statement;
  */
 public class Technicien extends Personne{
 	private int techID;
+	private String connectionString = "jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false";
 
 	/**
 	 * Ce constructeur permet de crÃƒÂ©er un technicien 
@@ -61,7 +62,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             return resultSetToVoitures(rs)[0];
@@ -98,7 +99,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM voiture where voitID='"+voitID+"'");
             if(rs.next()) {
@@ -139,7 +140,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
         	result = stmt.executeUpdate("update facture set note='"+note+"' where factID='"+factID+"'");
             if (result > 0) {
@@ -172,10 +173,10 @@ public class Technicien extends Personne{
         Statement stmt = null;
         int result ;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             if(estPaye== true) {
-                	result = stmt.executeUpdate("update location set accomptePaye='"+1+"' where locationID='"+locationID+"'");
+                	result = stmt.executeUpdate("update location set accomptePaye='"+1+"', estEnCours='"+1+"' where locationID='"+locationID+"'");
                 	if (result > 0) {
                 		return 1;
                 	}
@@ -219,11 +220,17 @@ public class Technicien extends Personne{
 		Connection conn = null;
         Statement stmt = null;
         int result ;
+        Statement stmt2 = null;
+        int result2;
+        Statement stmt3 = null;
+        int result3;
         ResultSet rs = null;
         double tempMontant = 0;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
+            stmt2 = conn.createStatement();
+            stmt3 = conn.createStatement();
             rs = stmt.executeQuery("SELECT voiture.prix+assurance.prix as montant, assurance.prixKmSupp as prixKmSupp FROM voiture JOIN location ON voiture.voitID=location.voitureID JOIN assurance ON location.assurID=assurance.assurID where location.locationID="+locationID);
             if (rs.next()) {
             	tempMontant=Double.parseDouble(rs.getString("montant"))+(Double.parseDouble(rs.getString("prixKmSupp"))*kmSupp);
@@ -232,14 +239,23 @@ public class Technicien extends Personne{
             if(!estPaye && tempMontant!=0){
 				result = stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 0,\" "+note+"\" )");
 				if (result > 0) {
-            		return 1;
+					result2 = stmt2.executeUpdate("UPDATE location SET estEnCours='0' WHERE locationID ="+locationID);
+					if (result2 > 0) { 
+						result3 = stmt3.executeUpdate("UPDATE voiture SET estLouee='0' WHERE voitID =(SELECT voitureID FROM location where locationID="+locationID+")");
+						if(result3 > 0) {
+							return 1;
+						}
+					}
             	}
             	else return 0;
 				}
 			else if (estPaye && tempMontant!=0){
 				result= stmt.executeUpdate("insert into facture (montant, locationID, techID, estPaye, note) values ("+tempMontant+","+ locationID+", 1, 1,\" "+note+"\" )");
 				if (result > 0) {
-            		return 1;
+					result2 = stmt.executeUpdate("UPDATE location SET estEnCours='0' WHERE locationID ="+locationID);
+					if (result2 > 0) {
+						return 1;
+					}
             	}
             	else return 0;
 			}
@@ -269,7 +285,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null; 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE locationID =" + locationID);
             if(rs.next()) {
@@ -307,7 +323,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM location WHERE personneID =" + clientID);
             if(rs.next()) {
@@ -342,7 +358,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
     	try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM facture WHERE factID="+factID);
             if(rs.next()) {
@@ -385,7 +401,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             String temp = "SELECT * FROM personne WHERE personneID = " + this.getTechID() + "";
             rs = stmt.executeQuery(temp);
@@ -429,7 +445,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM personne WHERE personneID =" + clientID);
             if(rs.next()) {
@@ -467,7 +483,7 @@ public class Technicien extends Personne{
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://DESKTOP-GMCCSDC:3306/db_test?autoReconnect=true&useSSL=false", "gimkil", "cisco");
+            conn = DriverManager.getConnection(connectionString, getPseudo(), getMotDePasse());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT factID, location.locationID, techID, estPaye, note FROM facture INNER JOIN location ON facture.locationID=location.locationID INNER JOIN personne ON location.personneID = personne.personneID WHERE personne.personneID =" + clientID);
             if(rs.next()) {
